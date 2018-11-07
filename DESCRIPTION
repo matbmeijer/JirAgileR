@@ -1,0 +1,18 @@
+Package: JirAgileR
+Title: JIRA REST v2 API Wrapper for R
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Matthias",
+           family = "Brenninkmeijer",
+           role = c("aut", "cre"),
+           email = "matthias@brennotten.net")
+Description: Allows you to interact with JIRA REST v2 API to analyze the data in R.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    httr,
+    utils
+Suggests: 
+    data.table
+RoxygenNote: 6.1.0
