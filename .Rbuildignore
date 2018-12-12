@@ -1,3 +1,5 @@
 ^LICENSE\.md$
 ^JirAgileR\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^README\.html$

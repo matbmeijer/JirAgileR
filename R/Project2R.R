@@ -1,69 +1,139 @@
-#' @title Obtain project issues as \code{df}
-#' @description Calls JIRA's v2 Rest API with basic authentication to get all issues of a JIRA project.
-#' @param dn Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}
-#' @param user Username used to authenticate access to JIRA your domain. If no username and password is given no authentication is made.
-#' @param password Password used to authenticate access to JIRA domain. If no username and password is given no authentication is made.
-#' @param project Exact name of the JIRA project e.g. 'Package Development'.
-#' @param search Currently defaults to \code{"name"}. In future the objective is to be able to search by name and ID of the project or even single issue.
-#' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{Github}
-#' @return Returns a formatted \code{data.frame} with all issues as rows and with the default columns 'Key', 'Status', 'Version', 'Assignee_Name', 'Assignee_Email', 'Description', 'Created', 'Updated', 'Summary', 'Priority' and 'Type'.
-#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}
+JiraJSON2df<-function(x, fields){
+  df<-list()
+  if(is.null(names(x))){
+    x <- unlist(x, recursive = F, use.names = T)
+  }
+  for(field in fields){
+    if(!is.recursive(x[[field]])|length(x[[field]]) == 0){
+      if(is.null(x[[field]]) | length(x[[field]])==0){
+        y <- NA
+      }
+      else if(grepl("^\\d{4}(-\\d\\d){2}",x[[field]])){
+        y <- as.Date(x[[field]])
+      } else {
+        y <- as.character(x[[field]])
+      }
+      df[[field]] <- data.frame(y, stringsAsFactors = F)
+      colnames(df[[field]]) <- field
+    } else if(field %in% c("reporter", "assignee", "creator")){
+      df[[field]] <- data.frame(DisplayName = x[[field]]["displayName"], Name = x[[field]]["name"], EmailAddress = x[[field]]["displayName"], stringsAsFactors = F)
+    } else if(field %in% c("priority","resolution", "issuetype", "status", "project")){
+      df[[field]] <- data.frame(x[[field]]["name"], stringsAsFactors = F)
+      colnames(df[[field]])<-field
+    } else {
+      df[[field]] <- data.frame(paste0(sort(unlist(x[[field]])), collapse = ", "), stringsAsFactors = F)
+      colnames(df[[field]])<-field
+    }
+  }
+  df<-do.call("cbind",df)
+  colnames(df) <- gsub("\\.", " ", colnames(df))
+  return(df)
+}
+
+
+#' @title Obtain all projects as a \code{data.frame}
+#' @description Calls JIRA's latest REST API to obtain all the basic project information (Name, Key, Id, Description, etc.)
+#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}
+#' @param user Username used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.
+#' @param password Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.
+#' @param expand Specific JIRA fields the user wants to obtain for a specific field. Optional parameter. By default
+#' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+#' @return Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.
+#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}{JIRA API Documentation}
 #' @examples
-#' Project2R("https://bitvoodoo.atlassian.net", project="Congrats for Confluence", search="name")
+#' Projects2R("https://bitvoodoo.atlassian.net")
+#' @section Warning:
+#' The function works with the JIRA REST API. Thus, to work it needs a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}
+#' @export
+
+Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL){
+  if(!is.null(user)&!is.null(password)){
+    auth <- httr::authenticate(as.character(user), as.character(password), "basic")
+  } else {
+    auth <- NULL
+  }
+
+  url <- httr::parse_url(domain)
+  url$scheme <- "https"
+  url$path <- list(type = "rest", call = "api", robust = "latest", kind = "project")
+  if(!is.null(expand)){
+    url$query <- list(expand = paste0(expand, collapse = ","))
+  }
+  url <- httr::build_url(url)
+
+  call <- httr::GET(url,  encode = "json", auth, httr::progress(), httr::verbose(), httr::user_agent("github.com/matbmeijer/JirAgileR"))
+  call_prs <- httr::content(call, as = "parsed")
+  call_l<-lapply(call_prs, data.frame, stringsAsFactors=F)
+  df<-data.table::rbindlist(call_l, fill = T, use.names = T)
+  colnames(df) <- gsub("\\.", " ", colnames(df))
+  return(df)
+}
+
+#' @title Obtain all issues of a JIRA query as a \code{data.frame}
+#' @description Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.
+#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}.
+#' @param user Username used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed.
+#' @param password Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed.
+#' @param query JIRA's decoded JQL query. By definition, it works with with **Fields**, **Operators**, **Keywords** and **Functions**. To learn how to create a query visit \href{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site}.
+#' @param fields Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed: 'status','priority','created','reporter','summary','description','assignee','updated','issuetype','fixVersions'.
+#' @param maxResults Max results authorized to obtain for each API call. By default JIRA sets this value to 50 issues.
+#' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{Github}
+#' @return Returns a formatted \code{data.frame} with the issues according to the JQL query.
+#' @seealso For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}.
+#' @examples
+#' JiraQuery2R(domain = "https://bitvoodoo.atlassian.net", query = 'project="Congrats for Confluence"')
 #' @section Warning:
 #' The function works with the JIRA REST v2 API and to workyou need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
 #' @export
 
-Project2R <- function(dn, user=NULL, password=NULL, project, search="name"){
-  i <- 0L
-  l <- 1L
-  info_message <- " call to JIRA REST API executing. Due to download size calls may take a while."
-  jira_rest <- "/rest/api/2/search?jql=project="
-  jira_fields <- "&fields=fixVersions,status,assignee,description,created,updated,summary,issuetype,priority"
-  authentication <- NULL
+
+JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL){
+  #Set authenticatión if user and password are passed
   if(!is.null(user)&!is.null(password)){
-    authentication <- httr::authenticate(as.character(user), as.character(password), "basic")
+    auth <- httr::authenticate(as.character(user), as.character(password), "basic")
+  } else {
+    auth <- NULL
   }
-  if(search=="name"){
-    first_api_url <- paste0(gsub("/$", "", dn), jira_rest, "\"", utils::URLencode(project),"\"", "&startAt=", i, "&maxResults=50",jira_fields)
-    message(paste0(l, info_message))
-    first_api_call <- httr::GET(first_api_url, encode = "json", authentication)
-    jira_raw <- httr::content(first_api_call, as = "parsed")
-    issue_n <- jira_raw$startAt + length(jira_raw$issues)
-    jira_result<-list(jira_raw)
-    while(issue_n!=jira_raw$total){
-      i <- i+50L
-      foll_api_url<- paste0(gsub("/$", "", dn), jira_rest, "\"", utils::URLencode(project), "\"", "&startAt=", i, "&maxResults=50",jira_fields)
-      l <- l + 1L
-      message(paste0(l, info_message))
-      foll_api_call <- httr::GET(foll_api_url, encode = "json", authentication)
-      jira_raw <- httr::content(foll_api_call, as = "parsed")
-      issue_n <- jira_raw$startAt + length(jira_raw$issues)
-      jira_result<-append(jira_result,list(jira_raw))
-    }
+  #Set default fields to expand for if no fields are passed
+  if(is.null(fields)){
+    fields <- c("status","priority","created","reporter","summary","description","assignee","updated","issuetype","fixVersions")
   }
-  jira_result<-lapply(jira_result,"[[","issues")
-  jira_result<-unlist(jira_result, recursive = F)
-  df<-lapply(jira_result, function(x) data.frame(
-    Key=ifelse(!is.null(x[["key"]]),x[["key"]], NA),
-    Status=ifelse(!is.null(x[["fields"]][["status"]][["name"]]),x[["fields"]][["status"]][["name"]], NA),
-    Version=ifelse(!!length(x[["fields"]][["fixVersions"]]),x[["fields"]][["fixVersions"]][[1]][["name"]], NA),
-    Assignee_Name=ifelse(!is.null(x[["fields"]][["assignee"]][["displayName"]]),x[["fields"]][["assignee"]][["displayName"]], NA),
-    Assignee_Email=ifelse(!is.null(x[["fields"]][["assignee"]][["emailAddress"]]),x[["fields"]][["assignee"]][["emailAddress"]], NA),
-    Description=ifelse(!is.null(x[["fields"]][["description"]]),x[["fields"]][["description"]], NA),
-    Created=as.Date(ifelse(!is.null(x[["fields"]][["created"]]),x[["fields"]][["created"]], NA)),
-    Updated=as.Date(ifelse(!is.null(x[["fields"]][["udpated"]]),x[["fields"]][["updated"]], NA)),
-    Summary=ifelse(!is.null(x[["fields"]][["summary"]]),x[["fields"]][["summary"]], NA),
-    Priority=ifelse(!is.null(x[["fields"]][["priority"]]),x[["fields"]][["priority"]], NA),
-    Type=ifelse(!is.null(x[["fields"]][["issuetype"]][["name"]]),x[["fields"]][["issuetype"]][["name"]], NA)
-    , stringsAsFactors = F)
-  )
-  if(requireNamespace("data.table", quietly=TRUE)){
-    ##only load really necessary packages
-    df<-data.table::rbindlist(df)
-  }else{
-    df <- do.call("rbind", df)
+
+  #Set default value for maxResults - eliminate?
+  if(is.null(maxResults)){
+    max_issues<-50
+  } else {
+    max_issues<-maxResults
   }
+
+  #Build URL
+  url <- httr::parse_url(domain)
+  url$scheme <- "https"
+  url$path <- list(type = "rest", call = "api", robust = "latest", kind = "search")
+  url$query <- list(jql=query, fields=paste0(fields, collapse = ","), startAt = "0", maxResults =max_issues)
+  url_b <- httr::build_url(url)
+
+  #Prepare for pagination of calls
+  message("Preparing for API Calls. Due to pagination this might take a while.")
+  issue_list <- list()
+  i <- 0
+  while(
+    if(exists("call_prs")){
+      length(issue_list) != call_prs$total
+      }  else {
+        TRUE
+      }){
+    url$query$startAt <- 0 + i*50L
+    url_b <- httr::build_url(url)
+    call <- httr::GET(url_b,  encode = "json", auth, httr::progress(), httr::verbose(), httr::user_agent("github.com/matbmeijer/JirAgileR"))
+    call_prs <- httr::content(call, as = "parsed")
+    issue_list <- append(issue_list, call_prs$issues)
+    i <- i + 1
+  }
+  base_info <- do.call("rbind", lapply(issue_list, function(x) data.frame(t(unlist(x[c("id","key", "self")])), stringsAsFactors = F)))
+  ext_info <- lapply(issue_list, `[[`, "fields")
+  ext_info <- lapply(ext_info, JiraJSON2df, fields)
+  ext_info <- data.table::rbindlist(ext_info, fill = T)
+  df <- do.call("cbind", list(base_info, ext_info))
   return(df)
 }
-
