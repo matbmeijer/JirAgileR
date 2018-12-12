@@ -1,6 +1,7 @@
 ---
 title: "JirAgileR"
-output: html_document
+author: Matthias Brenninkmeijer
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
