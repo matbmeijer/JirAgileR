@@ -12,7 +12,7 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     httr,
-    utils
-Suggests: 
-    data.table
+    utils,
+    data.table,
+    devtools
 RoxygenNote: 6.1.0
