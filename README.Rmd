@@ -10,6 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" position="right" width="200"/>
 
+![travis](https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master)
+
+
 The objective of **JirAgileR** is to bring the power of the project management tool **JIRA** to **R**. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around JIRA's REST API, allowing users to analyze JIRA's extracted data in R.  
 
 **Current Functionalities:**
