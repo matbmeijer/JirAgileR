@@ -1,6 +1,6 @@
 Package: JirAgileR
 Title: JIRA REST v2 API Wrapper for R
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "Matthias",
            family = "Brenninkmeijer",
