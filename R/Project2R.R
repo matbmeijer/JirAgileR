@@ -1,31 +1,55 @@
-JiraJSON2df<-function(x, fields){
-  df<-list()
-  if(is.null(names(x))){
+JiraJSON2df<-function (x, fields){
+  df <- list()
+  if (is.null(names(x))) {
     x <- unlist(x, recursive = F, use.names = T)
   }
-  for(field in fields){
-    if(!is.recursive(x[[field]])|length(x[[field]]) == 0){
-      if(is.null(x[[field]]) | length(x[[field]])==0){
+  for (field in fields) {
+    if (!is.recursive(x[[field]]) | length(x[[field]]) == 0) {
+      if (is.null(x[[field]]) | length(x[[field]]) == 0) {
         y <- NA
       }
-      else if(grepl("^\\d{4}(-\\d\\d){2}",x[[field]])){
+      else if(grepl("^\\d{4}(-\\d\\d){2}", x[[field]])) {
         y <- as.Date(x[[field]])
-      } else {
+      }
+      else {
         y <- as.character(x[[field]])
       }
       df[[field]] <- data.frame(y, stringsAsFactors = F)
       colnames(df[[field]]) <- field
-    } else if(field %in% c("reporter", "assignee", "creator")){
-      df[[field]] <- data.frame(DisplayName = x[[field]]["displayName"], Name = x[[field]]["name"], EmailAddress = x[[field]]["displayName"], stringsAsFactors = F)
-    } else if(field %in% c("priority","resolution", "issuetype", "status", "project")){
+    }
+    else if (field %in% c("reporter", "assignee", "creator")) {
+      df[[field]] <- data.frame(DisplayName = x[[field]]["displayName"],
+                                Name = x[[field]]["name"], EmailAddress = x[[field]]["displayName"],
+                                stringsAsFactors = F)
+    }
+    else if (field %in% c("priority", "resolution", "issuetype", "status", "project")) {
       df[[field]] <- data.frame(x[[field]]["name"], stringsAsFactors = F)
-      colnames(df[[field]])<-field
-    } else {
-      df[[field]] <- data.frame(paste0(sort(unlist(x[[field]])), collapse = ", "), stringsAsFactors = F)
-      colnames(df[[field]])<-field
+      colnames(df[[field]]) <- field
+    }
+    else if (field %in% c("comment")){
+      if(x[[field]][["maxResults"]]==0){
+        comment_content <- NA
+        comment_authors <- NA
+        comment_date <- NA
+      }else{
+        comments<-x[[field]]$comments
+        comment_content<-paste0(sapply(1:length(comments), function(y) paste0(x[[field]]$comments[[y]]$updateAuthor$displayName, " ",
+                                                                              as.character(as.Date(x[[field]]$comments[[y]]$updated)), ":",
+                                                                              gsub("\r\n", "", x[[field]]$comments[[y]]$body))),
+                                collapse = "\r")
+        comment_authors<-paste0(sapply(1:length(comments), function(y) x[[field]]$comments[[y]]$updateAuthor$displayName), collapse = ";")
+        comment_date<-paste0(sapply(1:length(comments), function(y) as.character(as.Date(x[[field]]$comments[[y]]$updated))), collapse = ";")
+      }
+      df[[field]] <- data.frame(comment_content, comment_authors, comment_date, stringsAsFactors = F)
+      colnames(df[[field]]) <- c("content", "authors", "date")
+    }
+    else {
+      df[[field]] <- data.frame(paste0(sort(unlist(x[[field]])),
+                                       collapse = ", "), stringsAsFactors = F)
+      colnames(df[[field]]) <- field
     }
   }
-  df<-do.call("cbind",df)
+  df <- do.call("cbind", df)
   colnames(df) <- gsub("\\.", " ", colnames(df))
   return(df)
 }
@@ -120,9 +144,9 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
   while(
     if(exists("call_prs")){
       length(issue_list) != call_prs$total
-      }  else {
-        TRUE
-      }){
+    }  else {
+      TRUE
+    }){
     url$query$startAt <- 0 + i*50L
     url_b <- httr::build_url(url)
     call <- httr::GET(url_b,  encode = "json", auth, httr::progress(), httr::verbose(), httr::user_agent("github.com/matbmeijer/JirAgileR"))
