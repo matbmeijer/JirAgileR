@@ -145,7 +145,7 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
   url_b <- httr::build_url(url)
 
   #Prepare for pagination of calls
-  message("Preparing for API Calls. Due to pagination this might take a while.")
+  if(verbose){message("Preparing for API Calls. Due to pagination this might take a while.")}
   issue_list <- list()
   i <- 0
   while(
