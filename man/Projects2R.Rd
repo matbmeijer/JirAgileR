@@ -4,7 +4,8 @@
 \alias{Projects2R}
 \title{Obtain all projects as a \code{data.frame}}
 \usage{
-Projects2R(domain, user = NULL, password = NULL, expand = NULL)
+Projects2R(domain, user = NULL, password = NULL, expand = NULL,
+  verbose = FALSE)
 }
 \arguments{
 \item{domain}{Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}}
@@ -14,6 +15,8 @@ Projects2R(domain, user = NULL, password = NULL, expand = NULL)
 \item{password}{Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.}
 
 \item{expand}{Specific JIRA fields the user wants to obtain for a specific field. Optional parameter. By default}
+
+\item{verbose}{Gives the user the ability to have a verbose response from the JIRA API call.}
 }
 \value{
 Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.

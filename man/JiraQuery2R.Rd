@@ -5,7 +5,7 @@
 \title{Obtain all issues of a JIRA query as a \code{data.frame}}
 \usage{
 JiraQuery2R(domain, user = NULL, password = NULL, query,
-  fields = NULL, maxResults = NULL, verbose = FALSE)
+  fields = NULL, maxResults = NULL, verbose = TRUE)
 }
 \arguments{
 \item{domain}{Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}.}

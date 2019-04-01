@@ -61,6 +61,7 @@ JiraJSON2df<-function (x, fields){
 #' @param user Username used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.
 #' @param password Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.
 #' @param expand Specific JIRA fields the user wants to obtain for a specific field. Optional parameter. By default
+#' @param verbose Gives the user the ability to have a verbose response from the JIRA API call.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}{JIRA API Documentation}
@@ -70,7 +71,7 @@ JiraJSON2df<-function (x, fields){
 #' The function works with the JIRA REST API. Thus, to work it needs a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}
 #' @export
 
-Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL){
+Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL, verbose=FALSE){
   if(!is.null(user)&!is.null(password)){
     auth <- httr::authenticate(as.character(user), as.character(password), "basic")
   } else {
@@ -85,7 +86,7 @@ Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL){
   }
   url <- httr::build_url(url)
 
-  call <- httr::GET(url,  encode = "json", auth, httr::progress(), httr::verbose(), httr::user_agent("github.com/matbmeijer/JirAgileR"))
+  call <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
   call_prs <- httr::content(call, as = "parsed")
   call_l<-lapply(call_prs, data.frame, stringsAsFactors=F)
   df<-data.table::rbindlist(call_l, fill = T, use.names = T)
@@ -112,7 +113,7 @@ Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL){
 #' @export
 
 
-JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL, verbose=FALSE){
+JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL, verbose=TRUE){
   #Set authenticatión if user and password are passed
   if(!is.null(user)&!is.null(password)){
     auth <- httr::authenticate(as.character(user), as.character(password), "basic")
@@ -155,7 +156,7 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
     }){
     url$query$startAt <- 0 + i*50L
     url_b <- httr::build_url(url)
-    call <- httr::GET(url_b,  encode = "json", auth, httr::progress(), httr::verbose(data_out = verbose), httr::user_agent("github.com/matbmeijer/JirAgileR"))
+    call <- httr::GET(url_b,  encode = "json", if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
     call_prs <- httr::content(call, as = "parsed")
     issue_list <- append(issue_list, call_prs$issues)
     i <- i + 1
