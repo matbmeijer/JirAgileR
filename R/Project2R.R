@@ -113,7 +113,7 @@ Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL, verb
 #' @export
 
 
-JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL, verbose=TRUE){
+JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL, verbose=FALSE){
   #Set authenticatión if user and password are passed
   if(!is.null(user)&!is.null(password)){
     auth <- httr::authenticate(as.character(user), as.character(password), "basic")
