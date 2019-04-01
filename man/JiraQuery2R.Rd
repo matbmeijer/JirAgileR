@@ -5,7 +5,7 @@
 \title{Obtain all issues of a JIRA query as a \code{data.frame}}
 \usage{
 JiraQuery2R(domain, user = NULL, password = NULL, query,
-  fields = NULL, maxResults = NULL)
+  fields = NULL, maxResults = NULL, verbose = FALSE)
 }
 \arguments{
 \item{domain}{Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}.}
@@ -19,6 +19,8 @@ JiraQuery2R(domain, user = NULL, password = NULL, query,
 \item{fields}{Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed: 'status','priority','created','reporter','summary','description','assignee','updated','issuetype','fixVersions'.}
 
 \item{maxResults}{Max results authorized to obtain for each API call. By default JIRA sets this value to 50 issues.}
+
+\item{verbose}{Gives the user the ability to have a verbose response from the JIRA API call.}
 }
 \value{
 Returns a formatted \code{data.frame} with the issues according to the JQL query.
@@ -28,7 +30,7 @@ Calls JIRA's latest REST API, optionally with basic authentication, to get all i
 }
 \section{Warning}{
 
-The function works with the JIRA REST v2 API and to workyou need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
+The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
 }
 
 \examples{

@@ -101,17 +101,18 @@ Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL){
 #' @param query JIRA's decoded JQL query. By definition, it works with with **Fields**, **Operators**, **Keywords** and **Functions**. To learn how to create a query visit \href{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site}.
 #' @param fields Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed: 'status','priority','created','reporter','summary','description','assignee','updated','issuetype','fixVersions'.
 #' @param maxResults Max results authorized to obtain for each API call. By default JIRA sets this value to 50 issues.
+#' @param verbose Gives the user the ability to have a verbose response from the JIRA API call.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{Github}
 #' @return Returns a formatted \code{data.frame} with the issues according to the JQL query.
 #' @seealso For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}.
 #' @examples
 #' JiraQuery2R(domain = "https://bitvoodoo.atlassian.net", query = 'project="Congrats for Confluence"')
 #' @section Warning:
-#' The function works with the JIRA REST v2 API and to workyou need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
+#' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
 #' @export
 
 
-JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL){
+JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL, verbose=FALSE){
   #Set authenticatión if user and password are passed
   if(!is.null(user)&!is.null(password)){
     auth <- httr::authenticate(as.character(user), as.character(password), "basic")
@@ -131,7 +132,12 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
   }
 
   #Build URL
-  url <- httr::parse_url(domain)
+  if(!grepl("https|http", domain)){
+    url <- httr::parse_url(domain)
+    url$hostname<-domain
+  } else {
+    url <- httr::parse_url(domain)
+  }
   url$scheme <- "https"
   url$path <- list(type = "rest", call = "api", robust = "latest", kind = "search")
   url$query <- list(jql=query, fields=paste0(fields, collapse = ","), startAt = "0", maxResults =max_issues)
@@ -149,7 +155,7 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
     }){
     url$query$startAt <- 0 + i*50L
     url_b <- httr::build_url(url)
-    call <- httr::GET(url_b,  encode = "json", auth, httr::progress(), httr::verbose(), httr::user_agent("github.com/matbmeijer/JirAgileR"))
+    call <- httr::GET(url_b,  encode = "json", auth, httr::progress(), httr::verbose(data_out = verbose), httr::user_agent("github.com/matbmeijer/JirAgileR"))
     call_prs <- httr::content(call, as = "parsed")
     issue_list <- append(issue_list, call_prs$issues)
     i <- i + 1
