@@ -48,7 +48,10 @@ devtools::install_github("matbmeijer/JirAgileR")
 
 This is a basic example which shows you how to obtain a simple table of
 issues of a project and create a tabular report. You will need a
-username and your password to authenticate in your domain:
+username and your password to authenticate in your domain. Possible
+fields to obtain (which will populate the `data.frame` columns) can be
+found
+[here](https://confluence.atlassian.com/adminjiraserver071/issue-fields-and-statuses-802592413.html).
 
 ``` r
 library(JirAgileR, quietly = T)
@@ -57,6 +60,7 @@ library(knitr, quietly = T)
 Domain <- "https://bitvoodoo.atlassian.net"
 JQL_query <- "project='CONGRATS'"
 Search_field <- c("summary","created", "status")
+# Other possible fields are for example c("project", "key", "type", "priority", "resolution", "labels", "description", "links")
 
 df<-JiraQuery2R(domain = Domain, query = JQL_query, fields = Search_field)
 
