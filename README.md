@@ -1,11 +1,9 @@
-JirAgileR
-================
+
+# JirAgileR <img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" align="right" alt="" width="200" />
 
 <img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master"/>
 
-### Objective
-
-<img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" position="right" width="200"/>
+## Objective
 
 The objective of **JirAgileR** is to bring the power of the project
 management tool **JIRA** to **R**. By doing so, users benefit from the
@@ -18,7 +16,7 @@ You can find more information about it
 [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql).
 All used functions return as a result a `data.frame`.
 
-#### 2019-04-05 Functionalities
+### 2019-04-06 Functionalities
 
 1.  Extract all projects with its basic information (e.g. Name, ID, Key,
     Type, Category etc.)
@@ -27,13 +25,13 @@ All used functions return as a result a `data.frame`.
     JIRA fields)
 3.  Extract comments and comments details from JIRA issues.
 
-#### Roadmap
+### Roadmap
 
 1.  Define an integrated class within the package
 2.  Include *pipes* to facilitate analysis
 3.  Include plotting graphs
 
-### Installation
+## Installation
 
 You can install the latest release of JirAgileR from
 [Github](https://github.com/matbmeijer/JirAgileR) with the following
@@ -44,7 +42,7 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("matbmeijer/JirAgileR")
 ```
 
-### Example
+## Example
 
 This is a basic example which shows you how to obtain a simple table of
 issues of a project and create a tabular report. You will need a
