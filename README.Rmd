@@ -1,31 +1,35 @@
 ---
 title: "JirAgileR"
-author: Matthias Brenninkmeijer
-output: md_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" position="right" width="200"/>
 
 <img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master"/>
 
+### Objective
 
-The objective of **JirAgileR** is to bring the power of the project management tool **JIRA** to **R**. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around JIRA's REST API, allowing users to analyze JIRA's extracted data in R.  
+<img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" position="right" width="200"/>
 
-**Current Functionalities:**
-
-* Extract all projects with its basic information (e.g. Name, ID, Key, Type, Category etc.)
-* Extract all issues spefic to user defined JIRA query (it allows to expand both JIRA's default fields as well as user defined custom JIRA fields)
-
-Roadmap:
+The objective of **JirAgileR** is to bring the power of the project management tool **JIRA** to **R**. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around [JIRA's REST API](https://developer.atlassian.com/server/jira/platform/rest-apis/), allowing users to analyze proyects or issues from JIRA in R. The underlying powertrain of the API is the *__Jira Query Language__ (JQL)*. You can find more information about it [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql). All used functions return as a result a `data.frame`.
 
 
-Instead of building a diferent class object to facilitate the analysis within R a regular `data.frame` is returned. In future the objective is to integrate visualization options and exports as pdf slides and/or .pptx slide. Other options are to come.
+#### `r Sys.Date()` Functionalities
 
-## Installation
+1. Extract all projects with its basic information (e.g. Name, ID, Key, Type, Category etc.)
+2. Extract all issues spefic to user defined JIRA query (it allows to expand both JIRA's default fields as well as user defined custom JIRA fields)
+3. Extract comments and comments details from JIRA issues.
+
+#### Roadmap
+
+1. Define an integrated class within the package
+2. Include *pipes* to facilitate analysis
+3. Include plotting graphs
+
+### Installation
 
 You can install the latest release of JirAgileR from [Github](https://github.com/matbmeijer/JirAgileR) with the following commands in R:
 
@@ -34,19 +38,20 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("matbmeijer/JirAgileR")
 ```
 
-## Example
+### Example
 
-This is a basic example which shows you how to obtain a simple table of issues of a project and create a tabular report in CSV format. You will need a username and your password to authenticate in your domain:
+This is a basic example which shows you how to obtain a simple table of issues of a project and create a tabular report. You will need a username and your password to authenticate in your domain:
 
-``` {r, echo=TRUE, message=FALSE}
-library(JirAgileR)
+``` {r, echo=TRUE, message=FALSE, warning=FALSE}
+library(JirAgileR, quietly = T)
+library(knitr, quietly = T)
 
 Domain <- "https://bitvoodoo.atlassian.net"
 JQL_query <- "project='CONGRATS'"
-Search_field <- c("summary","created", "reporter")
+Search_field <- c("summary","created", "status")
 
 df<-JiraQuery2R(domain = Domain, query = JQL_query, fields = Search_field)
 
-library(knitr)
-kable(df, caption = "CONGRATS status")
+kable(df, row.names = F, padding = 0)
+
 ```
