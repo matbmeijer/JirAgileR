@@ -114,8 +114,12 @@ Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL, verb
 
 
 JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL, verbose=FALSE){
+
+  stopifnot(is.character(domain), length(domain) == 1)
+  stopifnot(is.character(query), length(query) == 1)
+
   #Set authenticatión if user and password are passed
-  if(!is.null(user)&!is.null(password)){
+  if(!is.null(user)&&!is.null(password)){
     auth <- httr::authenticate(as.character(user), as.character(password), "basic")
   } else {
     auth <- NULL
@@ -127,9 +131,7 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
 
   #Set default value for maxResults - eliminate?
   if(is.null(maxResults)){
-    max_issues<-50
-  } else {
-    max_issues<-maxResults
+    maxResults<-50
   }
 
   #Build URL
@@ -141,25 +143,27 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
   }
   url$scheme <- "https"
   url$path <- list(type = "rest", call = "api", robust = "latest", kind = "search")
-  url$query <- list(jql=query, fields=paste0(fields, collapse = ","), startAt = "0", maxResults =max_issues)
+  url$query <- list(jql=query, fields=paste0(fields, collapse = ","), startAt = "0", maxResults = maxResults)
   url_b <- httr::build_url(url)
 
   #Prepare for pagination of calls
   if(verbose){message("Preparing for API Calls. Due to pagination this might take a while.")}
   issue_list <- list()
+
   i <- 0
-  while(
-    if(exists("call_prs")){
-      length(issue_list) != call_prs$total
-    }  else {
-      TRUE
-    }){
+  repeat{
     url$query$startAt <- 0 + i*50L
     url_b <- httr::build_url(url)
     call <- httr::GET(url_b,  encode = "json", if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
-    call_prs <- httr::content(call, as = "parsed")
+    if (httr::http_type(call) != "application/json") {
+      stop("API did not return json", call. = FALSE)
+    }
+    call_prs <- jsonlite::fromJSON(httr::content(call, "text"), simplifyVector = FALSE)
     issue_list <- append(issue_list, call_prs$issues)
     i <- i + 1
+    if(length(issue_list)== call_prs$total){
+      break
+    }
   }
   base_info <- do.call("rbind", lapply(issue_list, function(x) data.frame(t(unlist(x[c("id","key", "self")])), stringsAsFactors = F)))
   ext_info <- lapply(issue_list, `[[`, "fields")

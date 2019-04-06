@@ -6,13 +6,13 @@ Authors@R:
            family = "Brenninkmeijer",
            role = c("aut", "cre"),
            email = "matthias@brennotten.net")
-Description: Allows you to interact with JIRA REST v2 API to analyze the data in R.
+Description: Allows you to interact with JIRA REST API to analyze the data in R.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
     httr,
+    jsonlite,
     utils,
-    data.table,
-    devtools
+    data.table
 RoxygenNote: 6.1.1
