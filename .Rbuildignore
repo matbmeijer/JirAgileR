@@ -1,4 +1,4 @@
-^\.appveyor\.yml$
+^appveyor\.yml$
 ^\.travis\.yml$
 ^LICENSE\.md$
 ^JirAgileR\.Rproj$
