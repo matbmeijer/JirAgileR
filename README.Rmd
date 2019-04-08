@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # JirAgileR <img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" align="right" alt="" width="200" />
 
 <img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master"/>
+<img src="https://ci.appveyor.com/api/projects/status/github/matbmeijer/JirAgileR?branch=master&svg=true"/>
 
 ## Objective
 

@@ -2,6 +2,7 @@
 # JirAgileR <img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" align="right" alt="" width="200" />
 
 <img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master"/>
+<img src="https://ci.appveyor.com/api/projects/status/github/matbmeijer/JirAgileR?branch=master&svg=true"/>
 
 ## Objective
 
@@ -16,7 +17,7 @@ You can find more information about it
 [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql).
 All used functions return as a result a `data.frame`.
 
-### 2019-04-06 Functionalities
+### 2019-04-09 Functionalities
 
 1.  Extract all projects with its basic information (e.g. Name, ID, Key,
     Type, Category etc.)
@@ -65,19 +66,19 @@ df<-JiraQuery2R(domain = Domain, query = JQL_query, fields = Search_field)
 kable(df, row.names = F, padding = 0)
 ```
 
-| id    | key         | self                                                          | summary                                                        | created    | status      |
-| :---- | :---------- | :------------------------------------------------------------ | :------------------------------------------------------------- | :--------- | :---------- |
-| 57446 | CONGRATS-29 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57446> | Display issue of standard profile picture in Internet Explorer | 2019-03-25 | In Progress |
-| 57383 | CONGRATS-27 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57383> | Congrats - Define performance tests                            | 2019-02-04 | Open        |
-| 57327 | CONGRATS-26 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57327> | Congrats Data Center Checklist                                 | 2018-11-07 | Closed      |
-| 57249 | CONGRATS-24 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57249> | Congrats for Confluence Data Center compatibility              | 2018-09-12 | In Progress |
-| 57157 | CONGRATS-23 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57157> | If max entries is above 100 user icons overlap with Congrats   | 2018-07-03 | Closed      |
-| 57041 | CONGRATS-20 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57041> | “You already congratulated” message missing after refresh      | 2018-03-19 | Closed      |
-| 56904 | CONGRATS-18 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56904> | Add a dialogue for users that urges them to fill in dates      | 2017-12-05 | Closed      |
-| 56797 | CONGRATS-17 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56797> | Synchronisation with the //Seibert/Media CUP                   | 2017-09-26 | Open        |
-| 56796 | CONGRATS-16 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56796> | Add an Interface to configure the sync fields                  | 2017-09-26 | Open        |
-| 56795 | CONGRATS-15 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56795> | Synchronisation with the Communardo UPP                        | 2017-09-26 | Open        |
-| 55800 | CONGRATS-11 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/55800> | Display of age for birthday configurable                       | 2017-04-05 | Closed      |
-| 52800 | CONGRATS-6  | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/52800> | Do not display inactive users in Congrats Macro                | 2016-11-24 | Closed      |
-| 51806 | CONGRATS-3  | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/51806> | Incomplete rendering if placed in tabs                         | 2016-10-21 | Closed      |
-| 50050 | CONGRATS-1  | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/50050> | Display current event in the center                            | 2016-08-09 | Closed      |
+| id    | self                                                          | key         | summary                                                        | created    | status      |
+| :---- | :------------------------------------------------------------ | :---------- | :------------------------------------------------------------- | :--------- | :---------- |
+| 57446 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57446> | CONGRATS-29 | Display issue of standard profile picture in Internet Explorer | 2019-03-25 | In Progress |
+| 57383 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57383> | CONGRATS-27 | Congrats - Define performance tests                            | 2019-02-04 | Open        |
+| 57327 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57327> | CONGRATS-26 | Congrats Data Center Checklist                                 | 2018-11-07 | Closed      |
+| 57249 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57249> | CONGRATS-24 | Congrats for Confluence Data Center compatibility              | 2018-09-12 | In Progress |
+| 57157 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57157> | CONGRATS-23 | If max entries is above 100 user icons overlap with Congrats   | 2018-07-03 | Closed      |
+| 57041 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/57041> | CONGRATS-20 | “You already congratulated” message missing after refresh      | 2018-03-19 | Closed      |
+| 56904 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56904> | CONGRATS-18 | Add a dialogue for users that urges them to fill in dates      | 2017-12-05 | Closed      |
+| 56797 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56797> | CONGRATS-17 | Synchronisation with the //Seibert/Media CUP                   | 2017-09-26 | Open        |
+| 56796 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56796> | CONGRATS-16 | Add an Interface to configure the sync fields                  | 2017-09-26 | Open        |
+| 56795 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/56795> | CONGRATS-15 | Synchronisation with the Communardo UPP                        | 2017-09-26 | Open        |
+| 55800 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/55800> | CONGRATS-11 | Display of age for birthday configurable                       | 2017-04-05 | Closed      |
+| 52800 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/52800> | CONGRATS-6  | Do not display inactive users in Congrats Macro                | 2016-11-24 | Closed      |
+| 51806 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/51806> | CONGRATS-3  | Incomplete rendering if placed in tabs                         | 2016-10-21 | Closed      |
+| 50050 | <https://bitvoodoo.atlassian.net/rest/api/latest/issue/50050> | CONGRATS-1  | Display current event in the center                            | 2016-08-09 | Closed      |
