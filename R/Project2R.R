@@ -33,25 +33,30 @@ JiraJSON2df<-function (x, fields){
         comment_date <- NA
       }else{
         comments<-x[[field]]$comments
-        comment_content<-paste0(sapply(1:length(comments), function(y) paste0(x[[field]]$comments[[y]]$updateAuthor$displayName, " ",
+        comment_content<-paste0(sapply(seq_along(comments), function(y) paste0(x[[field]]$comments[[y]]$updateAuthor$displayName, " ",
                                                                               as.character(as.Date(x[[field]]$comments[[y]]$updated)), ":",
                                                                               gsub("\r\n", "", x[[field]]$comments[[y]]$body))),
                                 collapse = "\r")
-        comment_authors<-paste0(sapply(1:length(comments), function(y) x[[field]]$comments[[y]]$updateAuthor$displayName), collapse = ";")
-        comment_date<-paste0(sapply(1:length(comments), function(y) as.character(as.Date(x[[field]]$comments[[y]]$updated))), collapse = ";")
+        comment_authors<-paste0(sapply(seq_along(comments), function(y) x[[field]]$comments[[y]]$updateAuthor$displayName), collapse = ";")
+        comment_date<-paste0(sapply(seq_along(comments), function(y) as.character(as.Date(x[[field]]$comments[[y]]$updated))), collapse = ";")
       }
-      df[[field]] <- data.frame(comment_content, comment_authors, comment_date, stringsAsFactors = F)
+      df[[field]] <- data.frame(comment_content, comment_authors, comment_date, stringsAsFactors = FALSE)
       colnames(df[[field]]) <- c("content", "authors", "date")
     }
     else {
       df[[field]] <- data.frame(paste0(sort(unlist(x[[field]])),
-                                       collapse = ", "), stringsAsFactors = F)
+                                       collapse = ", "), stringsAsFactors = FALSE)
       colnames(df[[field]]) <- field
     }
   }
   df <- do.call("cbind", df)
   colnames(df) <- gsub("\\.", " ", colnames(df))
   return(df)
+}
+
+basic_issues_info<-function(x){
+  extr_info<-lapply(x, `[`,c("id","self", "key"))
+  data.table::rbindlist(extr_info, use.names = TRUE, fill = TRUE)
 }
 
 
@@ -88,8 +93,8 @@ Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL, verb
 
   call <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
   call_prs <- httr::content(call, as = "parsed")
-  call_l<-lapply(call_prs, data.frame, stringsAsFactors=F)
-  df<-data.table::rbindlist(call_l, fill = T, use.names = T)
+  call_l<-lapply(call_prs, data.frame, stringsAsFactors=FALSE)
+  df<-data.table::rbindlist(call_l, fill = TRUE, use.names = TRUE)
   colnames(df) <- gsub("\\.", " ", colnames(df))
   return(df)
 }
@@ -114,7 +119,6 @@ Projects2R <- function(domain, user = NULL, password = NULL, expand = NULL, verb
 
 
 JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, maxResults=NULL, verbose=FALSE){
-
   stopifnot(is.character(domain), length(domain) == 1)
   stopifnot(is.character(query), length(query) == 1)
 
@@ -128,7 +132,6 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
   if(is.null(fields)){
     fields <- c("status","priority","created","reporter","summary","description","assignee","updated","issuetype","fixVersions")
   }
-
   #Set default value for maxResults - eliminate?
   if(is.null(maxResults)){
     maxResults<-50
@@ -165,7 +168,7 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
       break
     }
   }
-  base_info <- do.call("rbind", lapply(issue_list, function(x) data.frame(t(unlist(x[c("id","key", "self")])), stringsAsFactors = F)))
+  base_info <- basic_issues_info(issue_list)
   ext_info <- lapply(issue_list, `[[`, "fields")
   ext_info <- lapply(ext_info, JiraJSON2df, fields)
   ext_info <- data.table::rbindlist(ext_info, fill = T)
