@@ -1,8 +1,10 @@
 
 # JirAgileR <img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" align="right" alt="" width="200" />
 
-<img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master"/>
-<img src="https://ci.appveyor.com/api/projects/status/github/matbmeijer/JirAgileR?branch=master&svg=true"/>
+[![Build
+Status](https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master)](https://travis-ci.org/matbmeijer/JirAgileR)
+[![Build
+status](https://ci.appveyor.com/api/projects/status/b3fole2aw1qsw2x9?svg=true)](https://ci.appveyor.com/project/matbmeijer/jiragiler)
 
 ## Objective
 
