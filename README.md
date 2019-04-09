@@ -19,7 +19,10 @@ You can find more information about it
 [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql).
 All used functions return as a result a `data.frame`.
 
-### 2019-04-09 Functionalities
+–\> More information about the package
+[here](https://matbmeijer.github.io/JirAgileR/)
+
+### 2019-04-10 Functionalities
 
 1.  Extract all projects with its basic information (e.g. Name, ID, Key,
     Type, Category etc.)

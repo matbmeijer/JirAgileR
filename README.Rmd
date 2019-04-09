@@ -15,6 +15,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The objective of **JirAgileR** is to bring the power of the project management tool **JIRA** to **R**. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around [JIRA's REST API](https://developer.atlassian.com/server/jira/platform/rest-apis/), allowing users to analyze proyects or issues from JIRA in R. The underlying powertrain of the API is the *__Jira Query Language__ (JQL)*. You can find more information about it [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql). All used functions return as a result a `data.frame`.
 
+--> More information about the package [here](https://matbmeijer.github.io/JirAgileR/)
+
 
 ### `r Sys.Date()` Functionalities
 
