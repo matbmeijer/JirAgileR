@@ -1,5 +1,5 @@
 
-# JirAgileR <img src="https://www.atlassian.com/dam/jcr:e33efd9e-e0b8-4d61-a24d-68a48ef99ed5/Jira%20Software@2x-blue.png" align="right" alt="" width="200" />
+# JirAgileR<img src="man/figures/logo.png" align="right" height=140/>
 
 [![Build
 Status](https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master)](https://travis-ci.org/matbmeijer/JirAgileR)
