@@ -8,10 +8,10 @@ status](https://ci.appveyor.com/api/projects/status/b3fole2aw1qsw2x9?svg=true)](
 
 ## Objective
 
-The objective of **JirAgileR** is to bring the power of the project
-management tool **JIRA** to **R**. By doing so, users benefit from the
-best capabilities of both platforms. More specifically, the package is a
-wrapper around [JIRA’s REST
+**JirAgileR** is a **R package** with the objective to bring the power
+of the project management tool **JIRA** to **R**. By doing so, users
+benefit from the best capabilities of both platforms. More specifically,
+the package is a wrapper around [JIRA’s REST
 API](https://developer.atlassian.com/server/jira/platform/rest-apis/),
 allowing users to analyze proyects or issues from JIRA in R. The
 underlying powertrain of the API is the ***Jira Query Language** (JQL)*.
@@ -19,29 +19,29 @@ You can find more information about it
 [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql).
 All used functions return as a result a `data.frame`.
 
-–\> More information about the package
-[here](https://matbmeijer.github.io/JirAgileR/)
+–\> More information about the package can be found
+[here](https://matbmeijer.github.io/JirAgileR/).
 
-### 2019-04-10 Functionalities
+### Functionalities as of 12 of April, 2019
 
-1.  Extract all projects with its basic information (e.g. Name, ID, Key,
-    Type, Category etc.)
-2.  Extract all issues spefic to user defined JIRA query (it allows to
-    expand both JIRA’s default fields as well as user defined custom
-    JIRA fields)
-3.  Extract comments and comments details from JIRA issues.
+1.  Extract all project names with their basic information (e.g. Name,
+    ID, Key, Type, Category etc.).
+2.  Extract all issues specific to a user defined JIRA query (it allows
+    to use both JIRA’s default fields as well as user defined custom
+    JIRA fields).
+3.  Extract comments and comments’ details from JIRA issues.
 
 ### Roadmap
 
-1.  Define an integrated class within the package
+1.  Define integrated *Reference Classes* within the package
 2.  Include *pipes* to facilitate analysis
 3.  Include plotting graphs
 
 ## Installation
 
-You can install the latest release of JirAgileR from
+You can install the latest release of this package from
 [Github](https://github.com/matbmeijer/JirAgileR) with the following
-commands in R:
+commands in `R`:
 
 ``` r
 if (!require("devtools")) install.packages("devtools")
