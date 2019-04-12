@@ -71,27 +71,28 @@
     
 <div id="jiragiler" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#jiragiler" class="anchor"></a>JirAgileR<img src="https://raw.githubusercontent.com/matbmeijer/JirAgileR/master/docs/reference/figures/logo.png" align="right" height="140/">
+<a href="#jiragiler" class="anchor"></a>JirAgileR<img src="https://raw.githubusercontent.com/matbmeijer/JirAgileR/master/man/figures/logo.png" align="right" height="140/">
 </h1></div>
 
 <div id="objective" class="section level2">
 <h2 class="hasAnchor">
 <a href="#objective" class="anchor"></a>Objective</h2>
-<p>The objective of <strong>JirAgileR</strong> is to bring the power of the project management tool <strong>JIRA</strong> to <strong>R</strong>. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/">JIRA’s REST API</a>, allowing users to analyze proyects or issues from JIRA in R. The underlying powertrain of the API is the <em><strong>Jira Query Language</strong> (JQL)</em>. You can find more information about it <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">here</a>. All used functions return as a result a <code>data.frame</code>.</p>
-<div id="functionalities" class="section level3">
+<p><strong>JirAgileR</strong> is a <strong>R package</strong> with the objective to bring the power of the project management tool <strong>JIRA</strong> to <strong>R</strong>. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/">JIRA’s REST API</a>, allowing users to analyze proyects or issues from JIRA in R. The underlying powertrain of the API is the <em><strong>Jira Query Language</strong> (JQL)</em>. You can find more information about it <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">here</a>. All used functions return as a result a <code>data.frame</code>.</p>
+<p>–&gt; More information about the package can be found <a href="https://matbmeijer.github.io/JirAgileR/">here</a>.</p>
+<div id="functionalities-as-of-12-of-april-2019" class="section level3">
 <h3 class="hasAnchor">
-<a href="#functionalities" class="anchor"></a>2019-04-10 Functionalities</h3>
+<a href="#functionalities-as-of-12-of-april-2019" class="anchor"></a>Functionalities as of 12 of April, 2019</h3>
 <ol style="list-style-type: decimal">
-<li>Extract all projects with its basic information (e.g. Name, ID, Key, Type, Category etc.)</li>
-<li>Extract all issues spefic to user defined JIRA query (it allows to expand both JIRA’s default fields as well as user defined custom JIRA fields)</li>
-<li>Extract comments and comments details from JIRA issues.</li>
+<li>Extract all project names with their basic information (e.g. Name, ID, Key, Type, Category etc.).</li>
+<li>Extract all issues specific to a user defined JIRA query (it allows to use both JIRA’s default fields as well as user defined custom JIRA fields).</li>
+<li>Extract comments and comments’ details from JIRA issues.</li>
 </ol>
 </div>
 <div id="roadmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#roadmap" class="anchor"></a>Roadmap</h3>
 <ol style="list-style-type: decimal">
-<li>Define an integrated class within the package</li>
+<li>Define integrated <em>Reference Classes</em> within the package</li>
 <li>Include <em>pipes</em> to facilitate analysis</li>
 <li>Include plotting graphs</li>
 </ol>
@@ -100,7 +101,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the latest release of JirAgileR from <a href="https://github.com/matbmeijer/JirAgileR">Github</a> with the following commands in R:</p>
+<p>You can install the latest release of this package from <a href="https://github.com/matbmeijer/JirAgileR">Github</a> with the following commands in <code>R</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"matbmeijer/JirAgileR"</span>)</a></code></pre></div>
 </div>
@@ -135,7 +136,7 @@
 <td align="left">CONGRATS-29</td>
 <td align="left">Display issue of standard profile picture in Internet Explorer</td>
 <td align="left">2019-03-25</td>
-<td align="left">In Progress</td>
+<td align="left">Open</td>
 </tr>
 <tr class="even">
 <td align="left">57383</td>
@@ -143,7 +144,7 @@
 <td align="left">CONGRATS-27</td>
 <td align="left">Congrats - Define performance tests</td>
 <td align="left">2019-02-04</td>
-<td align="left">Open</td>
+<td align="left">In Progress</td>
 </tr>
 <tr class="odd">
 <td align="left">57327</td>
