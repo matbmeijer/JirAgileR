@@ -34,8 +34,8 @@ JiraJSON2df<-function (x, fields){
       }else{
         comments<-x[[field]]$comments
         comment_content<-paste0(sapply(seq_along(comments), function(y) paste0(x[[field]]$comments[[y]]$updateAuthor$displayName, " ",
-                                                                              as.character(as.Date(x[[field]]$comments[[y]]$updated)), ":",
-                                                                              gsub("\r\n", "", x[[field]]$comments[[y]]$body))),
+                                                                               as.character(as.Date(x[[field]]$comments[[y]]$updated)), ":",
+                                                                               gsub("\r\n", "", x[[field]]$comments[[y]]$body))),
                                 collapse = "\r")
         comment_authors<-paste0(sapply(seq_along(comments), function(y) x[[field]]$comments[[y]]$updateAuthor$displayName), collapse = ";")
         comment_date<-paste0(sapply(seq_along(comments), function(y) as.character(as.Date(x[[field]]$comments[[y]]$updated))), collapse = ";")
@@ -57,6 +57,35 @@ JiraJSON2df<-function (x, fields){
 basic_issues_info<-function(x){
   extr_info<-lapply(x, `[`,c("id","self", "key"))
   data.table::rbindlist(extr_info, use.names = TRUE, fill = TRUE)
+}
+
+check_dt <- function(input = list()) {
+  classes <- lapply(input, function(dt) {
+    dt <- data.table::as.data.table(dt)
+    as.data.table(t(dt[, sapply(.SD, class), .SDcol = names(dt)]))}
+  )
+
+  classes_dt <- rbindlist(classes)
+
+  idx <- classes_dt[, sapply(.SD, uniqueN), .SDcol = names(classes_dt)] > 1
+
+  idx_cols <- names(idx)[idx]
+
+  if (length(idx_cols) > 0 ) {
+    warning(paste0("changing ", paste0(idx_cols, collapse = ", "),
+                   " to character due to missing values"))
+  }
+
+  output <- lapply(input, function(dt, idx_cols){
+    dt <- data.table::as.data.table(dt)
+    these_cols <- intersect(names(dt), idx_cols)
+    if (length(these_cols) >0 ) {
+      dt[, c(these_cols) := lapply(.SD, as.character), .SDcol = these_cols]
+    }
+    return(dt)
+  },
+  idx_cols = idx_cols)
+  return(output)
 }
 
 
@@ -171,6 +200,7 @@ JiraQuery2R <- function(domain, user=NULL, password=NULL, query, fields = NULL, 
   base_info <- basic_issues_info(issue_list)
   ext_info <- lapply(issue_list, `[[`, "fields")
   ext_info <- lapply(ext_info, JiraJSON2df, fields)
+  ext_info <- check_dt(ext_info)
   ext_info <- data.table::rbindlist(ext_info, fill = T)
   df <- do.call("cbind", list(base_info, ext_info))
   return(df)
