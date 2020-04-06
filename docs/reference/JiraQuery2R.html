@@ -6,23 +6,38 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Obtain all issues of a JIRA query as a <code>data.frame</code> — JiraQuery2R • JirAgileR</title>
+<title>Retrieves all issues of a JIRA query as a <code>data.frame</code> — JiraQuery2R • JirAgileR</title>
+
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +45,11 @@
 
 
 
-<meta property="og:title" content="Obtain all issues of a JIRA query as a <code>data.frame</code> — JiraQuery2R" />
 
+<meta property="og:title" content="Retrieves all issues of a JIRA query as a <code>data.frame</code> — JiraQuery2R" />
 <meta property="og:description" content="Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain." />
-
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +63,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">JirAgileR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.92</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
       </span>
     </div>
 
@@ -73,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -81,11 +96,10 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/matbmeijer/JirAgileR">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/matbmeijer/JirAgileR/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,25 +110,32 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Obtain all issues of a JIRA query as a <code>data.frame</code></h1>
+    <h1>Retrieves all issues of a JIRA query as a <code>data.frame</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/Project2R.R'><code>R/Project2R.R</code></a></small>
     <div class="hidden name"><code>JiraQuery2R.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>JiraQuery2R</span>(<span class='no'>domain</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>query</span>,
-  <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>maxResults</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>JiraQuery2R</span>(
+  <span class='no'>domain</span>,
+  <span class='kw'>user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>query</span>,
+  <span class='kw'>fields</span> <span class='kw'>=</span> <span class='fu'><a href='basic_jql_fields.html'>basic_jql_fields</a></span>(),
+  <span class='kw'>maxResults</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>as.data.frame</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -124,19 +145,21 @@
     </tr>
     <tr>
       <th>user</th>
-      <td><p>Username used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed.</p></td>
+      <td><p>Username used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>password</th>
-      <td><p>Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed.</p></td>
+      <td><p>Password used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>query</th>
-      <td><p>JIRA's decoded JQL query. By definition, it works with with **Fields**, **Operators**, **Keywords** and **Functions**. To learn how to create a query visit <a href='https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html'>this ATLASSIAN site</a>.</p></td>
+      <td><p>JIRA's decoded JQL query. By definition, it works with *Fields*, *Operators*, *Keywords* and *Functions*. To learn how to create a query visit <a href='https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html'>this ATLASSIAN site</a>.</p></td>
     </tr>
     <tr>
       <th>fields</th>
-      <td><p>Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed: 'status','priority','created','reporter','summary','description','assignee','updated','issuetype','fixVersions'.</p></td>
+      <td><p>Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed:
+'status', 'priority', 'created', 'reporter', 'summary', 'description', 'assignee', 'updated', 'issuetype', 'fixVersions'.
+To obtain a list of all supported fields use the following function: <code><a href='supported_jql_fields.html'>supported_jql_fields()</a></code>.</p></td>
     </tr>
     <tr>
       <th>maxResults</th>
@@ -144,164 +167,840 @@
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>Gives the user the ability to have a verbose response from the JIRA API call.</p></td>
+      <td><p>Explicitly informs the user of the JIRA API request process.</p></td>
+    </tr>
+    <tr>
+      <th>as.data.frame</th>
+      <td><p>Defines if the function returns a flattened <code>data.frame</code> or the raw JIRA response.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a formatted <code>data.frame</code> with the issues according to the JQL query.</p>
-    
+    <p>Returns a flattened, formatted <code>data.frame</code> with the issues according to the JQL query.</p>
     <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
 
     
-    <p>The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.enterprise.com/secure/Dashboard.jspa</a></p>
-    
+
+<p>If the <code>comment</code> field is used as a <code>fields</code> parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.enterprise.com/secure/Dashboard.jspa</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>For more information about Atlassians JIRA API visit the following link: <a href='https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/'>https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/</a>.</p></div>
-    
+    <div class='dont-index'><p>For more information about Atlassians JIRA API visit the following link: <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/'>JIRA API Documentation</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>JiraQuery2R</span>(<span class='kw'>domain</span> <span class='kw'>=</span> <span class='st'>"https://bitvoodoo.atlassian.net"</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='st'>'project="Congrats for Confluence"'</span>)</div><div class='output co'>#&gt;        id                                                        self
-#&gt;  1: 57446 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57446
-#&gt;  2: 57383 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57383
-#&gt;  3: 57327 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57327
-#&gt;  4: 57249 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57249
-#&gt;  5: 57157 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57157
-#&gt;  6: 57041 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57041
-#&gt;  7: 56904 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56904
-#&gt;  8: 56797 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56797
-#&gt;  9: 56796 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56796
-#&gt; 10: 56795 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56795
-#&gt; 11: 55800 https://bitvoodoo.atlassian.net/rest/api/latest/issue/55800
-#&gt; 12: 52800 https://bitvoodoo.atlassian.net/rest/api/latest/issue/52800
-#&gt; 13: 51806 https://bitvoodoo.atlassian.net/rest/api/latest/issue/51806
-#&gt; 14: 50050 https://bitvoodoo.atlassian.net/rest/api/latest/issue/50050
-#&gt;             key      status priority    created reporter displayName
-#&gt;  1: CONGRATS-29        Open   Normal 2019-03-25    Stefanie Neidhart
-#&gt;  2: CONGRATS-27 In Progress   Normal 2019-02-04       Sascha Häusler
-#&gt;  3: CONGRATS-26      Closed   Normal 2018-11-07       Sascha Häusler
-#&gt;  4: CONGRATS-24 In Progress    Major 2018-09-12        Robin Stohler
-#&gt;  5: CONGRATS-23      Closed    Minor 2018-07-03        Niklas Becker
-#&gt;  6: CONGRATS-20      Closed    Major 2018-03-19        Niklas Becker
-#&gt;  7: CONGRATS-18      Closed    Minor 2017-12-05        Niklas Becker
-#&gt;  8: CONGRATS-17        Open    Major 2017-09-26      Oliver Strässer
-#&gt;  9: CONGRATS-16        Open    Major 2017-09-26      Oliver Strässer
-#&gt; 10: CONGRATS-15        Open    Major 2017-09-26      Oliver Strässer
-#&gt; 11: CONGRATS-11      Closed    Major 2017-04-05     Daniele Talerico
-#&gt; 12:  CONGRATS-6      Closed    Major 2016-11-24         Sharon Funke
-#&gt; 13:  CONGRATS-3      Closed    Major 2016-10-21         Sharon Funke
-#&gt; 14:  CONGRATS-1      Closed    Major 2016-08-09      Oliver Strässer
-#&gt;                     reporter name reporter displayName 1
-#&gt;  1: stefanie.fischer@bitvoodoo.ch      Stefanie Neidhart
-#&gt;  2:  sascha.haeusler@bitvoodoo.ch         Sascha Häusler
-#&gt;  3:  sascha.haeusler@bitvoodoo.ch         Sascha Häusler
-#&gt;  4:                         Robin          Robin Stohler
-#&gt;  5:                        Niklas          Niklas Becker
-#&gt;  6:                        Niklas          Niklas Becker
-#&gt;  7:                        Niklas          Niklas Becker
-#&gt;  8: oliver.straesser@bitvoodoo.ch        Oliver Strässer
-#&gt;  9: oliver.straesser@bitvoodoo.ch        Oliver Strässer
-#&gt; 10: oliver.straesser@bitvoodoo.ch        Oliver Strässer
-#&gt; 11: daniele.talerico@bitvoodoo.ch       Daniele Talerico
-#&gt; 12:     sharon.funke@bitvoodoo.ch           Sharon Funke
-#&gt; 13:     sharon.funke@bitvoodoo.ch           Sharon Funke
-#&gt; 14: oliver.straesser@bitvoodoo.ch        Oliver Strässer
-#&gt;                                                            summary
-#&gt;  1: Display issue of standard profile picture in Internet Explorer
-#&gt;  2:                            Congrats - Define performance tests
-#&gt;  3:                                 Congrats Data Center Checklist
-#&gt;  4:              Congrats for Confluence Data Center compatibility
-#&gt;  5:   If max entries is above 100 user icons overlap with Congrats
-#&gt;  6:      "You already congratulated" message missing after refresh
-#&gt;  7:      Add a dialogue for users that urges them to fill in dates
-#&gt;  8:                   Synchronisation with the //Seibert/Media CUP
-#&gt;  9:                 Add an Interface  to configure the sync fields
-#&gt; 10:                        Synchronisation with the Communardo UPP
-#&gt; 11:                       Display of age for birthday configurable
-#&gt; 12:                Do not display inactive users in Congrats Macro
-#&gt; 13:                         Incomplete rendering if placed in tabs
-#&gt; 14:                            Display current event in the center
-#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            description
-#&gt;  1:                                                                                                                                                                                               Steps to reproduce:\r\nEnv: Confluence 6.13.0, Internet Explorer 11\r\n* Person (who doesn't have an own profile picture set) has an occasion (birthday) today\r\n* Congrats Macro is added to a confluence page\r\n\r\nExpected result:\r\nStandard profile picture is shown correctly \r\n\r\nActual result:\r\nStandard profile picture is shown but has the wrong height:\r\n !image-2019-03-25-12-55-02-743.png|thumbnail! \r\n
-#&gt;  2:                                                                                                                                                                                                                                                                                                                                                                   What to test:\r\n* Actions:\r\n** Admin\r\n*** /admin/managecongratsfields.action\r\n*** /admin/managecongratsevents.action\r\n** User Profile\r\n*** /users/profile/editmycongratsfields.action\r\n* REST\r\n** /rest/congrats/1.0/calendar\r\n* Congrats Macro
-#&gt;  3:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               &lt;NA&gt;
-#&gt;  4:                                 h2.Is Congrats for Confluence Data Center compatible?\r\nYes, Congrats for Confluence is Data Center ready but Atlassian removed the previous "Datacenter ready" Badge on 3 September 2018 and introduced the new program for Data Center approved apps. [Find more information here.|https://www.atlassian.com/licensing/data-center-approved-apps]\r\n\r\nAll vendors are required to reevaluate their apps and provide a vast amount of testing data to get the status back.\r\n\r\nIf you would like to speed up the process, to get this app Data Center approved again, vote this ticket up!
-#&gt;  5: If max entries is above 100, the dialog for writing your congratulation overlaps with the user icons.\r\n\r\nWhat I do\r\n* I add the Congrats Macro to a Confluence Page\r\n* I set Max Entries to 110\r\n* I set Days before and/or Event history to at least 110\r\n* I save the page\r\n* Someone has birthday, I click congratulate\r\n* The browser window is not full size\r\n\r\nWhat I expect\r\n* The macro works\r\n* The Congrats screen appears and I can enter my congratulation\r\n\r\nWhat happens instead\r\n* The user Icons overlap with the dialog \r\n\r\n!Screen Shot 2018-07-03 at 10.59.03.png|thumbnail! 
-#&gt;  6:                        What I do:\r\n* I congratulate someone\r\n\r\nWhat I expect\r\n* The reminder I already congratulated is displayed\r\n* The reminder stays there even after refreshing / revisiting the page containing the macro\r\n\r\nWhat happens instead:\r\n* The reminder is not displayed after refreshing the page\r\n* It is possible to press the congratulate button again, after trying to send the message an error occurs\r\n\r\nFurther informations:\r\n* Chrome generates a console error (POST 400) during the error\r\n* This was tested in Confluence 6.2.4 and Confluence 6.7.2 in Chrome and Firefox
-#&gt;  7:                                                                                                                                                                                                                                                           It would be easier for Confluence Administrators if the users fill in their birthdates and other occasions by themselves.\r\n\r\nA dialog / screen for every user asking to add birthday inside the profile or even the dialogue, would be an useful extension to the Add-on.\r\n\r\nThe dialog should be optional, and upon activation it should appear for every user.
-#&gt;  8:                                                                                                                                                                                                                                                                                                The CUP Add-on is stored their synced values as an property of the user too.\r\nhttps://marketplace.atlassian.com/plugins/net.seibertmedia.plugin.confluence.cup/server/overview\r\n\r\nThey can be retrieved by the UserDetailsManager, only the correct key is needed (needs to be configured in the admin dialog in CONGRATS-16)
-#&gt;  9:                                                                                                                                                                                                                                                                                                                                              * How this should be is explained here: https://wiki.bitvoodoo.ch/x/PQe5Aw\r\n* This Issue is only for the implementation  of the configuration\r\n* The Names  of the user profile fields can be entered mannually, without using the 3rd party REST API -&gt; this will be done later 
-#&gt; 10:                                                                                                                                                                                                   Implement a synchronisation for the Communardo User Profile add-on (https://marketplace.atlassian.com/plugins/de.communardo.confluence.plugins.userprofile/server/overview)\r\n\r\nIf you have the field identifier you can retrieve the UPP value like this:\r\nhttps://git.bitvoodoo.ch/projects/BVLIB/repos/confluence-commons-library/browse/src/main/java/ch/bitvoodoo/confluence/commons/search/SearchQueryParser.java#154
-#&gt; 11:                                                                                                                                                                                                                                                                                                                                                                                                                              Please implement a new configuration parameter for the macro:\r\n- display age: true or false\r\n\r\nThis features has impact on the congratulation mask of the macro, see  !snapshot.png|thumbnail! 
-#&gt; 12:                                                                                                                                                                                                                                                                                                               Inactive users will be displayed within the Congrats Macro if one of their occasions will come up. Because they are inactive it makes not really sense to display them there and suggest that other users can congratulate. What about integrating a check about whether a user is active when fetching the entries?
-#&gt; 13:               * Congrats Makro in einem Tab Element (vom ET) platziert\r\n* beim Laden der Seite anderes Tab Element aktiv\r\n* beim Wechsel zum Tab mit dem Congrats Makro scheinen die Ressourcen, vermutlich vor allem das JS nicht richtig geladen zu werden\r\n\r\nScreenshots:\r\n[^tabs_congrats_wrong.png] -&gt; Congrats wird nicht richtig geladen\r\n[^tabs_congrats_right.png] - &gt; Congrats wird richtig geladen, dieser Tab war bereits beim Laden der gesamten Seite aktiv. Wenn jetzt zwischen Tabs hin- und hergewechselt wird, rendert das Congrats korrekt\r\n\r\nStorage Format:\r\n[^tabs_macros.xml]\r\n\r\n\r\n
-#&gt; 14:                                                                                                                                                                                                                                                                                                                                                At the moment the first event is centered, independent of the event date. \r\nFor example: If the macro shows an history of old events (last 3 days), the oldest event is selected, not the event from today. \r\n\r\nImprovement: Display the next event centered, not the oldest.
-#&gt;     assignee    updated   issuetype
-#&gt;  1:       NA 2019-04-12         Bug
-#&gt;  2:       NA 2019-04-12        Task
-#&gt;  3:       NA 2019-01-15        Task
-#&gt;  4:       NA 2019-03-06        Epic
-#&gt;  5:       NA 2019-01-29         Bug
-#&gt;  6:       NA 2019-01-29         Bug
-#&gt;  7:       NA 2017-12-05 New Feature
-#&gt;  8:       NA 2018-09-28       Story
-#&gt;  9:       NA 2018-09-28        Task
-#&gt; 10:       NA 2018-09-28 New Feature
-#&gt; 11:       NA 2017-04-19        Task
-#&gt; 12:       NA 2016-12-14 Improvement
-#&gt; 13:       NA 2019-01-29       Story
-#&gt; 14:       NA 2016-11-30 Improvement
-#&gt;                                                                                                           fixVersions
-#&gt;  1:                                                                                                              &lt;NA&gt;
-#&gt;  2:                                                                                                              &lt;NA&gt;
-#&gt;  3:                                                                                                              &lt;NA&gt;
-#&gt;  4:                                                                                                              &lt;NA&gt;
-#&gt;  5: 1.3.4, 2019-01-29, 26902, FALSE, https://bitvoodoo.atlassian.net/rest/api/2/version/26902, Several bugfixes, TRUE
-#&gt;  6: 1.3.4, 2019-01-29, 26902, FALSE, https://bitvoodoo.atlassian.net/rest/api/2/version/26902, Several bugfixes, TRUE
-#&gt;  7:                                                                                                              &lt;NA&gt;
-#&gt;  8:                                                                                                              &lt;NA&gt;
-#&gt;  9:                                                                                                              &lt;NA&gt;
-#&gt; 10:                                                                                                              &lt;NA&gt;
-#&gt; 11:                 , 1.3.0, 2017-04-18, 26300, FALSE, https://bitvoodoo.atlassian.net/rest/api/2/version/26300, TRUE
-#&gt; 12:                   1.2.2, 2016-12-14, 25600, FALSE, https://bitvoodoo.atlassian.net/rest/api/2/version/25600, TRUE
-#&gt; 13: 1.3.4, 2019-01-29, 26902, FALSE, https://bitvoodoo.atlassian.net/rest/api/2/version/26902, Several bugfixes, TRUE
-#&gt; 14:                             , 1.1.6, 24201, FALSE, https://bitvoodoo.atlassian.net/rest/api/2/version/24201, TRUE
-#&gt;     assignee displayName                 assignee name assignee displayName 1
-#&gt;  1:                 &lt;NA&gt;                          &lt;NA&gt;                   &lt;NA&gt;
-#&gt;  2:       Sascha Häusler  sascha.haeusler@bitvoodoo.ch         Sascha Häusler
-#&gt;  3:         Yuriy Bilash     yuriy.bilash@bitvoodoo.ch           Yuriy Bilash
-#&gt;  4:                 &lt;NA&gt;                          &lt;NA&gt;                   &lt;NA&gt;
-#&gt;  5:         Yuriy Bilash     yuriy.bilash@bitvoodoo.ch           Yuriy Bilash
-#&gt;  6:       Sascha Häusler  sascha.haeusler@bitvoodoo.ch         Sascha Häusler
-#&gt;  7:                 &lt;NA&gt;                          &lt;NA&gt;                   &lt;NA&gt;
-#&gt;  8:                 &lt;NA&gt;                          &lt;NA&gt;                   &lt;NA&gt;
-#&gt;  9:         Yuriy Bilash     yuriy.bilash@bitvoodoo.ch           Yuriy Bilash
-#&gt; 10:         Yuriy Bilash     yuriy.bilash@bitvoodoo.ch           Yuriy Bilash
-#&gt; 11:    Stefanie Neidhart stefanie.fischer@bitvoodoo.ch      Stefanie Neidhart
-#&gt; 12:                 &lt;NA&gt;                          &lt;NA&gt;                   &lt;NA&gt;
-#&gt; 13:       Sascha Häusler  sascha.haeusler@bitvoodoo.ch         Sascha Häusler
-#&gt; 14:      Oliver Strässer oliver.straesser@bitvoodoo.ch        Oliver Strässer</div></pre>
+#&gt;  1: 57849 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57849
+#&gt;  2: 57848 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57848
+#&gt;  3: 57847 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57847
+#&gt;  4: 57810 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57810
+#&gt;  5: 57667 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57667
+#&gt;  6: 57502 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57502
+#&gt;  7: 57446 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57446
+#&gt;  8: 57415 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57415
+#&gt;  9: 57383 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57383
+#&gt; 10: 57327 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57327
+#&gt; 11: 57249 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57249
+#&gt; 12: 57157 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57157
+#&gt; 13: 57041 https://bitvoodoo.atlassian.net/rest/api/latest/issue/57041
+#&gt; 14: 56904 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56904
+#&gt; 15: 56797 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56797
+#&gt; 16: 56796 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56796
+#&gt; 17: 56795 https://bitvoodoo.atlassian.net/rest/api/latest/issue/56795
+#&gt; 18: 55800 https://bitvoodoo.atlassian.net/rest/api/latest/issue/55800
+#&gt; 19: 52800 https://bitvoodoo.atlassian.net/rest/api/latest/issue/52800
+#&gt; 20: 51806 https://bitvoodoo.atlassian.net/rest/api/latest/issue/51806
+#&gt; 21: 50050 https://bitvoodoo.atlassian.net/rest/api/latest/issue/50050
+#&gt;        id                                                        self
+#&gt;             key                                                        summary
+#&gt;  1: CONGRATS-39                              Make the year of birth anonymous 
+#&gt;  2: CONGRATS-38                                 Changing the display of events
+#&gt;  3: CONGRATS-37                           Add additional parameters for Events
+#&gt;  4: CONGRATS-36          UI misaligned when error is displayed in the settings
+#&gt;  5: CONGRATS-32                                           Confluence 7 Support
+#&gt;  6: CONGRATS-30                                      Finish up for marketplace
+#&gt;  7: CONGRATS-29 Display issue of standard profile picture in Internet Explorer
+#&gt;  8: CONGRATS-28                      Occasions change to next user after 12 pm
+#&gt;  9: CONGRATS-27                            Congrats - Define performance tests
+#&gt; 10: CONGRATS-26                                 Congrats Data Center Checklist
+#&gt; 11: CONGRATS-24              Congrats for Confluence Data Center compatibility
+#&gt; 12: CONGRATS-23   If max entries is above 100 user icons overlap with Congrats
+#&gt; 13: CONGRATS-20      "You already congratulated" message missing after refresh
+#&gt; 14: CONGRATS-18      Add a dialogue for users that urges them to fill in dates
+#&gt; 15: CONGRATS-17                   Synchronisation with the //Seibert/Media CUP
+#&gt; 16: CONGRATS-16                 Add an Interface  to configure the sync fields
+#&gt; 17: CONGRATS-15                        Synchronisation with the Communardo UPP
+#&gt; 18: CONGRATS-11                       Display of age for birthday configurable
+#&gt; 19:  CONGRATS-6                Do not display inactive users in Congrats Macro
+#&gt; 20:  CONGRATS-3                         Incomplete rendering if placed in tabs
+#&gt; 21:  CONGRATS-1                            Display current event in the center
+#&gt;             key                                                        summary
+#&gt;                                                 issuetype_self issuetype_id
+#&gt;  1:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/2            2
+#&gt;  2:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/2            2
+#&gt;  3:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/2            2
+#&gt;  4:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/1            1
+#&gt;  5: https://bitvoodoo.atlassian.net/rest/api/2/issuetype/10100        10100
+#&gt;  6:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/3            3
+#&gt;  7:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/1            1
+#&gt;  8:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/1            1
+#&gt;  9:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/3            3
+#&gt; 10:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/3            3
+#&gt; 11: https://bitvoodoo.atlassian.net/rest/api/2/issuetype/10100        10100
+#&gt; 12:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/1            1
+#&gt; 13:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/1            1
+#&gt; 14:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/2            2
+#&gt; 15: https://bitvoodoo.atlassian.net/rest/api/2/issuetype/10200        10200
+#&gt; 16:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/3            3
+#&gt; 17:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/2            2
+#&gt; 18:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/3            3
+#&gt; 19:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/4            4
+#&gt; 20: https://bitvoodoo.atlassian.net/rest/api/2/issuetype/10200        10200
+#&gt; 21:     https://bitvoodoo.atlassian.net/rest/api/2/issuetype/4            4
+#&gt;                                                 issuetype_self issuetype_id
+#&gt;                                                                                issuetype_description
+#&gt;  1:                                     A new feature of the product, which has yet to be developed.
+#&gt;  2:                                     A new feature of the product, which has yet to be developed.
+#&gt;  3:                                     A new feature of the product, which has yet to be developed.
+#&gt;  4:                                A problem which impairs or prevents the functions of the product.
+#&gt;  5: A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.
+#&gt;  6:                                                                    A task that needs to be done.
+#&gt;  7:                                A problem which impairs or prevents the functions of the product.
+#&gt;  8:                                A problem which impairs or prevents the functions of the product.
+#&gt;  9:                                                                    A task that needs to be done.
+#&gt; 10:                                                                    A task that needs to be done.
+#&gt; 11: A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.
+#&gt; 12:                                A problem which impairs or prevents the functions of the product.
+#&gt; 13:                                A problem which impairs or prevents the functions of the product.
+#&gt; 14:                                     A new feature of the product, which has yet to be developed.
+#&gt; 15:                                  A user story. Created by JIRA Software - do not edit or delete.
+#&gt; 16:                                                                    A task that needs to be done.
+#&gt; 17:                                     A new feature of the product, which has yet to be developed.
+#&gt; 18:                                                                    A task that needs to be done.
+#&gt; 19:                                    An improvement or enhancement to an existing feature or task.
+#&gt; 20:                                  A user story. Created by JIRA Software - do not edit or delete.
+#&gt; 21:                                    An improvement or enhancement to an existing feature or task.
+#&gt;                                                                                issuetype_description
+#&gt;                                                                                     issuetype_iconurl
+#&gt;  1: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12271&amp;avatarType=issuetype
+#&gt;  2: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12271&amp;avatarType=issuetype
+#&gt;  3: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12271&amp;avatarType=issuetype
+#&gt;  4: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12263&amp;avatarType=issuetype
+#&gt;  5: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12267&amp;avatarType=issuetype
+#&gt;  6: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12278&amp;avatarType=issuetype
+#&gt;  7: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12263&amp;avatarType=issuetype
+#&gt;  8: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12263&amp;avatarType=issuetype
+#&gt;  9: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12278&amp;avatarType=issuetype
+#&gt; 10: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12278&amp;avatarType=issuetype
+#&gt; 11: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12267&amp;avatarType=issuetype
+#&gt; 12: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12263&amp;avatarType=issuetype
+#&gt; 13: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12263&amp;avatarType=issuetype
+#&gt; 14: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12271&amp;avatarType=issuetype
+#&gt; 15: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12275&amp;avatarType=issuetype
+#&gt; 16: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12278&amp;avatarType=issuetype
+#&gt; 17: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12271&amp;avatarType=issuetype
+#&gt; 18: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12278&amp;avatarType=issuetype
+#&gt; 19: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12270&amp;avatarType=issuetype
+#&gt; 20: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12275&amp;avatarType=issuetype
+#&gt; 21: https://bitvoodoo.atlassian.net/secure/viewavatar?size=medium&amp;avatarId=12270&amp;avatarType=issuetype
+#&gt;                                                                                     issuetype_iconurl
+#&gt;     issuetype_name issuetype_subtask issuetype_avatarid             created
+#&gt;  1:    New Feature             FALSE              12271 2019-11-06 16:02:32
+#&gt;  2:    New Feature             FALSE              12271 2019-11-06 15:52:42
+#&gt;  3:    New Feature             FALSE              12271 2019-11-06 08:57:14
+#&gt;  4:            Bug             FALSE              12263 2019-10-15 14:41:30
+#&gt;  5:           Epic             FALSE              12267 2019-08-26 11:10:25
+#&gt;  6:           Task             FALSE              12278 2019-05-16 15:06:52
+#&gt;  7:            Bug             FALSE              12263 2019-03-25 12:55:12
+#&gt;  8:            Bug             FALSE              12263 2019-02-27 11:39:44
+#&gt;  9:           Task             FALSE              12278 2019-02-04 10:39:08
+#&gt; 10:           Task             FALSE              12278 2018-11-07 14:32:53
+#&gt; 11:           Epic             FALSE              12267 2018-09-12 16:37:16
+#&gt; 12:            Bug             FALSE              12263 2018-07-03 11:05:41
+#&gt; 13:            Bug             FALSE              12263 2018-03-19 16:47:12
+#&gt; 14:    New Feature             FALSE              12271 2017-12-05 11:21:53
+#&gt; 15:          Story             FALSE              12275 2017-09-26 16:08:01
+#&gt; 16:           Task             FALSE              12278 2017-09-26 16:02:30
+#&gt; 17:    New Feature             FALSE              12271 2017-09-26 15:59:11
+#&gt; 18:           Task             FALSE              12278 2017-04-05 14:09:07
+#&gt; 19:    Improvement             FALSE              12270 2016-11-24 11:28:06
+#&gt; 20:          Story             FALSE              12275 2016-10-21 16:15:30
+#&gt; 21:    Improvement             FALSE              12270 2016-08-09 11:52:53
+#&gt;     issuetype_name issuetype_subtask issuetype_avatarid             created
+#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              description
+#&gt;  1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          As a admin I want to ensure the data protection laws by letting the year of birth anonymous. \r\n\r\n \r\n\r\n+Suggestion:+ \r\n\r\nIntroducing a check box "Show the events initial year" 
+#&gt;  2:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     When I am working in a bigger company it is possible that there are dozen of people who are occurring in the event carrousel.\r\n\r\n+Suggestion:+\r\n\r\nAdding new display styles to the configuration. For example a selection:\r\n * Carrousel (Default)\r\n * List\r\n\r\n 
+#&gt;  3:                                                                                                                                                                                                                                                                                                                                                                                              As a Admin I want to configure my congrats occasions that they show only "round" events.\r\n\r\nRight now it is possible to repeat "weekly, Monthly and yearly".\r\n\r\n \r\n\r\nSuggestion:\r\n * Adding further parameters to the configuration like: "every 5 years, every 10 years"\r\n * adding an value to the date which is configured (Birthday DD.MM.YYYY = X Years) to allow round birthdays and other events
+#&gt;  4:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        How to reproduce:\r\n- Install Congrats on any system, in this case Confluence 7.0.2 but same behaviour on 6.15\r\n- Do not install a license in order to receive an error\r\n- Open the Congrats Settings\r\n !image-2019-10-15-14-41-23-545.png|thumbnail! 
+#&gt;  5:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  The app needs to be tested with Confluence 7. \r\nPlease test and watch:\r\n- all macros\r\n- configuration  pages\r\n- export / imports\r\n- log files (warning / stack traces... )\r\n\r\nFor bugs / issues please collect all feedback on a Confluence table with some information how to reproduce these issues
+#&gt;  6:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  7:                                                                                                                                                                                                                                                                                                                                                                                 Steps to reproduce:\r\nEnv: Confluence 6.13.0, Internet Explorer 11\r\n* Person (who doesn't have an own profile picture set) has an occasion (birthday) today\r\n* Congrats Macro is added to a confluence page\r\n\r\nExpected result:\r\nStandard profile picture is shown correctly \r\n\r\nActual result:\r\nStandard profile picture is shown but has the wrong height:\r\n !image-2019-03-25-12-55-02-743.png|thumbnail! \r\n
+#&gt;  8: If a user has for example birthday, the macro is displaying the user on the day of the occasion only till 12:00 at noon. Afterwards the macro displays the nearest user according parameter Days before.\r\n\r\n+What I do:+\r\n* Have the Congrats macros set on a page.\r\n* Have at least two Users with set occasion dates.\r\n* One of the users occasion is today.\r\n* The other users occasion is in the next days according parameter Days before.\r\n* It is past 12:00 pm.\r\n\r\n+What I expect:+\r\n* The user having their occasion is displayed by Congrats.\r\n\r\n+What happens instead:+\r\n* The user which occasion is in the future (nearest date in Days before) is displayed.\r\n\r\nBefore 12:00:\r\n!Conrats morning.png|thumbnail!  \r\n\r\nAfter 12:00:\r\n!Congrats noon.png|thumbnail! 
+#&gt;  9:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  What to test:\r\n* Actions:\r\n** Admin\r\n*** /admin/managecongratsfields.action\r\n*** /admin/managecongratsevents.action\r\n** User Profile\r\n*** /users/profile/editmycongratsfields.action\r\n* REST -&gt; already tested by admin and macro\r\n* Congrats Macro
+#&gt; 10:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 11:                                                                                                                                                                                                                   h2.Is Congrats for Confluence Data Center compatible?\r\nYes, Congrats for Confluence is Data Center ready but Atlassian removed the previous "Datacenter ready" Badge on 3 September 2018 and introduced the new program for Data Center approved apps. [Find more information here.|https://www.atlassian.com/licensing/data-center-approved-apps]\r\n\r\nAll vendors are required to reevaluate their apps and provide a vast amount of testing data to get the status back.\r\n\r\nIf you would like to speed up the process, to get this app Data Center approved again, vote this ticket up!
+#&gt; 12:                                                                                                                                                                                   If max entries is above 100, the dialog for writing your congratulation overlaps with the user icons.\r\n\r\nWhat I do\r\n* I add the Congrats Macro to a Confluence Page\r\n* I set Max Entries to 110\r\n* I set Days before and/or Event history to at least 110\r\n* I save the page\r\n* Someone has birthday, I click congratulate\r\n* The browser window is not full size\r\n\r\nWhat I expect\r\n* The macro works\r\n* The Congrats screen appears and I can enter my congratulation\r\n\r\nWhat happens instead\r\n* The user Icons overlap with the dialog \r\n\r\n!Screen Shot 2018-07-03 at 10.59.03.png|thumbnail! 
+#&gt; 13:                                                                                                                                                                                                          What I do:\r\n* I congratulate someone\r\n\r\nWhat I expect\r\n* The reminder I already congratulated is displayed\r\n* The reminder stays there even after refreshing / revisiting the page containing the macro\r\n\r\nWhat happens instead:\r\n* The reminder is not displayed after refreshing the page\r\n* It is possible to press the congratulate button again, after trying to send the message an error occurs\r\n\r\nFurther informations:\r\n* Chrome generates a console error (POST 400) during the error\r\n* This was tested in Confluence 6.2.4 and Confluence 6.7.2 in Chrome and Firefox
+#&gt; 14:                                                                                                                                                                                                                                                                                                                                                                                                                                             It would be easier for Confluence Administrators if the users fill in their birthdates and other occasions by themselves.\r\n\r\nA dialog / screen for every user asking to add birthday inside the profile or even the dialogue, would be an useful extension to the Add-on.\r\n\r\nThe dialog should be optional, and upon activation it should appear for every user.
+#&gt; 15:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  The CUP Add-on is stored their synced values as an property of the user too.\r\nhttps://marketplace.atlassian.com/plugins/net.seibertmedia.plugin.confluence.cup/server/overview\r\n\r\nThey can be retrieved by the UserDetailsManager, only the correct key is needed (needs to be configured in the admin dialog in CONGRATS-16)
+#&gt; 16:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * How this should be is explained here: https://wiki.bitvoodoo.ch/x/PQe5Aw\r\n* This Issue is only for the implementation  of the configuration\r\n* The Names  of the user profile fields can be entered mannually, without using the 3rd party REST API -&gt; this will be done later 
+#&gt; 17:                                                                                                                                                                                                                                                                                                                                                                                     Implement a synchronisation for the Communardo User Profile add-on (https://marketplace.atlassian.com/plugins/de.communardo.confluence.plugins.userprofile/server/overview)\r\n\r\nIf you have the field identifier you can retrieve the UPP value like this:\r\nhttps://git.bitvoodoo.ch/projects/BVLIB/repos/confluence-commons-library/browse/src/main/java/ch/bitvoodoo/confluence/commons/search/SearchQueryParser.java#154
+#&gt; 18:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Please implement a new configuration parameter for the macro:\r\n- display age: true or false\r\n\r\nThis features has impact on the congratulation mask of the macro, see  !snapshot.png|thumbnail! 
+#&gt; 19:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Inactive users will be displayed within the Congrats Macro if one of their occasions will come up. Because they are inactive it makes not really sense to display them there and suggest that other users can congratulate. What about integrating a check about whether a user is active when fetching the entries?
+#&gt; 20:                                                                                                                                                                                                 * Congrats Makro in einem Tab Element (vom ET) platziert\r\n* beim Laden der Seite anderes Tab Element aktiv\r\n* beim Wechsel zum Tab mit dem Congrats Makro scheinen die Ressourcen, vermutlich vor allem das JS nicht richtig geladen zu werden\r\n\r\nScreenshots:\r\n[^tabs_congrats_wrong.png] -&gt; Congrats wird nicht richtig geladen\r\n[^tabs_congrats_right.png] - &gt; Congrats wird richtig geladen, dieser Tab war bereits beim Laden der gesamten Seite aktiv. Wenn jetzt zwischen Tabs hin- und hergewechselt wird, rendert das Congrats korrekt\r\n\r\nStorage Format:\r\n[^tabs_macros.xml]\r\n\r\n\r\n
+#&gt; 21:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  At the moment the first event is centered, independent of the event date. \r\nFor example: If the macro shows an history of old events (last 3 days), the oldest event is selected, not the event from today. \r\n\r\nImprovement: Display the next event centered, not the oldest.
+#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              description
+#&gt;                                                                                               reporter_self
+#&gt;  1:                      https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=5bd87e48607ed038040197f7
+#&gt;  2:                      https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=5bd87e48607ed038040197f7
+#&gt;  3:                      https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=5bd87e48607ed038040197f7
+#&gt;  4:                      https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=5a1fc096c2f0444e6979dfd2
+#&gt;  5: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt;  6: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt;  7: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A19f30688-2cb7-4a87-8d5c-bad60d415f85
+#&gt;  8: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt;  9: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 10: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 11: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A7733cdf8-30a4-40f2-a0ae-ff41b214ba02
+#&gt; 12: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt; 13: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt; 14: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt; 15: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt; 16: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt; 17: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt; 18: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Ac94fdce7-593e-4aa3-af46-b77be9b02c3d
+#&gt; 19: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A31f5dfb8-8a37-4571-a0c8-c7179fa5d864
+#&gt; 20: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A31f5dfb8-8a37-4571-a0c8-c7179fa5d864
+#&gt; 21: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt;                                                                                               reporter_self
+#&gt;                              reporter_accountid
+#&gt;  1:                    5bd87e48607ed038040197f7
+#&gt;  2:                    5bd87e48607ed038040197f7
+#&gt;  3:                    5bd87e48607ed038040197f7
+#&gt;  4:                    5a1fc096c2f0444e6979dfd2
+#&gt;  5: 557058:a1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt;  6: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt;  7: 557058:19f30688-2cb7-4a87-8d5c-bad60d415f85
+#&gt;  8: 557058:3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt;  9: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 10: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 11: 557058:7733cdf8-30a4-40f2-a0ae-ff41b214ba02
+#&gt; 12: 557058:3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt; 13: 557058:3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt; 14: 557058:3ecd43dd-3c04-4c9a-af50-eea5be18f777
+#&gt; 15: 557058:a1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt; 16: 557058:a1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt; 17: 557058:a1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt; 18: 557058:c94fdce7-593e-4aa3-af46-b77be9b02c3d
+#&gt; 19: 557058:31f5dfb8-8a37-4571-a0c8-c7179fa5d864
+#&gt; 20: 557058:31f5dfb8-8a37-4571-a0c8-c7179fa5d864
+#&gt; 21: 557058:a1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt;                              reporter_accountid
+#&gt;                                                                                                                                                                 reporter_avatarurls_48x48
+#&gt;  1:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=48&amp;s=48
+#&gt;  2:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=48&amp;s=48
+#&gt;  3:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=48&amp;s=48
+#&gt;  4: https://secure.gravatar.com/avatar/923557c02d778220b96ab599ef4af4d0?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-1.png&amp;size=48&amp;s=48
+#&gt;  5:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=48&amp;s=48
+#&gt;  6:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt;  7:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=48&amp;s=48
+#&gt;  8:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=48&amp;s=48
+#&gt;  9:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt; 10:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt; 11:  https://secure.gravatar.com/avatar/697e9248700139d2db998ad13178af72?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FRS-5.png&amp;size=48&amp;s=48
+#&gt; 12:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=48&amp;s=48
+#&gt; 13:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=48&amp;s=48
+#&gt; 14:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=48&amp;s=48
+#&gt; 15:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=48&amp;s=48
+#&gt; 16:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=48&amp;s=48
+#&gt; 17:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=48&amp;s=48
+#&gt; 18:  https://secure.gravatar.com/avatar/d18fa54686411ac1edcfb6c88cd124c1?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDT-2.png&amp;size=48&amp;s=48
+#&gt; 19:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=48&amp;s=48
+#&gt; 20:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=48&amp;s=48
+#&gt; 21:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=48&amp;s=48
+#&gt;                                                                                                                                                                 reporter_avatarurls_48x48
+#&gt;                                                                                                                                                                 reporter_avatarurls_24x24
+#&gt;  1:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=24&amp;s=24
+#&gt;  2:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=24&amp;s=24
+#&gt;  3:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=24&amp;s=24
+#&gt;  4: https://secure.gravatar.com/avatar/923557c02d778220b96ab599ef4af4d0?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-1.png&amp;size=24&amp;s=24
+#&gt;  5:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=24&amp;s=24
+#&gt;  6:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt;  7:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=24&amp;s=24
+#&gt;  8:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=24&amp;s=24
+#&gt;  9:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt; 10:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt; 11:  https://secure.gravatar.com/avatar/697e9248700139d2db998ad13178af72?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FRS-5.png&amp;size=24&amp;s=24
+#&gt; 12:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=24&amp;s=24
+#&gt; 13:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=24&amp;s=24
+#&gt; 14:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=24&amp;s=24
+#&gt; 15:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=24&amp;s=24
+#&gt; 16:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=24&amp;s=24
+#&gt; 17:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=24&amp;s=24
+#&gt; 18:  https://secure.gravatar.com/avatar/d18fa54686411ac1edcfb6c88cd124c1?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDT-2.png&amp;size=24&amp;s=24
+#&gt; 19:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=24&amp;s=24
+#&gt; 20:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=24&amp;s=24
+#&gt; 21:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=24&amp;s=24
+#&gt;                                                                                                                                                                 reporter_avatarurls_24x24
+#&gt;                                                                                                                                                                 reporter_avatarurls_16x16
+#&gt;  1:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=16&amp;s=16
+#&gt;  2:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=16&amp;s=16
+#&gt;  3:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=16&amp;s=16
+#&gt;  4: https://secure.gravatar.com/avatar/923557c02d778220b96ab599ef4af4d0?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-1.png&amp;size=16&amp;s=16
+#&gt;  5:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=16&amp;s=16
+#&gt;  6:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt;  7:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=16&amp;s=16
+#&gt;  8:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=16&amp;s=16
+#&gt;  9:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt; 10:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt; 11:  https://secure.gravatar.com/avatar/697e9248700139d2db998ad13178af72?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FRS-5.png&amp;size=16&amp;s=16
+#&gt; 12:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=16&amp;s=16
+#&gt; 13:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=16&amp;s=16
+#&gt; 14:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=16&amp;s=16
+#&gt; 15:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=16&amp;s=16
+#&gt; 16:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=16&amp;s=16
+#&gt; 17:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=16&amp;s=16
+#&gt; 18:  https://secure.gravatar.com/avatar/d18fa54686411ac1edcfb6c88cd124c1?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDT-2.png&amp;size=16&amp;s=16
+#&gt; 19:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=16&amp;s=16
+#&gt; 20:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=16&amp;s=16
+#&gt; 21:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=16&amp;s=16
+#&gt;                                                                                                                                                                 reporter_avatarurls_16x16
+#&gt;                                                                                                                                                                 reporter_avatarurls_32x32
+#&gt;  1:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=32&amp;s=32
+#&gt;  2:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=32&amp;s=32
+#&gt;  3:   https://secure.gravatar.com/avatar/0f9ba18fa363d2c918e398e9f000944d?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FS-1.png&amp;size=32&amp;s=32
+#&gt;  4: https://secure.gravatar.com/avatar/923557c02d778220b96ab599ef4af4d0?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-1.png&amp;size=32&amp;s=32
+#&gt;  5:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=32&amp;s=32
+#&gt;  6:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt;  7:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=32&amp;s=32
+#&gt;  8:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=32&amp;s=32
+#&gt;  9:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt; 10:               https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt; 11:  https://secure.gravatar.com/avatar/697e9248700139d2db998ad13178af72?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FRS-5.png&amp;size=32&amp;s=32
+#&gt; 12:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=32&amp;s=32
+#&gt; 13:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=32&amp;s=32
+#&gt; 14:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NB-4.png?size=32&amp;s=32
+#&gt; 15:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=32&amp;s=32
+#&gt; 16:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=32&amp;s=32
+#&gt; 17:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=32&amp;s=32
+#&gt; 18:  https://secure.gravatar.com/avatar/d18fa54686411ac1edcfb6c88cd124c1?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FDT-2.png&amp;size=32&amp;s=32
+#&gt; 19:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=32&amp;s=32
+#&gt; 20:  https://secure.gravatar.com/avatar/3aac985535f2398340f6bbc2c3b35a87?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSF-4.png&amp;size=32&amp;s=32
+#&gt; 21:                                                                                  https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=32&amp;s=32
+#&gt;                                                                                                                                                                 reporter_avatarurls_32x32
+#&gt;         reporter_displayname reporter_active reporter_timezone
+#&gt;  1:        sysadmin+backbone            TRUE   America/Chicago
+#&gt;  2:        sysadmin+backbone            TRUE   America/Chicago
+#&gt;  3:        sysadmin+backbone            TRUE   America/Chicago
+#&gt;  4: Stefan Ernst [Bitvoodoo]            TRUE   America/Chicago
+#&gt;  5:         Oliver Straesser            TRUE   America/Chicago
+#&gt;  6:           Sascha Häusler            TRUE   America/Chicago
+#&gt;  7:        Stefanie Neidhart            TRUE   America/Chicago
+#&gt;  8:            Niklas Becker            TRUE     Europe/Zurich
+#&gt;  9:           Sascha Häusler            TRUE   America/Chicago
+#&gt; 10:           Sascha Häusler            TRUE   America/Chicago
+#&gt; 11:            Robin Stohler            TRUE   America/Chicago
+#&gt; 12:            Niklas Becker            TRUE     Europe/Zurich
+#&gt; 13:            Niklas Becker            TRUE     Europe/Zurich
+#&gt; 14:            Niklas Becker            TRUE     Europe/Zurich
+#&gt; 15:         Oliver Straesser            TRUE   America/Chicago
+#&gt; 16:         Oliver Straesser            TRUE   America/Chicago
+#&gt; 17:         Oliver Straesser            TRUE   America/Chicago
+#&gt; 18:         Daniele Talerico            TRUE   America/Chicago
+#&gt; 19:             Sharon Funke           FALSE   America/Chicago
+#&gt; 20:             Sharon Funke           FALSE   America/Chicago
+#&gt; 21:         Oliver Straesser            TRUE   America/Chicago
+#&gt;         reporter_displayname reporter_active reporter_timezone
+#&gt;     reporter_accounttype
+#&gt;  1:            atlassian
+#&gt;  2:            atlassian
+#&gt;  3:            atlassian
+#&gt;  4:            atlassian
+#&gt;  5:            atlassian
+#&gt;  6:            atlassian
+#&gt;  7:            atlassian
+#&gt;  8:            atlassian
+#&gt;  9:            atlassian
+#&gt; 10:            atlassian
+#&gt; 11:            atlassian
+#&gt; 12:            atlassian
+#&gt; 13:            atlassian
+#&gt; 14:            atlassian
+#&gt; 15:            atlassian
+#&gt; 16:            atlassian
+#&gt; 17:            atlassian
+#&gt; 18:            atlassian
+#&gt; 19:            atlassian
+#&gt; 20:            atlassian
+#&gt; 21:            atlassian
+#&gt;     reporter_accounttype
+#&gt;                                                 priority_self
+#&gt;  1: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt;  2: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt;  3: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt;  4: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt;  5: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt;  6: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt;  7: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt;  8:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt;  9: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt; 10: https://bitvoodoo.atlassian.net/rest/api/2/priority/10000
+#&gt; 11:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 12:     https://bitvoodoo.atlassian.net/rest/api/2/priority/4
+#&gt; 13:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 14:     https://bitvoodoo.atlassian.net/rest/api/2/priority/4
+#&gt; 15:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 16:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 17:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 18:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 19:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 20:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt; 21:     https://bitvoodoo.atlassian.net/rest/api/2/priority/3
+#&gt;                                                 priority_self
+#&gt;                                                         priority_iconurl
+#&gt;  1:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt;  2:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt;  3:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt;  4:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt;  5:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt;  6:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt;  7:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt;  8: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt;  9:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt; 10:    https://bitvoodoo.atlassian.net/images/icons/priorities/major.svg
+#&gt; 11: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 12:  https://bitvoodoo.atlassian.net/images/icons/priorities/trivial.svg
+#&gt; 13: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 14:  https://bitvoodoo.atlassian.net/images/icons/priorities/trivial.svg
+#&gt; 15: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 16: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 17: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 18: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 19: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 20: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt; 21: https://bitvoodoo.atlassian.net/images/icons/priorities/critical.svg
+#&gt;                                                         priority_iconurl
+#&gt;     priority_name priority_id             updated
+#&gt;  1:        Normal       10000 2019-11-06 16:05:27
+#&gt;  2:        Normal       10000 2019-11-06 16:05:40
+#&gt;  3:        Normal       10000 2019-11-06 09:09:36
+#&gt;  4:        Normal       10000 2019-10-29 09:32:08
+#&gt;  5:        Normal       10000 2019-09-23 16:33:36
+#&gt;  6:        Normal       10000 2019-07-09 09:15:31
+#&gt;  7:        Normal       10000 2019-09-24 21:09:45
+#&gt;  8:         Major           3 2019-05-20 09:11:13
+#&gt;  9:        Normal       10000 2019-05-02 08:44:48
+#&gt; 10:        Normal       10000 2019-01-15 15:00:33
+#&gt; 11:         Major           3 2020-02-03 08:18:38
+#&gt; 12:         Minor           4 2019-01-29 08:25:51
+#&gt; 13:         Major           3 2019-01-29 08:25:51
+#&gt; 14:         Minor           4 2017-12-05 11:36:59
+#&gt; 15:         Major           3 2019-10-25 12:28:29
+#&gt; 16:         Major           3 2019-09-30 11:44:27
+#&gt; 17:         Major           3 2019-10-28 16:35:48
+#&gt; 18:         Major           3 2017-04-19 08:19:25
+#&gt; 19:         Major           3 2020-02-19 09:01:57
+#&gt; 20:         Major           3 2019-01-29 08:25:51
+#&gt; 21:         Major           3 2016-11-30 11:40:07
+#&gt;     priority_name priority_id             updated
+#&gt;                                             status_self
+#&gt;  1: https://bitvoodoo.atlassian.net/rest/api/2/status/1
+#&gt;  2: https://bitvoodoo.atlassian.net/rest/api/2/status/1
+#&gt;  3: https://bitvoodoo.atlassian.net/rest/api/2/status/1
+#&gt;  4: https://bitvoodoo.atlassian.net/rest/api/2/status/5
+#&gt;  5: https://bitvoodoo.atlassian.net/rest/api/2/status/5
+#&gt;  6: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt;  7: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt;  8: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt;  9: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 10: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 11: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 12: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 13: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 14: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 15: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 16: https://bitvoodoo.atlassian.net/rest/api/2/status/5
+#&gt; 17: https://bitvoodoo.atlassian.net/rest/api/2/status/5
+#&gt; 18: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 19: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 20: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt; 21: https://bitvoodoo.atlassian.net/rest/api/2/status/6
+#&gt;                                             status_self
+#&gt;                                                                                                                 status_description
+#&gt;  1:                                                              The issue is open and ready for the assignee to start work on it.
+#&gt;  2:                                                              The issue is open and ready for the assignee to start work on it.
+#&gt;  3:                                                              The issue is open and ready for the assignee to start work on it.
+#&gt;  4: A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.
+#&gt;  5: A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.
+#&gt;  6:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt;  7:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt;  8:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt;  9:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 10:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 11:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 12:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 13:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 14:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 15:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 16: A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.
+#&gt; 17: A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.
+#&gt; 18:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 19:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 20:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt; 21:                          The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.
+#&gt;                                                                                                                 status_description
+#&gt;                                                         status_iconurl
+#&gt;  1:     https://bitvoodoo.atlassian.net/images/icons/statuses/open.png
+#&gt;  2:     https://bitvoodoo.atlassian.net/images/icons/statuses/open.png
+#&gt;  3:     https://bitvoodoo.atlassian.net/images/icons/statuses/open.png
+#&gt;  4: https://bitvoodoo.atlassian.net/images/icons/statuses/resolved.png
+#&gt;  5: https://bitvoodoo.atlassian.net/images/icons/statuses/resolved.png
+#&gt;  6:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt;  7:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt;  8:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt;  9:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 10:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 11:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 12:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 13:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 14:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 15:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 16: https://bitvoodoo.atlassian.net/images/icons/statuses/resolved.png
+#&gt; 17: https://bitvoodoo.atlassian.net/images/icons/statuses/resolved.png
+#&gt; 18:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 19:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 20:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt; 21:   https://bitvoodoo.atlassian.net/images/icons/statuses/closed.png
+#&gt;                                                         status_iconurl
+#&gt;          status_name status_id
+#&gt;  1:             Open         1
+#&gt;  2:             Open         1
+#&gt;  3:             Open         1
+#&gt;  4: Awaiting Release         5
+#&gt;  5: Awaiting Release         5
+#&gt;  6:           Closed         6
+#&gt;  7:           Closed         6
+#&gt;  8:           Closed         6
+#&gt;  9:           Closed         6
+#&gt; 10:           Closed         6
+#&gt; 11:           Closed         6
+#&gt; 12:           Closed         6
+#&gt; 13:           Closed         6
+#&gt; 14:           Closed         6
+#&gt; 15:           Closed         6
+#&gt; 16: Awaiting Release         5
+#&gt; 17: Awaiting Release         5
+#&gt; 18:           Closed         6
+#&gt; 19:           Closed         6
+#&gt; 20:           Closed         6
+#&gt; 21:           Closed         6
+#&gt;          status_name status_id
+#&gt;                                      status_statuscategory_self
+#&gt;  1: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/2
+#&gt;  2: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/2
+#&gt;  3: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/2
+#&gt;  4: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt;  5: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt;  6: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt;  7: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt;  8: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt;  9: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 10: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 11: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 12: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 13: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 14: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 15: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 16: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 17: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 18: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 19: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 20: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt; 21: https://bitvoodoo.atlassian.net/rest/api/2/statuscategory/3
+#&gt;                                      status_statuscategory_self
+#&gt;     status_statuscategory_id status_statuscategory_key
+#&gt;  1:                        2                       new
+#&gt;  2:                        2                       new
+#&gt;  3:                        2                       new
+#&gt;  4:                        3                      done
+#&gt;  5:                        3                      done
+#&gt;  6:                        3                      done
+#&gt;  7:                        3                      done
+#&gt;  8:                        3                      done
+#&gt;  9:                        3                      done
+#&gt; 10:                        3                      done
+#&gt; 11:                        3                      done
+#&gt; 12:                        3                      done
+#&gt; 13:                        3                      done
+#&gt; 14:                        3                      done
+#&gt; 15:                        3                      done
+#&gt; 16:                        3                      done
+#&gt; 17:                        3                      done
+#&gt; 18:                        3                      done
+#&gt; 19:                        3                      done
+#&gt; 20:                        3                      done
+#&gt; 21:                        3                      done
+#&gt;     status_statuscategory_id status_statuscategory_key
+#&gt;     status_statuscategory_colorname status_statuscategory_name
+#&gt;  1:                       blue-gray                      To Do
+#&gt;  2:                       blue-gray                      To Do
+#&gt;  3:                       blue-gray                      To Do
+#&gt;  4:                           green                       Done
+#&gt;  5:                           green                       Done
+#&gt;  6:                           green                       Done
+#&gt;  7:                           green                       Done
+#&gt;  8:                           green                       Done
+#&gt;  9:                           green                       Done
+#&gt; 10:                           green                       Done
+#&gt; 11:                           green                       Done
+#&gt; 12:                           green                       Done
+#&gt; 13:                           green                       Done
+#&gt; 14:                           green                       Done
+#&gt; 15:                           green                       Done
+#&gt; 16:                           green                       Done
+#&gt; 17:                           green                       Done
+#&gt; 18:                           green                       Done
+#&gt; 19:                           green                       Done
+#&gt; 20:                           green                       Done
+#&gt; 21:                           green                       Done
+#&gt;     status_statuscategory_colorname status_statuscategory_name
+#&gt;                                                                                               assignee_self
+#&gt;  1:                                                                                                    &lt;NA&gt;
+#&gt;  2:                                                                                                    &lt;NA&gt;
+#&gt;  3:                                                                                                    &lt;NA&gt;
+#&gt;  4: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A970cb743-367a-4183-a64b-f9b0ba056728
+#&gt;  5:                                                                                                    &lt;NA&gt;
+#&gt;  6: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt;  7: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aee8661e9-7888-4408-bff0-a393376a81c8
+#&gt;  8: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A970cb743-367a-4183-a64b-f9b0ba056728
+#&gt;  9: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 10: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A970cb743-367a-4183-a64b-f9b0ba056728
+#&gt; 11:                                                                                                    &lt;NA&gt;
+#&gt; 12: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A970cb743-367a-4183-a64b-f9b0ba056728
+#&gt; 13: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 14:                                                                                                    &lt;NA&gt;
+#&gt; 15:                                                                                                    &lt;NA&gt;
+#&gt; 16: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 17: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 18: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A19f30688-2cb7-4a87-8d5c-bad60d415f85
+#&gt; 19:                                                                                                    &lt;NA&gt;
+#&gt; 20: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 21: https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt;                                                                                               assignee_self
+#&gt;                              assignee_accountid
+#&gt;  1:                                        &lt;NA&gt;
+#&gt;  2:                                        &lt;NA&gt;
+#&gt;  3:                                        &lt;NA&gt;
+#&gt;  4: 557058:970cb743-367a-4183-a64b-f9b0ba056728
+#&gt;  5:                                        &lt;NA&gt;
+#&gt;  6: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt;  7: 557058:ee8661e9-7888-4408-bff0-a393376a81c8
+#&gt;  8: 557058:970cb743-367a-4183-a64b-f9b0ba056728
+#&gt;  9: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 10: 557058:970cb743-367a-4183-a64b-f9b0ba056728
+#&gt; 11:                                        &lt;NA&gt;
+#&gt; 12: 557058:970cb743-367a-4183-a64b-f9b0ba056728
+#&gt; 13: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 14:                                        &lt;NA&gt;
+#&gt; 15:                                        &lt;NA&gt;
+#&gt; 16: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 17: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 18: 557058:19f30688-2cb7-4a87-8d5c-bad60d415f85
+#&gt; 19:                                        &lt;NA&gt;
+#&gt; 20: 557058:93861ae3-0dc1-4950-b513-e4e7812071c6
+#&gt; 21: 557058:a1641b35-a550-4a7a-a3cc-84fe0959b999
+#&gt;                              assignee_accountid
+#&gt;                                                                                                                                                                assignee_avatarurls_48x48
+#&gt;  1:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  2:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  3:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  4:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=48&amp;s=48
+#&gt;  5:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  6:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt;  7: https://secure.gravatar.com/avatar/5a8406e6ea41d6f907bebcf35f7b7163?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSP-1.png&amp;size=48&amp;s=48
+#&gt;  8:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=48&amp;s=48
+#&gt;  9:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt; 10:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=48&amp;s=48
+#&gt; 11:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 12:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=48&amp;s=48
+#&gt; 13:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt; 14:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 15:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 16:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt; 17:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt; 18:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=48&amp;s=48
+#&gt; 19:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 20:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=48&amp;s=48
+#&gt; 21:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=48&amp;s=48
+#&gt;                                                                                                                                                                assignee_avatarurls_48x48
+#&gt;                                                                                                                                                                assignee_avatarurls_24x24
+#&gt;  1:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  2:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  3:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  4:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=24&amp;s=24
+#&gt;  5:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  6:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt;  7: https://secure.gravatar.com/avatar/5a8406e6ea41d6f907bebcf35f7b7163?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSP-1.png&amp;size=24&amp;s=24
+#&gt;  8:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=24&amp;s=24
+#&gt;  9:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt; 10:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=24&amp;s=24
+#&gt; 11:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 12:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=24&amp;s=24
+#&gt; 13:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt; 14:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 15:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 16:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt; 17:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt; 18:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=24&amp;s=24
+#&gt; 19:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 20:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=24&amp;s=24
+#&gt; 21:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=24&amp;s=24
+#&gt;                                                                                                                                                                assignee_avatarurls_24x24
+#&gt;                                                                                                                                                                assignee_avatarurls_16x16
+#&gt;  1:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  2:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  3:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  4:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=16&amp;s=16
+#&gt;  5:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  6:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt;  7: https://secure.gravatar.com/avatar/5a8406e6ea41d6f907bebcf35f7b7163?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSP-1.png&amp;size=16&amp;s=16
+#&gt;  8:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=16&amp;s=16
+#&gt;  9:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt; 10:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=16&amp;s=16
+#&gt; 11:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 12:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=16&amp;s=16
+#&gt; 13:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt; 14:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 15:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 16:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt; 17:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt; 18:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=16&amp;s=16
+#&gt; 19:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 20:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=16&amp;s=16
+#&gt; 21:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=16&amp;s=16
+#&gt;                                                                                                                                                                assignee_avatarurls_16x16
+#&gt;                                                                                                                                                                assignee_avatarurls_32x32
+#&gt;  1:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  2:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  3:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  4:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=32&amp;s=32
+#&gt;  5:                                                                                                                                                                                 &lt;NA&gt;
+#&gt;  6:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt;  7: https://secure.gravatar.com/avatar/5a8406e6ea41d6f907bebcf35f7b7163?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FSP-1.png&amp;size=32&amp;s=32
+#&gt;  8:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=32&amp;s=32
+#&gt;  9:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt; 10:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=32&amp;s=32
+#&gt; 11:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 12:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/YB-4.png?size=32&amp;s=32
+#&gt; 13:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt; 14:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 15:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 16:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt; 17:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt; 18:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/SN-6.png?size=32&amp;s=32
+#&gt; 19:                                                                                                                                                                                 &lt;NA&gt;
+#&gt; 20:              https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:93861ae3-0dc1-4950-b513-e4e7812071c6/3786f5a7-0b41-4036-92fc-3203efa8d5d0/128?size=32&amp;s=32
+#&gt; 21:                                                                                 https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/OS-2.png?size=32&amp;s=32
+#&gt;                                                                                                                                                                assignee_avatarurls_32x32
+#&gt;     assignee_displayname assignee_active assignee_timezone assignee_accounttype
+#&gt;  1:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  2:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  3:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  4:         Yuriy Bilash            TRUE   America/Chicago            atlassian
+#&gt;  5:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt;  6:       Sascha Häusler            TRUE   America/Chicago            atlassian
+#&gt;  7:       Srdjan Panovic            TRUE   America/Chicago            atlassian
+#&gt;  8:         Yuriy Bilash            TRUE   America/Chicago            atlassian
+#&gt;  9:       Sascha Häusler            TRUE   America/Chicago            atlassian
+#&gt; 10:         Yuriy Bilash            TRUE   America/Chicago            atlassian
+#&gt; 11:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 12:         Yuriy Bilash            TRUE   America/Chicago            atlassian
+#&gt; 13:       Sascha Häusler            TRUE   America/Chicago            atlassian
+#&gt; 14:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 15:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 16:       Sascha Häusler            TRUE   America/Chicago            atlassian
+#&gt; 17:       Sascha Häusler            TRUE   America/Chicago            atlassian
+#&gt; 18:    Stefanie Neidhart            TRUE   America/Chicago            atlassian
+#&gt; 19:                 &lt;NA&gt;              NA              &lt;NA&gt;                 &lt;NA&gt;
+#&gt; 20:       Sascha Häusler            TRUE   America/Chicago            atlassian
+#&gt; 21:     Oliver Straesser            TRUE   America/Chicago            atlassian
+#&gt;     assignee_displayname assignee_active assignee_timezone assignee_accounttype
+#&gt;                                             fixVersions_self fixVersions_id
+#&gt;  1:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt;  2:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt;  3:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt;  4:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt;  5: https://bitvoodoo.atlassian.net/rest/api/2/version/26954          26954
+#&gt;  6:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt;  7: https://bitvoodoo.atlassian.net/rest/api/2/version/26934          26934
+#&gt;  8: https://bitvoodoo.atlassian.net/rest/api/2/version/26934          26934
+#&gt;  9:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt; 10:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt; 11:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt; 12: https://bitvoodoo.atlassian.net/rest/api/2/version/26902          26902
+#&gt; 13: https://bitvoodoo.atlassian.net/rest/api/2/version/26902          26902
+#&gt; 14:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt; 15:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt; 16:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt; 17:                                                     &lt;NA&gt;           &lt;NA&gt;
+#&gt; 18: https://bitvoodoo.atlassian.net/rest/api/2/version/26300          26300
+#&gt; 19: https://bitvoodoo.atlassian.net/rest/api/2/version/25600          25600
+#&gt; 20: https://bitvoodoo.atlassian.net/rest/api/2/version/26902          26902
+#&gt; 21: https://bitvoodoo.atlassian.net/rest/api/2/version/24201          24201
+#&gt;                                             fixVersions_self fixVersions_id
+#&gt;     fixVersions_name fixVersions_archived fixVersions_released
+#&gt;  1:             &lt;NA&gt;                   NA                   NA
+#&gt;  2:             &lt;NA&gt;                   NA                   NA
+#&gt;  3:             &lt;NA&gt;                   NA                   NA
+#&gt;  4:             &lt;NA&gt;                   NA                   NA
+#&gt;  5:            1.5.0                FALSE                FALSE
+#&gt;  6:             &lt;NA&gt;                   NA                   NA
+#&gt;  7:            1.4.0                FALSE                 TRUE
+#&gt;  8:            1.4.0                FALSE                 TRUE
+#&gt;  9:             &lt;NA&gt;                   NA                   NA
+#&gt; 10:             &lt;NA&gt;                   NA                   NA
+#&gt; 11:             &lt;NA&gt;                   NA                   NA
+#&gt; 12:            1.3.4                FALSE                 TRUE
+#&gt; 13:            1.3.4                FALSE                 TRUE
+#&gt; 14:             &lt;NA&gt;                   NA                   NA
+#&gt; 15:             &lt;NA&gt;                   NA                   NA
+#&gt; 16:             &lt;NA&gt;                   NA                   NA
+#&gt; 17:             &lt;NA&gt;                   NA                   NA
+#&gt; 18:            1.3.0                FALSE                 TRUE
+#&gt; 19:            1.2.2                FALSE                 TRUE
+#&gt; 20:            1.3.4                FALSE                 TRUE
+#&gt; 21:            1.1.6                FALSE                 TRUE
+#&gt;     fixVersions_name fixVersions_archived fixVersions_released
+#&gt;     fixVersions_description fixVersions_releasedate
+#&gt;  1:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt;  2:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt;  3:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt;  4:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt;  5:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt;  6:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt;  7:               Bugfixing              2019-05-20
+#&gt;  8:               Bugfixing              2019-05-20
+#&gt;  9:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt; 10:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt; 11:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt; 12:        Several bugfixes              2019-01-29
+#&gt; 13:        Several bugfixes              2019-01-29
+#&gt; 14:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt; 15:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt; 16:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt; 17:                    &lt;NA&gt;                    &lt;NA&gt;
+#&gt; 18:                                      2017-04-18
+#&gt; 19:                    &lt;NA&gt;              2016-12-14
+#&gt; 20:        Several bugfixes              2019-01-29
+#&gt; 21:                                            &lt;NA&gt;
+#&gt;     fixVersions_description fixVersions_releasedate</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#warning">Warning</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Matthias Brenninkmeijer <a href='https://github.com/matbmeijer'>Github</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -309,13 +1008,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

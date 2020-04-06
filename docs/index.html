@@ -6,20 +6,27 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JIRA REST API Wrapper for R • JirAgileR</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="JIRA REST API Wrapper for R">
-<meta property="og:description" content="Allows you to interact with JIRA REST API to analyze the data in R.">
+<meta property="og:description" content="Allows to interact with the JIRA REST API to analyze the data in R.">
 <meta property="og:image" content="/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
-    <div class="container template-article">
+<body data-spy="scroll" data-target="#toc">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -31,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">JirAgileR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.92</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
       </span>
     </div>
 
@@ -39,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -49,8 +56,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/matbmeijer/JirAgileR">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/matbmeijer/JirAgileR/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -63,184 +70,299 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
+      </header><div class="row">
+  <div class="contents col-md-9">
 <div id="jiragiler" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#jiragiler" class="anchor"></a>JirAgileR<img src="https://raw.githubusercontent.com/matbmeijer/JirAgileR/master/man/figures/logo.png" align="right" height="140/">
+<a href="#jiragiler" class="anchor"></a>JirAgileR<img src="reference/figures/logo.png" align="right" height="140/">
 </h1></div>
 
 <div id="objective" class="section level2">
 <h2 class="hasAnchor">
 <a href="#objective" class="anchor"></a>Objective</h2>
-<p><strong>JirAgileR</strong> is a <strong>R package</strong> with the objective to bring the power of the project management tool <strong>JIRA</strong> to <strong>R</strong>. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/">JIRA’s REST API</a>, allowing users to analyze proyects or issues from JIRA in R. The underlying powertrain of the API is the <em><strong>Jira Query Language</strong> (JQL)</em>. You can find more information about it <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">here</a>. All used functions return as a result a <code>data.frame</code>.</p>
-<p>–&gt; More information about the package can be found <a href="https://matbmeijer.github.io/JirAgileR/">here</a>.</p>
-<div id="functionalities-as-of-12-of-april-2019" class="section level3">
+<p>The <strong>JirAgileR</strong> R package has the mission to bring the power of the project management tool 🔧 <strong>JIRA</strong> to <strong>R</strong>. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/">JIRA’s REST API</a>, allowing users to easily analyze JIRA proyects and issues from within R. The underlying powertrain of the API is the <em><strong>Jira Query Language</strong> (JQL)</em>. You can find more information about it <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">here</a>.</p>
+<figure><p><img src="reference/figures/process.png" style="width:469px;height=184px"></p>
+<figcaption><p><a href="https://r4ds.had.co.nz/"><i>Source: R For Data Science - Hadley Wickham</i></a></p>
+</figcaption></figure><p>The focus of this package lies in the following workflow aspects:</p>
+<ul>
+<li><strong>Import</strong></li>
+<li><strong>Tidy</strong></li>
+</ul>
+<p>Hence, for easy transformation and manipulation, each function returns a <code>data.frame</code> with <strong>tidy data</strong>, following main rules where each row is a single observation of an <strong>issue</strong> or a <strong>project</strong>, each column is a variable and each value must have its own cell.</p>
+<p>More information about the package can be found <a href="https://matbmeijer.github.io/JirAgileR/">here</a>.</p>
+<div id="functionalities-as-of-06-of-april-2020" class="section level3">
 <h3 class="hasAnchor">
-<a href="#functionalities-as-of-12-of-april-2019" class="anchor"></a>Functionalities as of 12 of April, 2019</h3>
-<ol style="list-style-type: decimal">
+<a href="#functionalities-as-of-06-of-april-2020" class="anchor"></a>Functionalities as of 06 of April, 2020</h3>
+<ol>
 <li>Extract all project names with their basic information (e.g. Name, ID, Key, Type, Category etc.).</li>
-<li>Extract all issues specific to a user defined JIRA query (it allows to use both JIRA’s default fields as well as user defined custom JIRA fields).</li>
-<li>Extract comments and comments’ details from JIRA issues.</li>
+<li>Retrieve all issues specific to a user defined JIRA query with hand-picked fields and all the associated information. Currently, the package supports the following JIRA fields:
+<ul>
+<li><em>aggregateprogress</em></li>
+<li><em>aggregatetimeestimate</em></li>
+<li><em>aggregatetimespent</em></li>
+<li><em>assignee</em></li>
+<li><em>comment</em></li>
+<li><em>components</em></li>
+<li><em>created</em></li>
+<li><em>creator</em></li>
+<li><em>description</em></li>
+<li><em>duedate</em></li>
+<li><em>environment</em></li>
+<li><em>fixVersions</em></li>
+<li><em>issuelinks</em></li>
+<li><em>issuetype</em></li>
+<li><em>labels</em></li>
+<li><em>lastViewed</em></li>
+<li><em>priority</em></li>
+<li><em>progress</em></li>
+<li><em>project</em></li>
+<li><em>reporter</em></li>
+<li><em>resolution</em></li>
+<li><em>resolutiondate</em></li>
+<li><em>status</em></li>
+<li><em>summary</em></li>
+<li><em>timeestimate</em></li>
+<li><em>timespent</em></li>
+<li><em>updated</em></li>
+<li><em>versions</em></li>
+<li><em>votes</em></li>
+<li><em>watches</em></li>
+<li><em>workratio</em></li>
+</ul>
+</li>
 </ol>
+<div id="note" class="section level5">
+<h5 class="hasAnchor">
+<a href="#note" class="anchor"></a>Note</h5>
+<ol>
+<li>To get all the information about the supported JQL fields visit the folling <a href="https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/">link</a> The package supports extracting comments, yet as one issue may contain multiple comments, the <code>data.frame</code> is flattened to a combination of issues and comments. Thus, the information of an issue may be repeated the number of comments each issue has.</li>
+</ol>
+</div>
 </div>
 <div id="roadmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#roadmap" class="anchor"></a>Roadmap</h3>
-<ol style="list-style-type: decimal">
-<li>Define integrated <em>Reference Classes</em> within the package</li>
-<li>Include <em>pipes</em> to facilitate analysis</li>
-<li>Include plotting graphs</li>
-</ol>
+<ul>
+<li>🔲 Define integrated <em>Reference Classes</em> within the package</li>
+<li>🔲 Include plotting graphs 📊</li>
+<li>🔲 Abilty to save domain, username &amp; password as secret tokens in environment 🔐</li>
+<li>🔲 Abilty to obtain all available JIRA fields of a project</li>
+<li>🔲 Remove <code>data.table</code> dependency</li>
+<li>✅ Include <em>pipes</em> to facilitate analysis</li>
+<li>✅ Improve package robustness</li>
+<li>✅ Include http status error codes</li>
+<li>✅ Give user visibility of supported fields</li>
+</ul>
 </div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the latest release of this package from <a href="https://github.com/matbmeijer/JirAgileR">Github</a> with the following commands in <code>R</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"matbmeijer/JirAgileR"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"matbmeijer/JirAgileR"</span>)</pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>This is a basic example which shows you how to obtain a simple table of issues of a project and create a tabular report. You will need a username and your password to authenticate in your domain. Possible fields to obtain (which will populate the <code>data.frame</code> columns) can be found <a href="https://confluence.atlassian.com/adminjiraserver071/issue-fields-and-statuses-802592413.html">here</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(JirAgileR, <span class="dt">quietly =</span> T)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(knitr, <span class="dt">quietly =</span> T)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">Domain &lt;-<span class="st"> "https://bitvoodoo.atlassian.net"</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">JQL_query &lt;-<span class="st"> "project='CONGRATS'"</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">Search_field &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"summary"</span>,<span class="st">"created"</span>, <span class="st">"status"</span>)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># Other possible fields are for example c("project", "key", "type", "priority", "resolution", "labels", "description", "links")</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">df&lt;-<span class="kw"><a href="reference/JiraQuery2R.html">JiraQuery2R</a></span>(<span class="dt">domain =</span> Domain, <span class="dt">query =</span> JQL_query, <span class="dt">fields =</span> Search_field)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(df, <span class="dt">row.names =</span> F, <span class="dt">padding =</span> <span class="dv">0</span>)</a></code></pre></div>
-<table class="table table">
+<p>This is a basic example which shows you how to obtain a simple table of issues of a project and create a tabular report. Most of the times, you will need a username and your password to authenticate in your domain. Possible fields to obtain (which will populate the <code>data.frame</code> columns) can be found <a href="https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/">here</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">JirAgileR</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
+
+<span class="no">Domain</span> <span class="kw">&lt;-</span> <span class="st">"https://bitvoodoo.atlassian.net"</span>
+<span class="no">JQL_query</span> <span class="kw">&lt;-</span> <span class="st">"project='CONGRATS'"</span>
+<span class="no">Search_field</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summary"</span>,<span class="st">"created"</span>, <span class="st">"status"</span>)
+<span class="co"># Other possible fields are for example c("project", "key", "type", "priority", "resolution", "labels", "description", "links")</span>
+
+<span class="fu"><a href="reference/JiraQuery2R.html">JiraQuery2R</a></span>(<span class="kw">domain</span> <span class="kw">=</span> <span class="no">Domain</span>, <span class="kw">query</span> <span class="kw">=</span> <span class="no">JQL_query</span>, <span class="kw">fields</span> <span class="kw">=</span> <span class="no">Search_field</span>) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">key</span>, <span class="no">summary</span>, <span class="no">created</span>, <span class="no">status_name</span>, <span class="no">status_description</span>, <span class="no">status_statuscategory_name</span>) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">row.names</span> <span class="kw">=</span> <span class="no">F</span>, <span class="kw">padding</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></div>
+<table class="table">
+<colgroup>
+<col width="4%">
+<col width="23%">
+<col width="7%">
+<col width="6%">
+<col width="48%">
+<col width="10%">
+</colgroup>
 <thead><tr class="header">
-<th align="left">id</th>
-<th align="left">self</th>
 <th align="left">key</th>
 <th align="left">summary</th>
 <th align="left">created</th>
-<th align="left">status</th>
+<th align="left">status_name</th>
+<th align="left">status_description</th>
+<th>status_statuscategory_name</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">57446</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/57446" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/57446</a></td>
+<td align="left">CONGRATS-39</td>
+<td align="left">Make the year of birth anonymous</td>
+<td align="left">2019-11-06 16:02:32</td>
+<td align="left">Open</td>
+<td align="left">The issue is open and ready for the assignee to start work on it.</td>
+<td>To Do</td>
+</tr>
+<tr class="even">
+<td align="left">CONGRATS-38</td>
+<td align="left">Changing the display of events</td>
+<td align="left">2019-11-06 15:52:42</td>
+<td align="left">Open</td>
+<td align="left">The issue is open and ready for the assignee to start work on it.</td>
+<td>To Do</td>
+</tr>
+<tr class="odd">
+<td align="left">CONGRATS-37</td>
+<td align="left">Add additional parameters for Events</td>
+<td align="left">2019-11-06 08:57:14</td>
+<td align="left">Open</td>
+<td align="left">The issue is open and ready for the assignee to start work on it.</td>
+<td>To Do</td>
+</tr>
+<tr class="even">
+<td align="left">CONGRATS-36</td>
+<td align="left">UI misaligned when error is displayed in the settings</td>
+<td align="left">2019-10-15 14:41:30</td>
+<td align="left">Awaiting Release</td>
+<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
+<td>Done</td>
+</tr>
+<tr class="odd">
+<td align="left">CONGRATS-32</td>
+<td align="left">Confluence 7 Support</td>
+<td align="left">2019-08-26 11:10:25</td>
+<td align="left">Awaiting Release</td>
+<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
+<td>Done</td>
+</tr>
+<tr class="even">
+<td align="left">CONGRATS-30</td>
+<td align="left">Finish up for marketplace</td>
+<td align="left">2019-05-16 15:06:52</td>
+<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
+</tr>
+<tr class="odd">
 <td align="left">CONGRATS-29</td>
 <td align="left">Display issue of standard profile picture in Internet Explorer</td>
-<td align="left">2019-03-25</td>
-<td align="left">Open</td>
+<td align="left">2019-03-25 12:55:12</td>
+<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
 <tr class="even">
-<td align="left">57383</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/57383" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/57383</a></td>
+<td align="left">CONGRATS-28</td>
+<td align="left">Occasions change to next user after 12 pm</td>
+<td align="left">2019-02-27 11:39:44</td>
+<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
+</tr>
+<tr class="odd">
 <td align="left">CONGRATS-27</td>
 <td align="left">Congrats - Define performance tests</td>
-<td align="left">2019-02-04</td>
-<td align="left">In Progress</td>
+<td align="left">2019-02-04 10:39:08</td>
+<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
-<tr class="odd">
-<td align="left">57327</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/57327" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/57327</a></td>
+<tr class="even">
 <td align="left">CONGRATS-26</td>
 <td align="left">Congrats Data Center Checklist</td>
-<td align="left">2018-11-07</td>
+<td align="left">2018-11-07 14:32:53</td>
 <td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
-<tr class="even">
-<td align="left">57249</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/57249" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/57249</a></td>
+<tr class="odd">
 <td align="left">CONGRATS-24</td>
 <td align="left">Congrats for Confluence Data Center compatibility</td>
-<td align="left">2018-09-12</td>
-<td align="left">In Progress</td>
+<td align="left">2018-09-12 16:37:16</td>
+<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
-<tr class="odd">
-<td align="left">57157</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/57157" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/57157</a></td>
+<tr class="even">
 <td align="left">CONGRATS-23</td>
 <td align="left">If max entries is above 100 user icons overlap with Congrats</td>
-<td align="left">2018-07-03</td>
+<td align="left">2018-07-03 11:05:41</td>
 <td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
-<tr class="even">
-<td align="left">57041</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/57041" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/57041</a></td>
+<tr class="odd">
 <td align="left">CONGRATS-20</td>
 <td align="left">“You already congratulated” message missing after refresh</td>
-<td align="left">2018-03-19</td>
+<td align="left">2018-03-19 16:47:12</td>
 <td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
-<tr class="odd">
-<td align="left">56904</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/56904" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/56904</a></td>
+<tr class="even">
 <td align="left">CONGRATS-18</td>
 <td align="left">Add a dialogue for users that urges them to fill in dates</td>
-<td align="left">2017-12-05</td>
+<td align="left">2017-12-05 11:21:53</td>
 <td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
-<tr class="even">
-<td align="left">56797</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/56797" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/56797</a></td>
+<tr class="odd">
 <td align="left">CONGRATS-17</td>
 <td align="left">Synchronisation with the //Seibert/Media CUP</td>
-<td align="left">2017-09-26</td>
-<td align="left">Open</td>
+<td align="left">2017-09-26 16:08:01</td>
+<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
-<tr class="odd">
-<td align="left">56796</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/56796" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/56796</a></td>
+<tr class="even">
 <td align="left">CONGRATS-16</td>
 <td align="left">Add an Interface to configure the sync fields</td>
-<td align="left">2017-09-26</td>
-<td align="left">Open</td>
+<td align="left">2017-09-26 16:02:30</td>
+<td align="left">Awaiting Release</td>
+<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
+<td>Done</td>
 </tr>
-<tr class="even">
-<td align="left">56795</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/56795" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/56795</a></td>
+<tr class="odd">
 <td align="left">CONGRATS-15</td>
 <td align="left">Synchronisation with the Communardo UPP</td>
-<td align="left">2017-09-26</td>
-<td align="left">Open</td>
+<td align="left">2017-09-26 15:59:11</td>
+<td align="left">Awaiting Release</td>
+<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
+<td>Done</td>
 </tr>
-<tr class="odd">
-<td align="left">55800</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/55800" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/55800</a></td>
+<tr class="even">
 <td align="left">CONGRATS-11</td>
 <td align="left">Display of age for birthday configurable</td>
-<td align="left">2017-04-05</td>
+<td align="left">2017-04-05 14:09:07</td>
 <td align="left">Closed</td>
-</tr>
-<tr class="even">
-<td align="left">52800</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/52800" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/52800</a></td>
-<td align="left">CONGRATS-6</td>
-<td align="left">Do not display inactive users in Congrats Macro</td>
-<td align="left">2016-11-24</td>
-<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
 <tr class="odd">
-<td align="left">51806</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/51806" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/51806</a></td>
-<td align="left">CONGRATS-3</td>
-<td align="left">Incomplete rendering if placed in tabs</td>
-<td align="left">2016-10-21</td>
+<td align="left">CONGRATS-6</td>
+<td align="left">Do not display inactive users in Congrats Macro</td>
+<td align="left">2016-11-24 11:28:06</td>
 <td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
 <tr class="even">
-<td align="left">50050</td>
-<td align="left"><a href="https://bitvoodoo.atlassian.net/rest/api/latest/issue/50050" class="uri">https://bitvoodoo.atlassian.net/rest/api/latest/issue/50050</a></td>
+<td align="left">CONGRATS-3</td>
+<td align="left">Incomplete rendering if placed in tabs</td>
+<td align="left">2016-10-21 16:15:30</td>
+<td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
+</tr>
+<tr class="odd">
 <td align="left">CONGRATS-1</td>
 <td align="left">Display current event in the center</td>
-<td align="left">2016-08-09</td>
+<td align="left">2016-08-09 11:52:53</td>
 <td align="left">Closed</td>
+<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
+<td>Done</td>
 </tr>
 </tbody>
 </table>
@@ -248,11 +370,11 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/matbmeijer/JirAgileR">https://​github.com/​matbmeijer/​JirAgileR</a>
+<li>Browse source code at <br><a href="https://github.com/matbmeijer/JirAgileR/">https://​github.com/​matbmeijer/​JirAgileR/​</a>
 </li>
 </ul>
 </div>
@@ -270,7 +392,7 @@
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/matbmeijer/JirAgileR"><img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master" alt="Build Status"></a></li>
@@ -278,7 +400,6 @@
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -287,12 +408,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

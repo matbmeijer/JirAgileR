@@ -6,23 +6,38 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Obtain all projects as a <code>data.frame</code> — Projects2R • JirAgileR</title>
+<title>Retrieves all projects as a <code>data.frame</code> — Projects2R • JirAgileR</title>
+
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +45,11 @@
 
 
 
-<meta property="og:title" content="Obtain all projects as a <code>data.frame</code> — Projects2R" />
 
-<meta property="og:description" content="Calls JIRA's latest REST API to obtain all the basic project information (Name, Key, Id, Description, etc.)" />
-
+<meta property="og:title" content="Retrieves all projects as a <code>data.frame</code> — Projects2R" />
+<meta property="og:description" content="Makes a request to JIRA's latest REST API to retrieve all projects and their basic project information (Name, Key, Id, Description, etc.)." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +63,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">JirAgileR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.92</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
       </span>
     </div>
 
@@ -73,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -81,11 +96,10 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/matbmeijer/JirAgileR">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/matbmeijer/JirAgileR/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,244 +110,259 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Obtain all projects as a <code>data.frame</code></h1>
+    <h1>Retrieves all projects as a <code>data.frame</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/Project2R.R'><code>R/Project2R.R</code></a></small>
     <div class="hidden name"><code>Projects2R.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Calls JIRA's latest REST API to obtain all the basic project information (Name, Key, Id, Description, etc.)</p>
-    
+    <p>Makes a request to JIRA's latest REST API to retrieve all projects and their basic project information (Name, Key, Id, Description, etc.).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Projects2R</span>(<span class='no'>domain</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>Projects2R</span>(
+  <span class='no'>domain</span>,
+  <span class='kw'>user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>domain</th>
-      <td><p>Custom JIRA domain URL as for example <a href='https://bitvoodoo.atlassian.net'>https://bitvoodoo.atlassian.net</a></p></td>
+      <td><p>Custom JIRA domain URL as for example <a href='https://bitvoodoo.atlassian.net'>https://bitvoodoo.atlassian.net</a>.</p></td>
     </tr>
     <tr>
       <th>user</th>
-      <td><p>Username used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.</p></td>
+      <td><p>Username used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>password</th>
-      <td><p>Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.</p></td>
+      <td><p>Password used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>expand</th>
-      <td><p>Specific JIRA fields the user wants to obtain for a specific field. Optional parameter. By default</p></td>
+      <td><p>Specific JIRA fields the user wants to obtain for a specific field. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>Gives the user the ability to have a verbose response from the JIRA API call.</p></td>
+      <td><p>Explicitly informs the user of the JIRA API request process.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a <code>data.frame</code> with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.</p>
-    
     <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
 
     
-    <p>The function works with the JIRA REST API. Thus, to work it needs a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.yourdomain.com/secure/Dashboard.jspa</a></p>
-    
+
+<p>The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.yourdomain.com/secure/Dashboard.jspa</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>For more information about Atlassians JIRA API go to <a href='https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/'>JIRA API Documentation</a></p></div>
-    
+    <div class='dont-index'><p>For more information about Atlassians JIRA API go to <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/'>JIRA API Documentation</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>Projects2R</span>(<span class='st'>"https://bitvoodoo.atlassian.net"</span>)</div><div class='output co'>#&gt;                                          expand
-#&gt;  1: description,lead,issueTypes,url,projectKeys
-#&gt;  2: description,lead,issueTypes,url,projectKeys
-#&gt;  3: description,lead,issueTypes,url,projectKeys
-#&gt;  4: description,lead,issueTypes,url,projectKeys
-#&gt;  5: description,lead,issueTypes,url,projectKeys
-#&gt;  6: description,lead,issueTypes,url,projectKeys
-#&gt;  7: description,lead,issueTypes,url,projectKeys
-#&gt;  8: description,lead,issueTypes,url,projectKeys
-#&gt;  9: description,lead,issueTypes,url,projectKeys
-#&gt; 10: description,lead,issueTypes,url,projectKeys
-#&gt; 11: description,lead,issueTypes,url,projectKeys
-#&gt; 12: description,lead,issueTypes,url,projectKeys
-#&gt; 13: description,lead,issueTypes,url,projectKeys
-#&gt; 14: description,lead,issueTypes,url,projectKeys
-#&gt; 15: description,lead,issueTypes,url,projectKeys
-#&gt; 16: description,lead,issueTypes,url,projectKeys
-#&gt; 17: description,lead,issueTypes,url,projectKeys
-#&gt; 18: description,lead,issueTypes,url,projectKeys
-#&gt; 19: description,lead,issueTypes,url,projectKeys
-#&gt;                                                         self    id         key
-#&gt;  1: https://bitvoodoo.atlassian.net/rest/api/2/project/12320 12320    MACRODOC
-#&gt;  2: https://bitvoodoo.atlassian.net/rest/api/2/project/12420 12420       THEME
-#&gt;  3: https://bitvoodoo.atlassian.net/rest/api/2/project/12520 12520         SBB
-#&gt;  4: https://bitvoodoo.atlassian.net/rest/api/2/project/12521 12521          SD
-#&gt;  5: https://bitvoodoo.atlassian.net/rest/api/2/project/12620 12620      CFSYNC
-#&gt;  6: https://bitvoodoo.atlassian.net/rest/api/2/project/13100 13100    TEMPBLOG
-#&gt;  7: https://bitvoodoo.atlassian.net/rest/api/2/project/12720 12720    REDIRECT
-#&gt;  8: https://bitvoodoo.atlassian.net/rest/api/2/project/13200 13200       LABEL
-#&gt;  9: https://bitvoodoo.atlassian.net/rest/api/2/project/11380 11380    PANELBOX
-#&gt; 10: https://bitvoodoo.atlassian.net/rest/api/2/project/12820 12820         REG
-#&gt; 11: https://bitvoodoo.atlassian.net/rest/api/2/project/13300 13300    LABELFIX
-#&gt; 12: https://bitvoodoo.atlassian.net/rest/api/2/project/13301 13301     NTCLOUD
-#&gt; 13: https://bitvoodoo.atlassian.net/rest/api/2/project/11382 11382    NAVITABS
-#&gt; 14: https://bitvoodoo.atlassian.net/rest/api/2/project/11383 11383    LANGUAGE
-#&gt; 15: https://bitvoodoo.atlassian.net/rest/api/2/project/12120 12120   SCHEDULER
-#&gt; 16: https://bitvoodoo.atlassian.net/rest/api/2/project/12920 12920    SYNCTEST
-#&gt; 17: https://bitvoodoo.atlassian.net/rest/api/2/project/11384 11384 VIEWTRACKER
-#&gt; 18: https://bitvoodoo.atlassian.net/rest/api/2/project/13020 13020    CONGRATS
-#&gt; 19: https://bitvoodoo.atlassian.net/rest/api/2/project/12220 12220     EXTLINK
-#&gt;                                        name
-#&gt;  1:      Macro Documentation for Confluence
-#&gt;  2:         Enterprise Theme for Confluence
-#&gt;  3:              SBB Widgets for Confluence
-#&gt;  4:                        Sequence Diagram
-#&gt;  5:        Custom Field Option Synchroniser
-#&gt;  6: Templates for Blog Posts for Confluence
-#&gt;  7:        Homepage Redirect for Confluence
-#&gt;  8:          Label Scheduler for Confluence
-#&gt;  9:      Advanced Panelboxes for Confluence
-#&gt; 10:   bitvoodoo Registration for Confluence
-#&gt; 11:                             Label Fixer
-#&gt; 12:    Navitabs - Tabs for Confluence Cloud
-#&gt; 13:          Navitabs - Tabs for Confluence
-#&gt; 14:          Language Macros for Confluence
-#&gt; 15:      Content Scheduler for Confluence\t
-#&gt; 16:                                SyncTest
-#&gt; 17:  Viewtracker - Analytics for Confluence
-#&gt; 18:                 Congrats for Confluence
-#&gt; 19:           External Links for Confluence
-#&gt;                                                                  avatarUrls 48x48
-#&gt;  1: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12320&amp;avatarId=14609
-#&gt;  2: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12420&amp;avatarId=14603
-#&gt;  3: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12520&amp;avatarId=14610
-#&gt;  4: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12521&amp;avatarId=11961
-#&gt;  5: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12620&amp;avatarId=14606
-#&gt;  6: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13100&amp;avatarId=14611
-#&gt;  7: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12720&amp;avatarId=14607
-#&gt;  8: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13200&amp;avatarId=14600
-#&gt;  9: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11380&amp;avatarId=14604
-#&gt; 10: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12820&amp;avatarId=14702
-#&gt; 11: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13300&amp;avatarId=14700
-#&gt; 12: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13301&amp;avatarId=14703
-#&gt; 13: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11382&amp;avatarId=14500
-#&gt; 14: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11383&amp;avatarId=14608
-#&gt; 15: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12120&amp;avatarId=14605
-#&gt; 16:           https://bitvoodoo.atlassian.net/secure/projectavatar?avatarId=13163
-#&gt; 17: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11384&amp;avatarId=14612
-#&gt; 18: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13020&amp;avatarId=14601
-#&gt; 19: https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12220&amp;avatarId=14602
-#&gt;                                                                             avatarUrls 24x24
-#&gt;  1: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12320&amp;avatarId=14609
-#&gt;  2: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12420&amp;avatarId=14603
-#&gt;  3: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12520&amp;avatarId=14610
-#&gt;  4: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12521&amp;avatarId=11961
-#&gt;  5: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12620&amp;avatarId=14606
-#&gt;  6: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=13100&amp;avatarId=14611
-#&gt;  7: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12720&amp;avatarId=14607
-#&gt;  8: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=13200&amp;avatarId=14600
-#&gt;  9: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=11380&amp;avatarId=14604
-#&gt; 10: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12820&amp;avatarId=14702
-#&gt; 11: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=13300&amp;avatarId=14700
-#&gt; 12: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=13301&amp;avatarId=14703
-#&gt; 13: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=11382&amp;avatarId=14500
-#&gt; 14: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=11383&amp;avatarId=14608
-#&gt; 15: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12120&amp;avatarId=14605
-#&gt; 16:           https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;avatarId=13163
-#&gt; 17: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=11384&amp;avatarId=14612
-#&gt; 18: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=13020&amp;avatarId=14601
-#&gt; 19: https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;pid=12220&amp;avatarId=14602
-#&gt;                                                                              avatarUrls 16x16
-#&gt;  1: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12320&amp;avatarId=14609
-#&gt;  2: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12420&amp;avatarId=14603
-#&gt;  3: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12520&amp;avatarId=14610
-#&gt;  4: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12521&amp;avatarId=11961
-#&gt;  5: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12620&amp;avatarId=14606
-#&gt;  6: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=13100&amp;avatarId=14611
-#&gt;  7: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12720&amp;avatarId=14607
-#&gt;  8: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=13200&amp;avatarId=14600
-#&gt;  9: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=11380&amp;avatarId=14604
-#&gt; 10: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12820&amp;avatarId=14702
-#&gt; 11: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=13300&amp;avatarId=14700
-#&gt; 12: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=13301&amp;avatarId=14703
-#&gt; 13: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=11382&amp;avatarId=14500
-#&gt; 14: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=11383&amp;avatarId=14608
-#&gt; 15: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12120&amp;avatarId=14605
-#&gt; 16:           https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;avatarId=13163
-#&gt; 17: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=11384&amp;avatarId=14612
-#&gt; 18: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=13020&amp;avatarId=14601
-#&gt; 19: https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;pid=12220&amp;avatarId=14602
-#&gt;                                                                              avatarUrls 32x32
-#&gt;  1: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12320&amp;avatarId=14609
-#&gt;  2: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12420&amp;avatarId=14603
-#&gt;  3: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12520&amp;avatarId=14610
-#&gt;  4: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12521&amp;avatarId=11961
-#&gt;  5: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12620&amp;avatarId=14606
-#&gt;  6: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=13100&amp;avatarId=14611
-#&gt;  7: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12720&amp;avatarId=14607
-#&gt;  8: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=13200&amp;avatarId=14600
-#&gt;  9: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=11380&amp;avatarId=14604
-#&gt; 10: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12820&amp;avatarId=14702
-#&gt; 11: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=13300&amp;avatarId=14700
-#&gt; 12: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=13301&amp;avatarId=14703
-#&gt; 13: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=11382&amp;avatarId=14500
-#&gt; 14: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=11383&amp;avatarId=14608
-#&gt; 15: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12120&amp;avatarId=14605
-#&gt; 16:           https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;avatarId=13163
-#&gt; 17: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=11384&amp;avatarId=14612
-#&gt; 18: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=13020&amp;avatarId=14601
-#&gt; 19: https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;pid=12220&amp;avatarId=14602
-#&gt;     projectTypeKey simplified   style isPrivate
-#&gt;  1:       software      FALSE classic     FALSE
-#&gt;  2:       software      FALSE classic     FALSE
-#&gt;  3:       software      FALSE classic     FALSE
-#&gt;  4:       software      FALSE classic     FALSE
-#&gt;  5:       software      FALSE classic     FALSE
-#&gt;  6:       software      FALSE classic     FALSE
-#&gt;  7:       software      FALSE classic     FALSE
-#&gt;  8:       software      FALSE classic     FALSE
-#&gt;  9:       software      FALSE classic     FALSE
-#&gt; 10:       software      FALSE classic     FALSE
-#&gt; 11:       software      FALSE classic     FALSE
-#&gt; 12:       software      FALSE classic     FALSE
-#&gt; 13:       software      FALSE classic     FALSE
-#&gt; 14:       software      FALSE classic     FALSE
-#&gt; 15:       software      FALSE classic     FALSE
-#&gt; 16:       software      FALSE classic     FALSE
-#&gt; 17:       software      FALSE classic     FALSE
-#&gt; 18:       software      FALSE classic     FALSE
-#&gt; 19:       software      FALSE classic     FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>Projects2R</span>(<span class='st'>"https://bitvoodoo.atlassian.net"</span>)</div><div class='output co'>#&gt;                                                             expand
+#&gt; 1  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 2  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 3  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 4  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 5  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 6  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 7  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 8  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 9  description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 10 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 11 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 12 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 13 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 14 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 15 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 16 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 17 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 18 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 19 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 20 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 21 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt; 22 description,lead,issueTypes,url,projectKeys,permissions,insight
+#&gt;                                                        self    id         key
+#&gt; 1  https://bitvoodoo.atlassian.net/rest/api/2/project/12320 12320    MACRODOC
+#&gt; 2  https://bitvoodoo.atlassian.net/rest/api/2/project/12420 12420       THEME
+#&gt; 3  https://bitvoodoo.atlassian.net/rest/api/2/project/12520 12520         SBB
+#&gt; 4  https://bitvoodoo.atlassian.net/rest/api/2/project/12521 12521          SD
+#&gt; 5  https://bitvoodoo.atlassian.net/rest/api/2/project/12620 12620      CFSYNC
+#&gt; 6  https://bitvoodoo.atlassian.net/rest/api/2/project/13100 13100    TEMPBLOG
+#&gt; 7  https://bitvoodoo.atlassian.net/rest/api/2/project/12720 12720    REDIRECT
+#&gt; 8  https://bitvoodoo.atlassian.net/rest/api/2/project/13200 13200       LABEL
+#&gt; 9  https://bitvoodoo.atlassian.net/rest/api/2/project/11380 11380    PANELBOX
+#&gt; 10 https://bitvoodoo.atlassian.net/rest/api/2/project/12820 12820         REG
+#&gt; 11 https://bitvoodoo.atlassian.net/rest/api/2/project/13300 13300    LABELFIX
+#&gt; 12 https://bitvoodoo.atlassian.net/rest/api/2/project/13301 13301     NTCLOUD
+#&gt; 13 https://bitvoodoo.atlassian.net/rest/api/2/project/11382 11382    NAVITABS
+#&gt; 14 https://bitvoodoo.atlassian.net/rest/api/2/project/11383 11383    LANGUAGE
+#&gt; 15 https://bitvoodoo.atlassian.net/rest/api/2/project/13303 13303    SUPPLIER
+#&gt; 16 https://bitvoodoo.atlassian.net/rest/api/2/project/12120 12120   SCHEDULER
+#&gt; 17 https://bitvoodoo.atlassian.net/rest/api/2/project/13304 13304    BVDEVOPS
+#&gt; 18 https://bitvoodoo.atlassian.net/rest/api/2/project/12920 12920    SYNCTEST
+#&gt; 19 https://bitvoodoo.atlassian.net/rest/api/2/project/11384 11384 VIEWTRACKER
+#&gt; 20 https://bitvoodoo.atlassian.net/rest/api/2/project/13305 13305     VTCLOUD
+#&gt; 21 https://bitvoodoo.atlassian.net/rest/api/2/project/13020 13020    CONGRATS
+#&gt; 22 https://bitvoodoo.atlassian.net/rest/api/2/project/12220 12220     EXTLINK
+#&gt;                                       name
+#&gt; 1       Macro Documentation for Confluence
+#&gt; 2          Enterprise Theme for Confluence
+#&gt; 3               SBB Widgets for Confluence
+#&gt; 4                         Sequence Diagram
+#&gt; 5         Custom Field Option Synchroniser
+#&gt; 6  Templates for Blog Posts for Confluence
+#&gt; 7         Homepage Redirect for Confluence
+#&gt; 8           Label Scheduler for Confluence
+#&gt; 9       Advanced Panelboxes for Confluence
+#&gt; 10   bitvoodoo Registration for Confluence
+#&gt; 11                             Label Fixer
+#&gt; 12    Navitabs - Tabs for Confluence Cloud
+#&gt; 13          Navitabs - Tabs for Confluence
+#&gt; 14          Language Macros for Confluence
+#&gt; 15                    Viewtracker Supplier
+#&gt; 16      Content Scheduler for Confluence\t
+#&gt; 17                                  DevOps
+#&gt; 18                                SyncTest
+#&gt; 19  Viewtracker - Analytics for Confluence
+#&gt; 20                       Viewtracker Cloud
+#&gt; 21                 Congrats for Confluence
+#&gt; 22           External Links for Confluence
+#&gt;                                                                 avatarurls_48x48
+#&gt; 1  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12320&amp;avatarId=14609
+#&gt; 2  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12420&amp;avatarId=14603
+#&gt; 3  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12520&amp;avatarId=14610
+#&gt; 4  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12521&amp;avatarId=11961
+#&gt; 5  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12620&amp;avatarId=14606
+#&gt; 6  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13100&amp;avatarId=14611
+#&gt; 7  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12720&amp;avatarId=14607
+#&gt; 8  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13200&amp;avatarId=14600
+#&gt; 9  https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11380&amp;avatarId=14604
+#&gt; 10 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12820&amp;avatarId=14702
+#&gt; 11 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13300&amp;avatarId=14700
+#&gt; 12 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13301&amp;avatarId=14703
+#&gt; 13 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11382&amp;avatarId=14500
+#&gt; 14 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11383&amp;avatarId=14608
+#&gt; 15 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13303&amp;avatarId=14777
+#&gt; 16 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12120&amp;avatarId=14605
+#&gt; 17 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13304&amp;avatarId=12069
+#&gt; 18           https://bitvoodoo.atlassian.net/secure/projectavatar?avatarId=13163
+#&gt; 19 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=11384&amp;avatarId=14612
+#&gt; 20 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13305&amp;avatarId=12071
+#&gt; 21 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=13020&amp;avatarId=14601
+#&gt; 22 https://bitvoodoo.atlassian.net/secure/projectavatar?pid=12220&amp;avatarId=14602
+#&gt;                                                                                    avatarurls_24x24
+#&gt; 1  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12320&amp;avatarId=14609
+#&gt; 2  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12420&amp;avatarId=14603
+#&gt; 3  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12520&amp;avatarId=14610
+#&gt; 4  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12521&amp;avatarId=11961
+#&gt; 5  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12620&amp;avatarId=14606
+#&gt; 6  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13100&amp;avatarId=14611
+#&gt; 7  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12720&amp;avatarId=14607
+#&gt; 8  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13200&amp;avatarId=14600
+#&gt; 9  https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=11380&amp;avatarId=14604
+#&gt; 10 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12820&amp;avatarId=14702
+#&gt; 11 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13300&amp;avatarId=14700
+#&gt; 12 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13301&amp;avatarId=14703
+#&gt; 13 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=11382&amp;avatarId=14500
+#&gt; 14 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=11383&amp;avatarId=14608
+#&gt; 15 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13303&amp;avatarId=14777
+#&gt; 16 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12120&amp;avatarId=14605
+#&gt; 17 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13304&amp;avatarId=12069
+#&gt; 18           https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;avatarId=13163
+#&gt; 19 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=11384&amp;avatarId=14612
+#&gt; 20 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13305&amp;avatarId=12071
+#&gt; 21 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=13020&amp;avatarId=14601
+#&gt; 22 https://bitvoodoo.atlassian.net/secure/projectavatar?size=small&amp;s=small&amp;pid=12220&amp;avatarId=14602
+#&gt;                                                                                      avatarurls_16x16
+#&gt; 1  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12320&amp;avatarId=14609
+#&gt; 2  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12420&amp;avatarId=14603
+#&gt; 3  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12520&amp;avatarId=14610
+#&gt; 4  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12521&amp;avatarId=11961
+#&gt; 5  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12620&amp;avatarId=14606
+#&gt; 6  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13100&amp;avatarId=14611
+#&gt; 7  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12720&amp;avatarId=14607
+#&gt; 8  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13200&amp;avatarId=14600
+#&gt; 9  https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=11380&amp;avatarId=14604
+#&gt; 10 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12820&amp;avatarId=14702
+#&gt; 11 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13300&amp;avatarId=14700
+#&gt; 12 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13301&amp;avatarId=14703
+#&gt; 13 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=11382&amp;avatarId=14500
+#&gt; 14 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=11383&amp;avatarId=14608
+#&gt; 15 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13303&amp;avatarId=14777
+#&gt; 16 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12120&amp;avatarId=14605
+#&gt; 17 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13304&amp;avatarId=12069
+#&gt; 18           https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;avatarId=13163
+#&gt; 19 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=11384&amp;avatarId=14612
+#&gt; 20 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13305&amp;avatarId=12071
+#&gt; 21 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=13020&amp;avatarId=14601
+#&gt; 22 https://bitvoodoo.atlassian.net/secure/projectavatar?size=xsmall&amp;s=xsmall&amp;pid=12220&amp;avatarId=14602
+#&gt;                                                                                      avatarurls_32x32
+#&gt; 1  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12320&amp;avatarId=14609
+#&gt; 2  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12420&amp;avatarId=14603
+#&gt; 3  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12520&amp;avatarId=14610
+#&gt; 4  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12521&amp;avatarId=11961
+#&gt; 5  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12620&amp;avatarId=14606
+#&gt; 6  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13100&amp;avatarId=14611
+#&gt; 7  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12720&amp;avatarId=14607
+#&gt; 8  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13200&amp;avatarId=14600
+#&gt; 9  https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=11380&amp;avatarId=14604
+#&gt; 10 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12820&amp;avatarId=14702
+#&gt; 11 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13300&amp;avatarId=14700
+#&gt; 12 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13301&amp;avatarId=14703
+#&gt; 13 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=11382&amp;avatarId=14500
+#&gt; 14 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=11383&amp;avatarId=14608
+#&gt; 15 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13303&amp;avatarId=14777
+#&gt; 16 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12120&amp;avatarId=14605
+#&gt; 17 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13304&amp;avatarId=12069
+#&gt; 18           https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;avatarId=13163
+#&gt; 19 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=11384&amp;avatarId=14612
+#&gt; 20 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13305&amp;avatarId=12071
+#&gt; 21 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=13020&amp;avatarId=14601
+#&gt; 22 https://bitvoodoo.atlassian.net/secure/projectavatar?size=medium&amp;s=medium&amp;pid=12220&amp;avatarId=14602
+#&gt;    projecttypekey simplified   style isprivate
+#&gt; 1        software      FALSE classic     FALSE
+#&gt; 2        software      FALSE classic     FALSE
+#&gt; 3        software      FALSE classic     FALSE
+#&gt; 4        software      FALSE classic     FALSE
+#&gt; 5        software      FALSE classic     FALSE
+#&gt; 6        software      FALSE classic     FALSE
+#&gt; 7        software      FALSE classic     FALSE
+#&gt; 8        software      FALSE classic     FALSE
+#&gt; 9        software      FALSE classic     FALSE
+#&gt; 10       software      FALSE classic     FALSE
+#&gt; 11       software      FALSE classic     FALSE
+#&gt; 12       software      FALSE classic     FALSE
+#&gt; 13       software      FALSE classic     FALSE
+#&gt; 14       software      FALSE classic     FALSE
+#&gt; 15       software      FALSE classic     FALSE
+#&gt; 16       software      FALSE classic     FALSE
+#&gt; 17       software      FALSE classic     FALSE
+#&gt; 18       software      FALSE classic     FALSE
+#&gt; 19       software      FALSE classic     FALSE
+#&gt; 20       software      FALSE classic     FALSE
+#&gt; 21       software      FALSE classic     FALSE
+#&gt; 22       software      FALSE classic     FALSE</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#warning">Warning</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Matthias Brenninkmeijer <a href='https://github.com/matbmeijer'>https://github.com/matbmeijer</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -341,13 +370,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

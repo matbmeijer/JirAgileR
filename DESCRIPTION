@@ -14,5 +14,6 @@ LazyData: true
 Imports: 
     httr,
     jsonlite,
-    data.table
+    data.table,
+    magrittr
 RoxygenNote: 7.1.0
