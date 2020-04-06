@@ -13,3 +13,4 @@
 ^NEWS\.md$
 ^CODE_OF_CONDUCT\.md$
 ^testing_building\.R$
+^pkgdown$

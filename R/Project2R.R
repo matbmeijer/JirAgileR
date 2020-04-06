@@ -260,9 +260,10 @@ JiraQuery2R <- function(domain,
   base_info <- basic_issues_info(issue_list)
   ext_info <- lapply(issue_list, `[[`, "fields")
   if(as.data.frame){
-    ext_info<-lapply(ext_info, parse_issue)
-    ext_info<-data.table::rbindlist(ext_info, fill = TRUE)
-    df <- do.call("cbind", list(base_info, ext_info))
+    ext_info<-lapply(seq_along(ext_info), function(x) parse_issue(issue = ext_info[[x]], JirAgileR_id = x))
+    ext_info<-data.table::rbindlist(ext_info, fill = TRUE, idcol="ID")
+    df <- merge(base_info, ext_info,by="JirAgileR_id", all=TRUE)
+    df[["JirAgileR_id"]]<-NULL
   }else{
     df<-list(base_info=base_info, ext_info=ext_info)
   }
@@ -279,22 +280,31 @@ JiraQuery2R <- function(domain,
 
 basic_issues_info<-function(x){
   extr_info<-lapply(x, `[`,c("id","self", "key"))
-  data.table::rbindlist(extr_info, use.names = TRUE, fill = TRUE)
+  df<-data.table::rbindlist(extr_info, use.names = TRUE, fill = TRUE)
+  df[["JirAgileR_id"]]<-seq_along(extr_info)
+  return(df)
 }
 
 #' @title Extract the extensive fields of a single issue
 #' @description Internal function to transform the nested more extensive JIRA issue fields into a flattened \code{data.frame}
-#' @param x A JIRA issue with all its extended fields
+#' @param issue A JIRA issue with all its extended fields
+#' @param JirAgileR_id JirAgiler ID to assign to
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns \code{data.frame} with all the extended field information.
 #' @section Warning:
 #' Internal function
 
-parse_issue<-function(x){
-  x<-x[lengths(x) != 0]
-  available_fields<-names(x)
-  res<-lapply(available_fields, function (y) choose_field_function(x, y))
+parse_issue<-function(issue, JirAgileR_id){
+  issue<-issue[lengths(issue) != 0]
+  available_fields<-names(issue)
+  res<-lapply(available_fields, function (y) choose_field_function(issue, y))
+  id<-data.frame("JirAgileR_id"=JirAgileR_id, stringsAsFactors = FALSE)
   df<-do.call(cbind, res)
+  if(!is.null(df) && length(df)>0){
+    df<-cbind(data.frame("JirAgileR_id"=JirAgileR_id), df)
+  }else{
+    df<-data.frame("JirAgileR_id"=JirAgileR_id)
+  }
   return(df)
 }
 
@@ -460,10 +470,10 @@ votes_field<-function(x){
 
 resolution_field<-function(x){
   #Multiple variables
-  df<-data.frame(x[["resolution"]], stringsAsFactors = FALSE)
-  colnames(df)<-gsub("\\.", "_", paste0("resolution_", tolower(colnames(df))))
-  return(df)
-}
+    df<-data.frame(x[["resolution"]], stringsAsFactors = FALSE)
+    colnames(df)<-gsub("\\.", "_", paste0("resolution_", tolower(colnames(df))))
+    return(df)
+  }
 
 creator_field<-function(x){
   #Multiple variables

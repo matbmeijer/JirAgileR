@@ -125,14 +125,18 @@
     <p>Internal function to transform the nested more extensive JIRA issue fields into a flattened <code>data.frame</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>parse_issue</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>parse_issue</span>(<span class='no'>issue</span>, <span class='no'>JirAgileR_id</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>issue</th>
       <td><p>A JIRA issue with all its extended fields</p></td>
+    </tr>
+    <tr>
+      <th>JirAgileR_id</th>
+      <td><p>JirAgiler ID to assign to</p></td>
     </tr>
     </table>
 

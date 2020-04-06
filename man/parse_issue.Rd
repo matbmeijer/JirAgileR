@@ -4,10 +4,12 @@
 \alias{parse_issue}
 \title{Extract the extensive fields of a single issue}
 \usage{
-parse_issue(x)
+parse_issue(issue, JirAgileR_id)
 }
 \arguments{
-\item{x}{A JIRA issue with all its extended fields}
+\item{issue}{A JIRA issue with all its extended fields}
+
+\item{JirAgileR_id}{JirAgiler ID to assign to}
 }
 \value{
 Returns \code{data.frame} with all the extended field information.
