@@ -2,3 +2,16 @@
 .RData
 .Rproj.user
 .DS_Store
+.Ruserdata
+README.Rmd
+R/testing.R
+.api_key.json
+/*.tar.gz
+/*.Rcheck/
+.Rproj.user/
+.httr-oauth
+*_cache/
+/cache/
+.Renviron
+.Rbuildignore
+testing_building.R

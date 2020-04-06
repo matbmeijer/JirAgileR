@@ -2,3 +2,4 @@
 
 export(JiraQuery2R)
 export(Projects2R)
+export(supported_jql_fields)

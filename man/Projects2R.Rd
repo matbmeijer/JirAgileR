@@ -2,38 +2,43 @@
 % Please edit documentation in R/Project2R.R
 \name{Projects2R}
 \alias{Projects2R}
-\title{Obtain all projects as a \code{data.frame}}
+\title{Retrieves all projects as a \code{data.frame}}
 \usage{
-Projects2R(domain, user = NULL, password = NULL, expand = NULL,
-  verbose = FALSE)
+Projects2R(
+  domain,
+  user = NULL,
+  password = NULL,
+  expand = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
-\item{domain}{Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}}
+\item{domain}{Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}.}
 
-\item{user}{Username used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.}
+\item{user}{Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.}
 
-\item{password}{Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed. Optional parameter.}
+\item{password}{Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.}
 
-\item{expand}{Specific JIRA fields the user wants to obtain for a specific field. Optional parameter. By default}
+\item{expand}{Specific JIRA fields the user wants to obtain for a specific field. Optional parameter.}
 
-\item{verbose}{Gives the user the ability to have a verbose response from the JIRA API call.}
+\item{verbose}{Explicitly informs the user of the JIRA API request process.}
 }
 \value{
 Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.
 }
 \description{
-Calls JIRA's latest REST API to obtain all the basic project information (Name, Key, Id, Description, etc.)
+Makes a request to JIRA's latest REST API to retrieve all projects and their basic project information (Name, Key, Id, Description, etc.).
 }
 \section{Warning}{
 
-The function works with the JIRA REST API. Thus, to work it needs a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}
+The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}.
 }
 
 \examples{
 Projects2R("https://bitvoodoo.atlassian.net")
 }
 \seealso{
-For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}{JIRA API Documentation}
+For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 }
 \author{
 Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}

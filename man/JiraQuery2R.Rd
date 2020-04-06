@@ -2,42 +2,54 @@
 % Please edit documentation in R/Project2R.R
 \name{JiraQuery2R}
 \alias{JiraQuery2R}
-\title{Obtain all issues of a JIRA query as a \code{data.frame}}
+\title{Retrieves all issues of a JIRA query as a \code{data.frame}}
 \usage{
-JiraQuery2R(domain, user = NULL, password = NULL, query,
-  fields = NULL, maxResults = NULL, verbose = FALSE)
+JiraQuery2R(
+  domain,
+  user = NULL,
+  password = NULL,
+  query,
+  fields = basic_jql_fields(),
+  maxResults = 50,
+  verbose = FALSE,
+  as.data.frame = TRUE
+)
 }
 \arguments{
 \item{domain}{Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}.}
 
-\item{user}{Username used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed.}
+\item{user}{Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.}
 
-\item{password}{Password used to authenticate access to JIRA your domain. If both username and password are not passed no authentication is made and only public domains can bet accesed.}
+\item{password}{Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.}
 
-\item{query}{JIRA's decoded JQL query. By definition, it works with with **Fields**, **Operators**, **Keywords** and **Functions**. To learn how to create a query visit \href{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site}.}
+\item{query}{JIRA's decoded JQL query. By definition, it works with *Fields*, *Operators*, *Keywords* and *Functions*. To learn how to create a query visit \href{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site}.}
 
-\item{fields}{Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed: 'status','priority','created','reporter','summary','description','assignee','updated','issuetype','fixVersions'.}
+\item{fields}{Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed:
+'status', 'priority', 'created', 'reporter', 'summary', 'description', 'assignee', 'updated', 'issuetype', 'fixVersions'.
+To obtain a list of all supported fields use the following function: \code{supported_jql_fields()}.}
 
 \item{maxResults}{Max results authorized to obtain for each API call. By default JIRA sets this value to 50 issues.}
 
-\item{verbose}{Gives the user the ability to have a verbose response from the JIRA API call.}
+\item{verbose}{Explicitly informs the user of the JIRA API request process.}
+
+\item{as.data.frame}{Defines if the function returns a flattened \code{data.frame} or the raw JIRA response.}
 }
 \value{
-Returns a formatted \code{data.frame} with the issues according to the JQL query.
+Returns a flattened, formatted \code{data.frame} with the issues according to the JQL query.
 }
 \description{
 Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.
 }
 \section{Warning}{
 
-The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
+If the \code{comment} field is used as a \code{fields} parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
 }
 
 \examples{
 JiraQuery2R(domain = "https://bitvoodoo.atlassian.net", query = 'project="Congrats for Confluence"')
 }
 \seealso{
-For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}{https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/}.
+For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}.
 }
 \author{
 Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{Github}

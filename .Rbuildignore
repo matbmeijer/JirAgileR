@@ -2,6 +2,14 @@
 ^\.travis\.yml$
 ^LICENSE\.md$
 ^JirAgileR\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README\.html$
+^docs
+^\.Rhistory$
+^LICENSE\.md$
+^\.api_key\.json$
+^NEWS\.md$
+^CODE_OF_CONDUCT\.md$
+^testing_building\.R$

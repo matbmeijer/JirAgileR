@@ -6,9 +6,9 @@
 \alias{JirAgileR-package}
 \title{JirAgileR: JIRA REST API Wrapper for R}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Allows you to interact with JIRA REST API to analyze the data in R.
+Allows to interact with the JIRA REST API to analyze the data in R.
 }
 \seealso{
 Useful links:
