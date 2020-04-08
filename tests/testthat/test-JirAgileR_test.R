@@ -27,7 +27,6 @@ test_that("supported_jql_fields(): Field vector equal & and is.vector",{
                                          "labels", "lastViewed", "priority", "progress", "project", "reporter",
                                          "resolution", "resolutiondate", "status", "summary", "timeestimate",
                                          "timespent", "updated", "versions", "votes", "watches", "workratio"))
-  expect_vector(supported_jql_fields())
   expect_error(supported_jql_fields("test"))
 })
 
@@ -35,7 +34,6 @@ test_that("supported_jql_fields(): Field vector equal & and is.vector",{
 test_that("basic_jql_fields(): Field vector equal & and is.vector",{
   expect_equal(basic_jql_fields(), c("status", "priority", "created", "reporter", "summary", "description",
                                      "assignee", "updated", "issuetype", "fixVersions"))
-  expect_vector(basic_jql_fields())
   expect_error(basic_jql_fields("test"))
 })
 
