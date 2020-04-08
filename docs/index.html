@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">JirAgileR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
       </span>
     </div>
 
@@ -52,6 +52,9 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -81,7 +84,7 @@
 <div id="objective" class="section level2">
 <h2 class="hasAnchor">
 <a href="#objective" class="anchor"></a>Objective</h2>
-<p>The <strong>JirAgileR</strong> R package has the mission to bring the power of the project management tool 🔧 <strong>JIRA</strong> to <strong>R</strong>. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/">JIRA’s REST API</a>, allowing users to easily analyze JIRA proyects and issues from within R. The underlying powertrain of the API is the <em><strong>Jira Query Language</strong> (JQL)</em>. You can find more information about it <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">here</a>.</p>
+<p>The <strong>JirAgileR</strong> R package has the mission to bring the power of the project management tool 🔧 <strong>JIRA</strong> to <strong>R</strong>. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/">JIRA’s REST API</a>, allowing users to easily analyze JIRA proyects and issues from within R. The underlying powertrain of the API is the <em><strong>Jira Query Language</strong> (JQL)</em>. You can find more information about it <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">here</a>. You can find a cheatsheet <a href="https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf">here</a>.</p>
 <figure><p><img src="reference/figures/process.png" style="width:469px;height=184px"></p>
 <figcaption><p><a href="https://r4ds.had.co.nz/"><i>Source: R For Data Science - Hadley Wickham</i></a></p>
 </figcaption></figure><p>The focus of this package lies in the following workflow aspects:</p>
@@ -89,11 +92,11 @@
 <li><strong>Import</strong></li>
 <li><strong>Tidy</strong></li>
 </ul>
-<p>Hence, for easy transformation and manipulation, each function returns a <code>data.frame</code> with <strong>tidy data</strong>, following main rules where each row is a single observation of an <strong>issue</strong> or a <strong>project</strong>, each column is a variable and each value must have its own cell.</p>
+<p>Hence, for easy transformation and manipulation, each function returns a <code>data.frame</code> with <strong>tidy data</strong>, following main rules where each row is a single observation of an <strong>issue</strong> or a <strong>project</strong>, each column is a variable and each value must have its own cell. Thus, it integrates well with both the <code>dplyr</code> and <code>data.table</code>.</p>
 <p>More information about the package can be found <a href="https://matbmeijer.github.io/JirAgileR/">here</a>.</p>
-<div id="functionalities-as-of-06-of-april-2020" class="section level3">
+<div id="functionalities-as-of-08-of-april-2020" class="section level3">
 <h3 class="hasAnchor">
-<a href="#functionalities-as-of-06-of-april-2020" class="anchor"></a>Functionalities as of 06 of April, 2020</h3>
+<a href="#functionalities-as-of-08-of-april-2020" class="anchor"></a>Functionalities as of 08 of April, 2020</h3>
 <ol>
 <li>Extract all project names with their basic information (e.g. Name, ID, Key, Type, Category etc.).</li>
 <li>Retrieve all issues specific to a user defined JIRA query with hand-picked fields and all the associated information. Currently, the package supports the following JIRA fields:
@@ -135,20 +138,21 @@
 <div id="note" class="section level5">
 <h5 class="hasAnchor">
 <a href="#note" class="anchor"></a>Note</h5>
-<ol>
-<li>To get all the information about the supported JQL fields visit the folling <a href="https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/">link</a> The package supports extracting comments, yet as one issue may contain multiple comments, the <code>data.frame</code> is flattened to a combination of issues and comments. Thus, the information of an issue may be repeated the number of comments each issue has.</li>
-</ol>
+<ul>
+<li>To get all the information about the supported JQL fields visit the following <a href="https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/">link</a>. The package supports extracting comments, yet as one issue may contain multiple comments, the <code>data.frame</code> is flattened to a combination of issues and comments. Thus, the information of an issue may be repeated the number of comments each issue has.</li>
+</ul>
 </div>
 </div>
 <div id="roadmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#roadmap" class="anchor"></a>Roadmap</h3>
 <ul>
+<li>🔲 Retrieve JIRA boards information</li>
 <li>🔲 Define integrated <em>Reference Classes</em> within the package</li>
 <li>🔲 Include plotting graphs 📊</li>
-<li>🔲 Abilty to save domain, username &amp; password as secret tokens in environment 🔐</li>
 <li>🔲 Abilty to obtain all available JIRA fields of a project</li>
 <li>🔲 Remove <code>data.table</code> dependency</li>
+<li>✅ Abilty to save domain, username &amp; password as secret tokens in environment 🔐</li>
 <li>✅ Include <em>pipes</em> to facilitate analysis</li>
 <li>✅ Improve package robustness</li>
 <li>✅ Include http status error codes</li>
@@ -163,21 +167,123 @@
 <div class="sourceCode" id="cb1"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"matbmeijer/JirAgileR"</span>)</pre></div>
 </div>
-<div id="example" class="section level2">
+<div id="examples" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<a href="#examples" class="anchor"></a>Examples</h2>
 <p>This is a basic example which shows you how to obtain a simple table of issues of a project and create a tabular report. Most of the times, you will need a username and your password to authenticate in your domain. Possible fields to obtain (which will populate the <code>data.frame</code> columns) can be found <a href="https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/">here</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">JirAgileR</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
 
-<span class="no">Domain</span> <span class="kw">&lt;-</span> <span class="st">"https://bitvoodoo.atlassian.net"</span>
-<span class="no">JQL_query</span> <span class="kw">&lt;-</span> <span class="st">"project='CONGRATS'"</span>
-<span class="no">Search_field</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summary"</span>,<span class="st">"created"</span>, <span class="st">"status"</span>)
-<span class="co"># Other possible fields are for example c("project", "key", "type", "priority", "resolution", "labels", "description", "links")</span>
+<span class="co"># Save credentials to pass them only one time</span>
+<span class="fu"><a href="reference/save_jira_credentials.html">save_jira_credentials</a></span>(<span class="kw">domain</span> <span class="kw">=</span> <span class="st">"https://bitvoodoo.atlassian.net"</span>)
 
-<span class="fu">JiraQuery2R</span>(<span class="kw">domain</span> <span class="kw">=</span> <span class="no">Domain</span>, <span class="kw">query</span> <span class="kw">=</span> <span class="no">JQL_query</span>, <span class="kw">fields</span> <span class="kw">=</span> <span class="no">Search_field</span>) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">key</span>, <span class="no">summary</span>, <span class="no">created</span>, <span class="no">status_name</span>, <span class="no">status_description</span>, <span class="no">status_statuscategory_name</span>) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">row.names</span> <span class="kw">=</span> <span class="no">F</span>, <span class="kw">padding</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></div>
+<span class="co"># Get full list of projects in domain</span>
+<span class="fu"><a href="reference/get_jira_projects.html">get_jira_projects</a></span>() <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">key</span>, <span class="no">name</span>)  <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">row.names</span> <span class="kw">=</span> <span class="no">F</span>, <span class="kw">padding</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">key</th>
+<th align="left">name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">MACRODOC</td>
+<td align="left">Macro Documentation for Confluence</td>
+</tr>
+<tr class="even">
+<td align="left">THEME</td>
+<td align="left">Enterprise Theme for Confluence</td>
+</tr>
+<tr class="odd">
+<td align="left">SBB</td>
+<td align="left">SBB Widgets for Confluence</td>
+</tr>
+<tr class="even">
+<td align="left">SD</td>
+<td align="left">Sequence Diagram</td>
+</tr>
+<tr class="odd">
+<td align="left">CFSYNC</td>
+<td align="left">Custom Field Option Synchroniser</td>
+</tr>
+<tr class="even">
+<td align="left">TEMPBLOG</td>
+<td align="left">Templates for Blog Posts for Confluence</td>
+</tr>
+<tr class="odd">
+<td align="left">REDIRECT</td>
+<td align="left">Homepage Redirect for Confluence</td>
+</tr>
+<tr class="even">
+<td align="left">LABEL</td>
+<td align="left">Label Scheduler for Confluence</td>
+</tr>
+<tr class="odd">
+<td align="left">PANELBOX</td>
+<td align="left">Advanced Panelboxes for Confluence</td>
+</tr>
+<tr class="even">
+<td align="left">REG</td>
+<td align="left">bitvoodoo Registration for Confluence</td>
+</tr>
+<tr class="odd">
+<td align="left">LABELFIX</td>
+<td align="left">Label Fixer</td>
+</tr>
+<tr class="even">
+<td align="left">NTCLOUD</td>
+<td align="left">Navitabs - Tabs for Confluence Cloud</td>
+</tr>
+<tr class="odd">
+<td align="left">NAVITABS</td>
+<td align="left">Navitabs - Tabs for Confluence</td>
+</tr>
+<tr class="even">
+<td align="left">LANGUAGE</td>
+<td align="left">Language Macros for Confluence</td>
+</tr>
+<tr class="odd">
+<td align="left">SUPPLIER</td>
+<td align="left">Viewtracker Supplier</td>
+</tr>
+<tr class="even">
+<td align="left">SCHEDULER</td>
+<td align="left">Content Scheduler for Confluence</td>
+</tr>
+<tr class="odd">
+<td align="left">BVDEVOPS</td>
+<td align="left">DevOps</td>
+</tr>
+<tr class="even">
+<td align="left">SYNCTEST</td>
+<td align="left">SyncTest</td>
+</tr>
+<tr class="odd">
+<td align="left">VIEWTRACKER</td>
+<td align="left">Viewtracker - Analytics for Confluence</td>
+</tr>
+<tr class="even">
+<td align="left">VTCLOUD</td>
+<td align="left">Viewtracker Cloud</td>
+</tr>
+<tr class="odd">
+<td align="left">CONGRATS</td>
+<td align="left">Congrats for Confluence</td>
+</tr>
+<tr class="even">
+<td align="left">EXTLINK</td>
+<td align="left">External Links for Confluence</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># Retrieve the issues from a single project - in this case the project CONGRATS. See documentation to define which fields to see</span>
+<span class="fu"><a href="reference/get_jira_issues.html">get_jira_issues</a></span>(<span class="kw">jql_query</span> <span class="kw">=</span> <span class="st">"project='CONGRATS'"</span>,
+                <span class="kw">fields</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summary"</span>,<span class="st">"created"</span>, <span class="st">"status"</span>)) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">key</span>, <span class="no">summary</span>, <span class="no">created</span>, <span class="no">status_name</span>, <span class="no">status_description</span>, <span class="no">status_statuscategory_name</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">10</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">row.names</span> <span class="kw">=</span> <span class="no">F</span>, <span class="kw">padding</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></div>
 <table class="table">
 <colgroup>
 <col width="4%">
@@ -272,94 +378,6 @@
 <td align="left">CONGRATS-26</td>
 <td align="left">Congrats Data Center Checklist</td>
 <td align="left">2018-11-07 14:32:53</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-24</td>
-<td align="left">Congrats for Confluence Data Center compatibility</td>
-<td align="left">2018-09-12 16:37:16</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-23</td>
-<td align="left">If max entries is above 100 user icons overlap with Congrats</td>
-<td align="left">2018-07-03 11:05:41</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-20</td>
-<td align="left">“You already congratulated” message missing after refresh</td>
-<td align="left">2018-03-19 16:47:12</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-18</td>
-<td align="left">Add a dialogue for users that urges them to fill in dates</td>
-<td align="left">2017-12-05 11:21:53</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-17</td>
-<td align="left">Synchronisation with the //Seibert/Media CUP</td>
-<td align="left">2017-09-26 16:08:01</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-16</td>
-<td align="left">Add an Interface to configure the sync fields</td>
-<td align="left">2017-09-26 16:02:30</td>
-<td align="left">Awaiting Release</td>
-<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-15</td>
-<td align="left">Synchronisation with the Communardo UPP</td>
-<td align="left">2017-09-26 15:59:11</td>
-<td align="left">Awaiting Release</td>
-<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
-<td>Done</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-11</td>
-<td align="left">Display of age for birthday configurable</td>
-<td align="left">2017-04-05 14:09:07</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-6</td>
-<td align="left">Do not display inactive users in Congrats Macro</td>
-<td align="left">2016-11-24 11:28:06</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-3</td>
-<td align="left">Incomplete rendering if placed in tabs</td>
-<td align="left">2016-10-21 16:15:30</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-1</td>
-<td align="left">Display current event in the center</td>
-<td align="left">2016-08-09 11:52:53</td>
 <td align="left">Closed</td>
 <td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
 <td>Done</td>
