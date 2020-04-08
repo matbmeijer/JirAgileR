@@ -93,7 +93,7 @@
 <li><strong>Tidy</strong></li>
 </ul>
 <p>Hence, for easy transformation and manipulation, each function returns a <code>data.frame</code> with <strong>tidy data</strong>, following main rules where each row is a single observation of an <strong>issue</strong> or a <strong>project</strong>, each column is a variable and each value must have its own cell. Thus, it integrates well with both the <code>dplyr</code> and <code>data.table</code>.</p>
-<p>More information about the package can be found <a href="https://matbmeijer.github.io/JirAgileR/">here</a>.</p>
+<p>More information about the package can be found at the following link: <a href="https://matbmeijer.github.io/JirAgileR/">(https://matbmeijer.github.io/JirAgileR/</a>.</p>
 <div id="functionalities-as-of-08-of-april-2020" class="section level3">
 <h3 class="hasAnchor">
 <a href="#functionalities-as-of-08-of-april-2020" class="anchor"></a>Functionalities as of 08 of April, 2020</h3>
@@ -282,16 +282,16 @@
 <span class="fu"><a href="reference/get_jira_issues.html">get_jira_issues</a></span>(<span class="kw">jql_query</span> <span class="kw">=</span> <span class="st">"project='CONGRATS'"</span>,
                 <span class="kw">fields</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summary"</span>,<span class="st">"created"</span>, <span class="st">"status"</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">key</span>, <span class="no">summary</span>, <span class="no">created</span>, <span class="no">status_name</span>, <span class="no">status_description</span>, <span class="no">status_statuscategory_name</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">10</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">5</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">row.names</span> <span class="kw">=</span> <span class="no">F</span>, <span class="kw">padding</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></div>
 <table class="table">
 <colgroup>
 <col width="4%">
-<col width="23%">
+<col width="20%">
 <col width="7%">
 <col width="6%">
-<col width="48%">
-<col width="10%">
+<col width="49%">
+<col width="11%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">key</th>
@@ -342,46 +342,6 @@
 <td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
 <td>Done</td>
 </tr>
-<tr class="even">
-<td align="left">CONGRATS-30</td>
-<td align="left">Finish up for marketplace</td>
-<td align="left">2019-05-16 15:06:52</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-29</td>
-<td align="left">Display issue of standard profile picture in Internet Explorer</td>
-<td align="left">2019-03-25 12:55:12</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-28</td>
-<td align="left">Occasions change to next user after 12 pm</td>
-<td align="left">2019-02-27 11:39:44</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-27</td>
-<td align="left">Congrats - Define performance tests</td>
-<td align="left">2019-02-04 10:39:08</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-26</td>
-<td align="left">Congrats Data Center Checklist</td>
-<td align="left">2018-11-07 14:32:53</td>
-<td align="left">Closed</td>
-<td align="left">The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.</td>
-<td>Done</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -415,6 +375,7 @@
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/matbmeijer/JirAgileR"><img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/matbmeijer/jiragiler"><img src="https://ci.appveyor.com/api/projects/status/b3fole2aw1qsw2x9?svg=true" alt="Build status"></a></li>
+<li><a href="https://codecov.io/gh/matbmeijer/JirAgileR?branch=master"><img src="https://codecov.io/gh/matbmeijer/JirAgileR/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>

@@ -1,5 +1,6 @@
 ^appveyor\.yml$
 ^\.travis\.yml$
+^\.covrignore$
 ^LICENSE\.md$
 ^JirAgileR\.Rproj$
 ^.*\.Rproj$
@@ -15,3 +16,5 @@
 ^testing_building\.R$
 ^pkgdown$
 ^documentation_file\.R$
+^codecov\.yml$
+^cran-comments\.md$

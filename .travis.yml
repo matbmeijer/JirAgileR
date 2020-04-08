@@ -12,3 +12,6 @@ sudo: false
 cache: packages
 repos:
   CRAN: https://cloud.r-project.org
+  
+after_success:
+  - Rscript -e 'covr::codecov()'

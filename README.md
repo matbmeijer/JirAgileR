@@ -5,6 +5,8 @@
 Status](https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master)](https://travis-ci.org/matbmeijer/JirAgileR)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/b3fole2aw1qsw2x9?svg=true)](https://ci.appveyor.com/project/matbmeijer/jiragiler)
+[![Codecov test
+coverage](https://codecov.io/gh/matbmeijer/JirAgileR/branch/master/graph/badge.svg)](https://codecov.io/gh/matbmeijer/JirAgileR?branch=master)
 
 ## Objective
 

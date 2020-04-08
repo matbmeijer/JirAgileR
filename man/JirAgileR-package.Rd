@@ -13,6 +13,7 @@ Allows to interact with the JIRA REST API to analyze the data in R.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://matbmeijer.github.io/JirAgileR}
   \item \url{https://github.com/matbmeijer/JirAgileR}
 }
 
