@@ -44,8 +44,8 @@ a single observation of an **issue** or a **project**, each column is a
 variable and each value must have its own cell. Thus, it integrates well
 with both the `dplyr` and `data.table`.
 
-More information about the package can be found
-[here](https://matbmeijer.github.io/JirAgileR/).
+More information about the package can be found at the following link:
+[(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
 
 ### Functionalities as of 08 of April, 2020
 
@@ -174,19 +174,14 @@ get_jira_projects() %>%
 get_jira_issues(jql_query = "project='CONGRATS'",
                 fields = c("summary","created", "status")) %>% 
   select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
-  head(10) %>%
+  head(5) %>%
   kable(row.names = F, padding = 0)
 ```
 
-| key         | summary                                                        | created             | status\_name     | status\_description                                                                                                            | status\_statuscategory\_name |
-| :---------- | :------------------------------------------------------------- | :------------------ | :--------------- | :----------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| CONGRATS-39 | Make the year of birth anonymous                               | 2019-11-06 16:02:32 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
-| CONGRATS-38 | Changing the display of events                                 | 2019-11-06 15:52:42 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
-| CONGRATS-37 | Add additional parameters for Events                           | 2019-11-06 08:57:14 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
-| CONGRATS-36 | UI misaligned when error is displayed in the settings          | 2019-10-15 14:41:30 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
-| CONGRATS-32 | Confluence 7 Support                                           | 2019-08-26 11:10:25 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
-| CONGRATS-30 | Finish up for marketplace                                      | 2019-05-16 15:06:52 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-29 | Display issue of standard profile picture in Internet Explorer | 2019-03-25 12:55:12 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-28 | Occasions change to next user after 12 pm                      | 2019-02-27 11:39:44 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-27 | Congrats - Define performance tests                            | 2019-02-04 10:39:08 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-26 | Congrats Data Center Checklist                                 | 2018-11-07 14:32:53 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
+| key         | summary                                               | created             | status\_name     | status\_description                                                                                                            | status\_statuscategory\_name |
+| :---------- | :---------------------------------------------------- | :------------------ | :--------------- | :----------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| CONGRATS-39 | Make the year of birth anonymous                      | 2019-11-06 16:02:32 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
+| CONGRATS-38 | Changing the display of events                        | 2019-11-06 15:52:42 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
+| CONGRATS-37 | Add additional parameters for Events                  | 2019-11-06 08:57:14 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
+| CONGRATS-36 | UI misaligned when error is displayed in the settings | 2019-10-15 14:41:30 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
+| CONGRATS-32 | Confluence 7 Support                                  | 2019-08-26 11:10:25 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
