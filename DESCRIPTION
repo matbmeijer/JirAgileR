@@ -8,7 +8,7 @@ Authors@R:
            email = "matthias@brennotten.net")
 Description: Allows to interact with the JIRA REST API to analyze the data in R.
 License: MIT + file LICENSE
-URL: https://github.com/matbmeijer/JirAgileR
+URL: https://matbmeijer.github.io/JirAgileR, https://github.com/matbmeijer/JirAgileR
 Encoding: UTF-8
 LazyData: true
 Imports: 
