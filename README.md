@@ -17,6 +17,8 @@ allowing users to easily analyze JIRA proyects and issues from within R.
 The underlying powertrain of the API is the ***Jira Query Language**
 (JQL)*. You can find more information about it
 [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql).
+You can find a cheatsheet
+[here](https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf).
 
 <figure>
 
@@ -39,12 +41,13 @@ The focus of this package lies in the following workflow aspects:
 Hence, for easy transformation and manipulation, each function returns a
 `data.frame` with **tidy data**, following main rules where each row is
 a single observation of an **issue** or a **project**, each column is a
-variable and each value must have its own cell.
+variable and each value must have its own cell. Thus, it integrates well
+with both the `dplyr` and `data.table`.
 
 More information about the package can be found
 [here](https://matbmeijer.github.io/JirAgileR/).
 
-### Functionalities as of 06 of April, 2020
+### Functionalities as of 08 of April, 2020
 
 1.  Extract all project names with their basic information (e.g. Name,
     ID, Key, Type, Category etc.).
@@ -85,9 +88,9 @@ More information about the package can be found
 
 ##### Note
 
-1.  To get all the information about the supported JQL fields visit the
-    folling
-    [link](https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/)
+  - To get all the information about the supported JQL fields visit the
+    following
+    [link](https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/).
     The package supports extracting comments, yet as one issue may
     contain multiple comments, the `data.frame` is flattened to a
     combination of issues and comments. Thus, the information of an
@@ -95,12 +98,13 @@ More information about the package can be found
 
 ### Roadmap
 
+  - 🔲 Retrieve JIRA boards information
   - 🔲 Define integrated *Reference Classes* within the package
   - 🔲 Include plotting graphs 📊
-  - 🔲 Abilty to save domain, username & password as secret tokens in
-    environment 🔐
   - 🔲 Abilty to obtain all available JIRA fields of a project
   - 🔲 Remove `data.table` dependency
+  - ✅ Abilty to save domain, username & password as secret tokens in
+    environment 🔐
   - ✅ Include *pipes* to facilitate analysis
   - ✅ Improve package robustness
   - ✅ Include http status error codes
@@ -117,7 +121,7 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("matbmeijer/JirAgileR")
 ```
 
-## Example
+## Examples
 
 This is a basic example which shows you how to obtain a simple table of
 issues of a project and create a tabular report. Most of the times, you
@@ -129,15 +133,49 @@ can be found
 ``` r
 library(JirAgileR, quietly = T)
 library(knitr, quietly = T)
+library(dplyr, quietly = T)
 
-Domain <- "https://bitvoodoo.atlassian.net"
-JQL_query <- "project='CONGRATS'"
-Search_field <- c("summary","created", "status")
-# Other possible fields are for example c("project", "key", "type", "priority", "resolution", "labels", "description", "links")
+# Save credentials to pass them only one time
+save_jira_credentials(domain = "https://bitvoodoo.atlassian.net")
 
-JiraQuery2R(domain = Domain, query = JQL_query, fields = Search_field) %>% 
-  dplyr::select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
-  knitr::kable(row.names = F, padding = 0)
+# Get full list of projects in domain
+get_jira_projects() %>% 
+  select(key, name)  %>% 
+  kable(row.names = F, padding = 0)
+```
+
+| key         | name                                    |
+| :---------- | :-------------------------------------- |
+| MACRODOC    | Macro Documentation for Confluence      |
+| THEME       | Enterprise Theme for Confluence         |
+| SBB         | SBB Widgets for Confluence              |
+| SD          | Sequence Diagram                        |
+| CFSYNC      | Custom Field Option Synchroniser        |
+| TEMPBLOG    | Templates for Blog Posts for Confluence |
+| REDIRECT    | Homepage Redirect for Confluence        |
+| LABEL       | Label Scheduler for Confluence          |
+| PANELBOX    | Advanced Panelboxes for Confluence      |
+| REG         | bitvoodoo Registration for Confluence   |
+| LABELFIX    | Label Fixer                             |
+| NTCLOUD     | Navitabs - Tabs for Confluence Cloud    |
+| NAVITABS    | Navitabs - Tabs for Confluence          |
+| LANGUAGE    | Language Macros for Confluence          |
+| SUPPLIER    | Viewtracker Supplier                    |
+| SCHEDULER   | Content Scheduler for Confluence        |
+| BVDEVOPS    | DevOps                                  |
+| SYNCTEST    | SyncTest                                |
+| VIEWTRACKER | Viewtracker - Analytics for Confluence  |
+| VTCLOUD     | Viewtracker Cloud                       |
+| CONGRATS    | Congrats for Confluence                 |
+| EXTLINK     | External Links for Confluence           |
+
+``` r
+# Retrieve the issues from a single project - in this case the project CONGRATS. See documentation to define which fields to see
+get_jira_issues(jql_query = "project='CONGRATS'",
+                fields = c("summary","created", "status")) %>% 
+  select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
+  head(10) %>%
+  kable(row.names = F, padding = 0)
 ```
 
 | key         | summary                                                        | created             | status\_name     | status\_description                                                                                                            | status\_statuscategory\_name |
@@ -152,14 +190,3 @@ JiraQuery2R(domain = Domain, query = JQL_query, fields = Search_field) %>%
 | CONGRATS-28 | Occasions change to next user after 12 pm                      | 2019-02-27 11:39:44 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
 | CONGRATS-27 | Congrats - Define performance tests                            | 2019-02-04 10:39:08 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
 | CONGRATS-26 | Congrats Data Center Checklist                                 | 2018-11-07 14:32:53 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-24 | Congrats for Confluence Data Center compatibility              | 2018-09-12 16:37:16 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-23 | If max entries is above 100 user icons overlap with Congrats   | 2018-07-03 11:05:41 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-20 | “You already congratulated” message missing after refresh      | 2018-03-19 16:47:12 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-18 | Add a dialogue for users that urges them to fill in dates      | 2017-12-05 11:21:53 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-17 | Synchronisation with the //Seibert/Media CUP                   | 2017-09-26 16:08:01 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-16 | Add an Interface to configure the sync fields                  | 2017-09-26 16:02:30 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
-| CONGRATS-15 | Synchronisation with the Communardo UPP                        | 2017-09-26 15:59:11 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
-| CONGRATS-11 | Display of age for birthday configurable                       | 2017-04-05 14:09:07 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-6  | Do not display inactive users in Congrats Macro                | 2016-11-24 11:28:06 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-3  | Incomplete rendering if placed in tabs                         | 2016-10-21 16:15:30 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |
-| CONGRATS-1  | Display current event in the center                            | 2016-08-09 11:52:53 | Closed           | The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.                          | Done                         |

@@ -10,7 +10,7 @@ basic_jql_fields()
 Returns a \code{character} vector with the default JQL fields.
 }
 \description{
-Internal function used to define the default JQL fields used for the \code{JiraQuery2R()} function.
+Internal function used to define the default JQL fields used for the \code{get_jira_issues()} function.
 }
 \section{Warning}{
 

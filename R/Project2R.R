@@ -1,5 +1,84 @@
+#' @title Retrieves the previously saved JIRA credentials
+#' @description Retrieves a \code{data.frame} with the JIRA credentials previously saved into the environment under the JIRAGILER_PAT variable through the \code{save_jira_credentials()} function.
+#' @return Returns a \code{data.frame} with the saved JIRA credentials
+#' @author Matthias Brenninkmeijer - \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+#' @examples
+#' \dontrun{
+#' save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+#'                       username='__INSERT_YOUR_USERNAME_HERE__',
+#'                       password='__INSERT_YOUR_PASSWORD_HERE__')
+#' get_jira_credentials()
+#' }
+#' @export
+
+get_jira_credentials<-function(){
+  info<-Sys.getenv("JIRAGILER_PAT",NA)
+  if(!is.na(info)){
+    mt<-matrix( strsplit(info, split = ";")[[1]], nrow = 2)
+    info<-data.frame(t(mt[2,]), stringsAsFactors = FALSE)
+    colnames(info)<-mt[1,]
+  }
+  return(info)
+}
+
+#' @title Removes previously saved JIRA credentials
+#' @description Removes the JIRA credentials, that have been previously saved into the environment under the JIRAGILER_PAT variable through the \code{save_jira_credentials()} function.
+#' @param verbose Optional parameter to remove previously saved parameters
+#' @return Returns a \code{data.frame} with the saved JIRA credentials
+#' @author Matthias Brenninkmeijer - \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+#' @examples
+#' \dontrun{
+#' save_jira_credentials(domain="https://bitvoodoo.atlassian.net")
+#' remove_jira_credentials()
+#' }
+#' @export
+
+
+remove_jira_credentials<-function(verbose=FALSE){
+  Sys.unsetenv("JIRAGILER_PAT")
+  if(verbose){cat("The JIRA credentials have been removed.")}
+}
+
+#' @title Saves domain and the domain's credentidals in the environment
+#' @description Saves the domain and/or username and password in the users' environment. It has the advantage that it is not necessary to explicitly publish the credentials in the users code. Just do it one time and you are set. To update any of the parameters just save again and it will overwrite the older credential.
+#' @param domain The users' JIRA server domain to retrieve information from. An example would be \href{https://bitvoodoo.atlassian.net}{}. It will be saved in the environment as JIRAGILER_DOMAIN.
+#' @param username The users' username to authenticate to the \code{domain}. It will be saved in the environment as JIRAGILER_USERNAME.
+#' @param password The users' password to authenticate to the \code{domain}. It will be saved in the environment as JIRAGILER_PASSWORD. If \code{verbose} is set to \code{TRUE}, it will message asterisks.
+#' @param verbose Optional parameter to inform the user when the users' crendentials have been saved.
+#' @return Saves the credentials in the users environment - it does not return any object.
+#' @author Matthias Brenninkmeijer - \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+#' @examples
+#' \dontrun{
+#' save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+#'                       username='__INSERT_YOUR_USERNAME_HERE__',
+#'                       password='__INSERT_YOUR_PASSWORD_HERE__')
+#' }
+#' @export
+
+save_jira_credentials <-function(domain=NULL, username=NULL, password=NULL, verbose=FALSE){
+  if(is.null(c(domain, username, password))){
+    stop(call. = FALSE, "At least the domain or both the username and password must be informed.")
+  }
+  if(!is.null(domain)){
+    env_name<-sprintf("DOMAIN;%s", domain)
+  }
+  if(!is.null(username) && !is.null(password)){
+    env_name<-paste0(env_name,";", sprintf("USERNAME;%s", username))
+    env_name<-paste0(env_name,";", sprintf("PASSWORD;%s", password))
+  }else if(length(c(username, password))==1){
+    stop(call. = FALSE, "Both username and password must be informed to save credentials to be able to authenticate.")
+  }
+  Sys.setenv("JIRAGILER_PAT"=env_name)
+  if(verbose){
+    df<-get_jira_credentials()
+    cat(sprintf("<The following credentials have been saved in the environment>\n%s",
+    gsub("PASSWORD = .*$","PASSWORD = ********", paste0(sprintf("%s = %s", colnames(df), df[1,]), collapse = "\n"))))
+  }
+}
+
+
 #' @title Returns the supported JQL fields
-#' @description Function shows all the supported JQL fields that are available to choose for the \code{JiraQuery2R()} function.
+#' @description Function shows all the supported JQL fields that are available to choose for the \code{get_jira_issues()} function.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns a character vector of all the supported JQL fields.
 #' @export
@@ -39,7 +118,7 @@ supported_jql_fields<-function(){
       "workratio"))}
 
 #' @title Returns default JQL fields used
-#' @description Internal function used to define the default JQL fields used for the \code{JiraQuery2R()} function.
+#' @description Internal function used to define the default JQL fields used for the \code{get_jira_issues()} function.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns a \code{character} vector with the default JQL fields.
 #' @section Warning:
@@ -130,13 +209,14 @@ unnest_df <- function(x) {
   if("data.frame" %in% unlist(lapply(y, class))){
     y<-unnest_df(y)
   }
+  colnames(y) <- gsub("\\.", "_", tolower(colnames(y)))
   return(y)
 }
 
 #' @title Retrieves all projects as a \code{data.frame}
 #' @description Makes a request to JIRA's latest REST API to retrieve all projects and their basic project information (Name, Key, Id, Description, etc.).
-#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}.
-#' @param user Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param expand Specific JIRA fields the user wants to obtain for a specific field. Optional parameter.
 #' @param verbose Explicitly informs the user of the JIRA API request process.
@@ -144,18 +224,26 @@ unnest_df <- function(x) {
 #' @return Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
-#' Projects2R("https://bitvoodoo.atlassian.net")
+#' get_jira_projects("https://bitvoodoo.atlassian.net")
 #' @section Warning:
 #' The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}.
 #' @export
 
-Projects2R <- function(domain,
-                       user = NULL,
+get_jira_projects <- function(domain = NULL,
+                       username = NULL,
                        password = NULL,
                        expand = NULL,
                        verbose=FALSE){
-  if(!is.null(user)&!is.null(password)){
-    auth <- httr::authenticate(as.character(user), as.character(password), "basic")
+  credentials<-get_jira_credentials()
+  if(is.null(domain) && !all(is.na(credentials))){
+    domain<-credentials$DOMAIN
+    username<-credentials$USERNAME
+    password<-credentials$PASSWORD
+  } else if(!is.character(domain) || length(domain) != 1){
+    stop(call. = FALSE, "Domain is an obligatory parameter. No domain saved in credentials and no domain passed as parameter.")
+  }
+  if(!is.null(username) && !is.null(password)){
+    auth <- httr::authenticate(as.character(username), as.character(password), "basic")
   } else {
     auth <- NULL
   }
@@ -168,25 +256,42 @@ Projects2R <- function(domain,
   )
   call_raw <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
   if(httr::http_error(call_raw$status_code)){
-    stop(error_response(call_raw$status_code))
+    stop(call. = FALSE, error_response(call_raw$status_code))
     }
   if (httr::http_type(call_raw) != "application/json") {
-    stop("API did not return json", call. = FALSE)
+    stop(call. = FALSE, "API did not return json")
   }
   call <- jsonlite::fromJSON(httr::content(call_raw, as = "text"), simplifyDataFrame = TRUE)
   df<-unnest_df(call)
-  colnames(df) <- gsub("\\.", "_", tolower(colnames(df)))
   return(df)
 }
 
 #' @title Retrieves all issues of a JIRA query as a \code{data.frame}
 #' @description Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.
-#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}.
-#' @param user Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
-#' @param query JIRA's decoded JQL query. By definition, it works with *Fields*, *Operators*, *Keywords* and *Functions*. To learn how to create a query visit \href{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site}.
+#' @param jql_query JIRA's decoded JQL query. By definition, it works with:
+#' \itemize{
+#' \item Fields
+#' \item Operators
+#' \item Keywords
+#' \item Functions
+#' }
+#' To learn how to create a query visit \href{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site} or the following \href{https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf}{cheatsheet}.
 #' @param fields Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed:
-#' 'status', 'priority', 'created', 'reporter', 'summary', 'description', 'assignee', 'updated', 'issuetype', 'fixVersions'.
+#' \itemize{
+#' \item status
+#' \item priority
+#' \item created
+#' \item reporter
+#' \item summary
+#' \item description
+#' \item assignee
+#' \item updated
+#' \item issuetype
+#' \item fixVersions
+#' }
 #' To obtain a list of all supported fields use the following function: \code{supported_jql_fields()}.
 #' @param maxResults Max results authorized to obtain for each API call. By default JIRA sets this value to 50 issues.
 #' @param verbose Explicitly informs the user of the JIRA API request process.
@@ -195,25 +300,32 @@ Projects2R <- function(domain,
 #' @return Returns a flattened, formatted \code{data.frame} with the issues according to the JQL query.
 #' @seealso For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}.
 #' @examples
-#' JiraQuery2R(domain = "https://bitvoodoo.atlassian.net", query = 'project="Congrats for Confluence"')
+#' get_jira_issues(domain = "https://bitvoodoo.atlassian.net",
+#'                 jql_query = 'project="Congrats for Confluence"')
 #' @section Warning:
 #' If the \code{comment} field is used as a \code{fields} parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
 #' @export
 
-JiraQuery2R <- function(domain,
-                        user=NULL,
+get_jira_issues <- function(domain=NULL,
+                        username=NULL,
                         password=NULL,
-                        query,
+                        jql_query,
                         fields=basic_jql_fields(),
                         maxResults=50,
                         verbose=FALSE,
                         as.data.frame=TRUE){
-  stopifnot(is.character(domain), length(domain) == 1)
-  stopifnot(is.character(query), length(query) == 1)
+  credentials<-get_jira_credentials()
+  if(is.null(domain) && !all(is.na(credentials))){
+    domain<-credentials$DOMAIN
+    username<-credentials$USERNAME
+    password<-credentials$PASSWORD
+  } else if(!is.character(domain) ||length(domain) != 1){
+    stop(call. = FALSE, "Domain is an obligatory parameter. No domain saved in credentials and no domain passed as parameter.")
+  }
 
-  #Set authenticatión if user and password are passed
-  if(!is.null(user)&&!is.null(password)){
-    auth <- httr::authenticate(as.character(user), as.character(password), "basic")
+  #Set authentication if username and password are passed
+  if(!is.null(username)&&!is.null(password)){
+    auth <- httr::authenticate(as.character(username), as.character(password), "basic")
   } else {
     auth <- NULL
   }
@@ -228,7 +340,7 @@ JiraQuery2R <- function(domain,
   url<-httr::modify_url(url = url,
                    scheme = if(is.null(url$scheme)){"https"},
                    path = list(type = "rest", call = "api", robust = "latest", kind = "search"),
-                   query=list(jql=query,
+                   query=list(jql=jql_query,
                               fields=conc(fields),
                               startAt = "0",
                               maxResults = maxResults)
@@ -245,10 +357,10 @@ JiraQuery2R <- function(domain,
     url_b <- httr::build_url(url)
     call_raw <- httr::GET(url_b,  encode = "json", if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
     if(httr::http_error(call_raw$status_code)){
-      stop(error_response(call_raw$status_code))
+      stop(call. = FALSE, error_response(call_raw$status_code))
     }
     if (httr::http_type(call_raw) != "application/json") {
-      stop("API did not return json", call. = FALSE)
+      stop(call. = FALSE, "API did not return json")
     }
     call <- jsonlite::fromJSON(httr::content(call_raw, "text"), simplifyVector = FALSE)
     issue_list <- append(issue_list, call$issues)
@@ -307,6 +419,7 @@ parse_issue<-function(issue, JirAgileR_id){
   }
   return(df)
 }
+
 
 #' @title Function to choose for the right field parser function
 #' @description Internal function to choose/switch to the correct function to parse each field for each issue

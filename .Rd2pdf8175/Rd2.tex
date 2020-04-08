@@ -1,0 +1,565 @@
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `JirAgileR'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\inputencoding{utf8}
+\item[Title]\AsIs{JIRA REST API Wrapper for R}
+\item[Version]\AsIs{0.0.1.1}
+\item[Description]\AsIs{Allows to interact with the JIRA REST API to analyze the data in R.}
+\item[License]\AsIs{MIT + file LICENSE}
+\item[URL]\AsIs{}\url{https://github.com/matbmeijer/JirAgileR}\AsIs{}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[Imports]\AsIs{httr,
+jsonlite,
+data.table,
+magrittr}
+\item[RoxygenNote]\AsIs{7.1.0}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{basic\_issues\_info}{Extract the basic key information of the issues}{basic.Rul.issues.Rul.info}
+%
+\begin{Description}\relax
+Internal function to extract the basic key information as a \code{data.frame}.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+basic_issues_info(x)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] JIRA issue list item.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns \code{data.frame} with basic field information.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{basic\_jql\_fields}{Returns default JQL fields used}{basic.Rul.jql.Rul.fields}
+%
+\begin{Description}\relax
+Internal function used to define the default JQL fields used for the \code{get\_jira\_issues()} function.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+basic_jql_fields()
+\end{verbatim}
+\end{Usage}
+%
+\begin{Value}
+Returns a \code{character} vector with the default JQL fields.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{choose\_field\_function}{Function to choose for the right field parser function}{choose.Rul.field.Rul.function}
+%
+\begin{Description}\relax
+Internal function to choose/switch to the correct function to parse each field for each issue
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+choose_field_function(x, type)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] The fields nested data to flatten.
+
+\item[\code{type}] The fields' name.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a parsed, cleaned \code{data.frame} with all the fields.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{conc}{Concatenates multiple strings}{conc}
+%
+\begin{Description}\relax
+Internal function with an opinionated default behaviour to concatenate charcter values.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+conc(x, y = ",", decr = FALSE, unique = TRUE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] A single character vector to concatenate together.
+
+\item[\code{y}] By default a \code{,} string used to define the character to collapse the \code{x} parameter.
+
+\item[\code{decr}] Optional logical parameter that defines the sorting order, by default set to \code{FALSE}, which results in an alphabetical order.
+
+\item[\code{unique}] Optional logical parameter to concatenate only unique values, by default set to \code{TRUE}
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a single character string.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{error\_response}{Function to inform the user about possible error codes}{error.Rul.response}
+%
+\begin{Description}\relax
+Internal function show potential error code messages to the user.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+error_response(x)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] REST API response status error code.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a single character string with an error message.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{get\_jira\_credentials}{Retrieves the previously saved JIRA credentials}{get.Rul.jira.Rul.credentials}
+%
+\begin{Description}\relax
+Retrieves a \code{data.frame} with the JIRA credentials previously saved into the environment under the JIRAGILER\_PAT variable through the \code{save\_jira\_credentials()} function.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_jira_credentials()
+\end{verbatim}
+\end{Usage}
+%
+\begin{Value}
+Returns a \code{data.frame} with the saved JIRA credentials
+\end{Value}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer - \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+                      username='__INSERT_YOUR_USERNAME_HERE__',
+                      password='__INSERT_YOUR_PASSWORD_HERE__')
+get_jira_credentials()
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{get\_jira\_issues}{Retrieves all issues of a JIRA query as a \code{data.frame}}{get.Rul.jira.Rul.issues}
+%
+\begin{Description}\relax
+Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_jira_issues(
+  domain = NULL,
+  username = NULL,
+  password = NULL,
+  jql_query,
+  fields = basic_jql_fields(),
+  maxResults = 50,
+  verbose = FALSE,
+  as.data.frame = TRUE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{domain}] Custom JIRA domain URL as for example \Rhref{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save\_jira\_credentials()} function.
+
+\item[\code{username}] Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+
+\item[\code{password}] Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+
+\item[\code{jql\_query}] JIRA's decoded JQL query. By definition, it works with:
+\begin{itemize}
+
+\item{} Fields
+\item{} Operators
+\item{} Keywords
+\item{} Functions
+
+\end{itemize}
+
+To learn how to create a query visit \Rhref{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site} or the following \Rhref{https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf}{cheatsheet}.
+
+\item[\code{fields}] Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed:
+\begin{itemize}
+
+\item{} status
+\item{} priority
+\item{} created
+\item{} reporter
+\item{} summary
+\item{} description
+\item{} assignee
+\item{} updated
+\item{} issuetype
+\item{} fixVersions
+
+\end{itemize}
+
+To obtain a list of all supported fields use the following function: \code{supported\_jql\_fields()}.
+
+\item[\code{maxResults}] Max results authorized to obtain for each API call. By default JIRA sets this value to 50 issues.
+
+\item[\code{verbose}] Explicitly informs the user of the JIRA API request process.
+
+\item[\code{as.data.frame}] Defines if the function returns a flattened \code{data.frame} or the raw JIRA response.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a flattened, formatted \code{data.frame} with the issues according to the JQL query.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+If the \code{comment} field is used as a \code{fields} parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \Rhref{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{Github}
+\end{Author}
+%
+\begin{SeeAlso}\relax
+For more information about Atlassians JIRA API visit the following link: \Rhref{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}.
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+get_jira_issues(domain = "https://bitvoodoo.atlassian.net",
+                jql_query = 'project="Congrats for Confluence"')
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{get\_jira\_projects}{Retrieves all projects as a \code{data.frame}}{get.Rul.jira.Rul.projects}
+%
+\begin{Description}\relax
+Makes a request to JIRA's latest REST API to retrieve all projects and their basic project information (Name, Key, Id, Description, etc.).
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_jira_projects(
+  domain = NULL,
+  username = NULL,
+  password = NULL,
+  expand = NULL,
+  verbose = FALSE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{domain}] Custom JIRA domain URL as for example \Rhref{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save\_jira\_credentials()} function.
+
+\item[\code{username}] Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+
+\item[\code{password}] Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+
+\item[\code{expand}] Specific JIRA fields the user wants to obtain for a specific field. Optional parameter.
+
+\item[\code{verbose}] Explicitly informs the user of the JIRA API request process.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT\_ADMIN project permission.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \Rhref{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}.
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+%
+\begin{SeeAlso}\relax
+For more information about Atlassians JIRA API go to \Rhref{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+get_jira_projects("https://bitvoodoo.atlassian.net")
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{parse\_issue}{Extract the extensive fields of a single issue}{parse.Rul.issue}
+%
+\begin{Description}\relax
+Internal function to transform the nested more extensive JIRA issue fields into a flattened \code{data.frame}
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+parse_issue(issue, JirAgileR_id)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{issue}] A JIRA issue with all its extended fields
+
+\item[\code{JirAgileR\_id}] JirAgiler ID to assign to
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns \code{data.frame} with all the extended field information.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{remove\_jira\_credentials}{Removes previously saved JIRA credentials}{remove.Rul.jira.Rul.credentials}
+%
+\begin{Description}\relax
+Removes the JIRA credentials, that have been previously saved into the environment under the JIRAGILER\_PAT variable through the \code{save\_jira\_credentials()} function.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+remove_jira_credentials(verbose = FALSE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{verbose}] Optional parameter to remove previously saved parameters
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a \code{data.frame} with the saved JIRA credentials
+\end{Value}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer - \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+save_jira_credentials(domain="https://bitvoodoo.atlassian.net")
+remove_jira_credentials()
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{save\_jira\_credentials}{Saves domain and the domain's credentidals in the environment}{save.Rul.jira.Rul.credentials}
+%
+\begin{Description}\relax
+Saves the domain and/or username and password in the users' environment. It has the advantage that it is not necessary to explicitly publish the credentials in the users code. Just do it one time and you are set. To update any of the parameters just save again and it will overwrite the older credential.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+save_jira_credentials(
+  domain = NULL,
+  username = NULL,
+  password = NULL,
+  verbose = FALSE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{domain}] The users' JIRA server domain to retrieve information from. An example would be \Rhref{https://bitvoodoo.atlassian.net}{}. It will be saved in the environment as JIRAGILER\_DOMAIN.
+
+\item[\code{username}] The users' username to authenticate to the \code{domain}. It will be saved in the environment as JIRAGILER\_USERNAME.
+
+\item[\code{password}] The users' password to authenticate to the \code{domain}. It will be saved in the environment as JIRAGILER\_PASSWORD. If \code{verbose} is set to \code{TRUE}, it will message asterisks.
+
+\item[\code{verbose}] Optional parameter to inform the user when the users' crendentials have been saved.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Saves the credentials in the users environment - it does not return any object.
+\end{Value}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer - \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+                      username='__INSERT_YOUR_USERNAME_HERE__',
+                      password='__INSERT_YOUR_PASSWORD_HERE__')
+
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{supported\_jql\_fields}{Returns the supported JQL fields}{supported.Rul.jql.Rul.fields}
+%
+\begin{Description}\relax
+Function shows all the supported JQL fields that are available to choose for the \code{get\_jira\_issues()} function.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+supported_jql_fields()
+\end{verbatim}
+\end{Usage}
+%
+\begin{Value}
+Returns a character vector of all the supported JQL fields.
+\end{Value}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{to\_date}{Transforms JIRA date character to POSIXlt format}{to.Rul.date}
+%
+\begin{Description}\relax
+Internal function to parse the date from JIRA character vectors.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+to_date(x)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] Character vector to transform into a \code{POSIXlt}.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a \code{POSIXlt} object vector.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\inputencoding{utf8}
+\HeaderA{unnest\_df}{Unnest a nested \code{data.frame}}{unnest.Rul.df}
+%
+\begin{Description}\relax
+Unnests/flattens a nested \code{data.frame}
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+unnest_df(x)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] A nested \code{data.frame} object
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+Returns a flattened \code{data.frame}.
+\end{Value}
+%
+\begin{Section}{Warning}
+
+Internal function
+\end{Section}
+%
+\begin{Author}\relax
+Matthias Brenninkmeijer - \Rhref{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+\end{Author}
+\printindex{}
+\end{document}

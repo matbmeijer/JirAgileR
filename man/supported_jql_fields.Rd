@@ -10,7 +10,7 @@ supported_jql_fields()
 Returns a character vector of all the supported JQL fields.
 }
 \description{
-Function shows all the supported JQL fields that are available to choose for the \code{JiraQuery2R()} function.
+Function shows all the supported JQL fields that are available to choose for the \code{get_jira_issues()} function.
 }
 \author{
 Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
