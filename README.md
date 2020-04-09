@@ -104,7 +104,7 @@ More information about the package can be found at the following link:
   - 🔲 Define integrated *Reference Classes* within the package
   - 🔲 Include plotting graphs 📊
   - 🔲 Abilty to obtain all available JIRA fields of a project
-  - 🔲 Remove `data.table` dependency
+  - ✅ Remove `data.table` dependency
   - ✅ Abilty to save domain, username & password as secret tokens in
     environment 🔐
   - ✅ Include *pipes* to facilitate analysis
