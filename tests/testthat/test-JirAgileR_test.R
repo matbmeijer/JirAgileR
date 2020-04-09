@@ -82,6 +82,8 @@ test_that("unnest_df(): Empty value returns error and returns data.frame",{
 test_that("get_jira_projects(): Returns data.frame",{
   expect_identical(class(get_jira_projects(domain="https://bitvoodoo.atlassian.net")), "data.frame")
   expect_error(get_jira_projects(domain = 1))
+  expect_error(get_jira_projects(domain = "1"))
+  expect_error(get_jira_projects(domain ="https://www.google.com/"))
 })
 
 ############################## get_jira_issues() ###############################
@@ -108,85 +110,144 @@ test_that("parse_issue(): Empty value returns error",{
   expect_error(parse_issue())
   expect_equal(parse_issue(data.frame(created=Sys.Date()), 1),
                data.frame(JirAgileR_id=1, created=Sys.Date()))
+  expect_equal(parse_issue(data.frame(created=Sys.Date()), 1),
+               data.frame(JirAgileR_id=1, created=Sys.Date()))
 })
 
 ########################### choose_field_function() ############################
-test_that("choose_field_function(): Empty value returns error",{
+test_that("choose_field_function(): Empty value returns error and various switches",{
   expect_error(choose_field_function())
-  expect_equal(choose_field_function(data.frame(created=Sys.Date()), type="created"),
-               data.frame(created=Sys.Date()))
-  expect_equal(choose_field_function(data.frame(duedate=Sys.Date()), type="duedate"),
-               data.frame(duedate=Sys.Date()))
-  expect_equal(choose_field_function(data.frame(resolutiondate=Sys.Date()), type="resolutiondate"),
-               data.frame(resolutiondate=Sys.Date()))
-  expect_equal(choose_field_function(data.frame(timespent=Sys.Date()), type="timespent"),
-               data.frame(timespent=Sys.Date()))
-
+  expect_equal(choose_field_function(data.frame(created=as.Date("2019-08-06")), type="created"),
+               data.frame(created=as.Date("2019-08-06")))
+  expect_equal(choose_field_function(data.frame(duedate=as.Date("2019-08-06")), type="duedate"),
+               data.frame(duedate=as.Date("2019-08-06")))
+  expect_equal(choose_field_function(data.frame(resolutiondate=as.Date("2019-08-06")), type="resolutiondate"),
+               data.frame(resolutiondate=as.Date("2019-08-06")))
+  expect_equal(choose_field_function(data.frame(timespent=1), type="timespent"),
+               data.frame(timespent=1))
+  expect_equal(choose_field_function(data.frame(description="test", stringsAsFactors = FALSE), type="description"),
+               data.frame(description="test", stringsAsFactors = FALSE))
+  expect_equal(choose_field_function(data.frame(summary="test", stringsAsFactors = FALSE), type="summary"),
+               data.frame(summary="test", stringsAsFactors = FALSE))
+  expect_equal(choose_field_function(data.frame(environment="test", stringsAsFactors = FALSE), type="environment"),
+               data.frame(environment="test", stringsAsFactors = FALSE))
 })
 
 ############################### summary_field() ################################
 test_that("summary_field(): Empty value returns error",{
   expect_error(summary_field())
+  expect_identical(
+    summary_field(list(summary="test")),
+    data.frame(summary="test", stringsAsFactors = FALSE)
+    )
 })
 
 ############################# description_field() ##############################
 test_that("description_field(): Empty value returns error",{
   expect_error(description_field())
+  expect_identical(
+    description_field(list(description="test")),
+    data.frame(description="test", stringsAsFactors = FALSE)
+    )
 })
 
 ############################# environment_field() ##############################
 test_that("environment_field(): Empty value returns error",{
   expect_error(environment_field())
+  expect_identical(
+    environment_field(list(environment=1)),
+    data.frame(environment=1)
+  )
 })
 
 ############################## workratio_field() ###############################
 test_that("workratio_field(): Empty value returns error",{
   expect_error(workratio_field())
+  expect_identical(
+    workratio_field(list(workratio=1)),
+    data.frame(workratio=1)
+  )
 })
 
 ############################## timespent_field() ###############################
 test_that("timespent_field(): Empty value returns error",{
   expect_error(timespent_field())
+  expect_identical(
+    timespent_field(list(timespent=1)),
+    data.frame(timespent=1)
+  )
 })
 
 ########################## aggregatetimespent_field() ##########################
 test_that("aggregatetimespent_field(): Empty value returns error",{
   expect_error(aggregatetimespent_field())
+  expect_identical(
+    aggregatetimespent_field(list(aggregatetimespent=1)),
+    data.frame(aggregatetimespent=1)
+  )
 })
 
 ######################## aggregatetimeestimate_field() #########################
 test_that("aggregatetimeestimate_field(): Empty value returns error",{
   expect_error(aggregatetimeestimate_field())
+  expect_identical(
+    aggregatetimeestimate_field(list(aggregatetimeestimate=1)),
+    data.frame(aggregatetimeestimate=1)
+  )
 })
 
 ############################# timeestimate_field() #############################
 test_that("timeestimate_field(): Empty value returns error",{
   expect_error(timeestimate_field())
+  expect_identical(
+    timeestimate_field(list(timeestimate=1)),
+    data.frame(timeestimate=1)
+  )
 })
 
 ############################### duedate_field() ################################
 test_that("duedate_field(): Empty value returns error",{
   expect_error(duedate_field())
+  expect_identical(
+    duedate_field(list(duedate=as.Date("2019-08-06"))),
+    data.frame(duedate=as.Date("2019-08-06"))
+  )
 })
 
 ############################### created_field() ################################
-test_that("created_field(): Empty value returns error",{
+test_that("created_field(): Empty value returns error & correct format",{
   expect_error(created_field())
+  expect_identical(
+    created_field(list(created="2019-08-06T12:15:29.000+0200")),
+    data.frame(created=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  )
 })
 
 ############################### updated_field() ################################
-test_that("updated_field(): Empty value returns error",{
+test_that("updated_field(): Empty value returns error & correct format",{
   expect_error(updated_field())
+  expect_identical(
+    updated_field(list(updated="2019-08-06T12:15:29.000+0200")),
+    data.frame(updated=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  )
 })
 
 ############################ resolutiondate_field() ############################
-test_that("resolutiondate_field(): Empty value returns error",{
+test_that("resolutiondate_field(): Empty value returns error & correct format",{
   expect_error(resolutiondate_field())
+  expect_identical(
+    resolutiondate_field(list(resolutiondate="2019-08-06T12:15:29.000+0200")),
+    data.frame(resolutiondate=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  )
 })
 
 ############################## lastViewed_field() ##############################
-test_that("lastViewed_field(): Empty value returns error",{
+test_that("lastViewed_field(): Empty value returns error & correct format",{
   expect_error(lastViewed_field())
+  expect_identical(
+    lastViewed_field(list(lastViewed="2019-08-06T12:15:29.000+0200")),
+    data.frame(lastViewed=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  )
 })
 
 ############################## issuetype_field() ###############################
@@ -267,6 +328,10 @@ test_that("status_field(): Empty value returns error",{
 ################################ labels_field() ################################
 test_that("labels_field(): Empty value returns error",{
   expect_error(labels_field())
+  expect_identical(
+    labels_field(list(labels=list(1, 2, 3))),
+    data.frame(labels=conc(c(1,2,3)), stringsAsFactors = FALSE)
+  )
 })
 
 ############################# fixVersions_field() ##############################
@@ -277,4 +342,18 @@ test_that("fixVersions_field(): Empty value returns error",{
 ############################### comment_field() ################################
 test_that("comment_field(): Empty value returns error",{
   expect_error(comment_field())
+})
+
+################################# rbind_fill() #################################
+test_that("rbind_fill(): Returns binded list",{
+  expect_identical(rbind_fill(
+    list(data.frame(a=c(1,2),b=c("a", "b"), stringsAsFactors = FALSE),
+         data.frame(b=c("z", "y"), d=c(3,4), stringsAsFactors = FALSE))),
+    data.frame(a=c(1,2,NA,NA), b=c("a","b","z","y"), d=c(NA,NA,3,4), stringsAsFactors = FALSE))
+})
+
+################################ fill_df_NAs() #################################
+test_that("fill_df_NAs(): Returns correct data.frame",{
+expect_identical(fill_df_NAs(x=data.frame(a=c("a","b","c"), stringsAsFactors = FALSE),cols =  c("b", "c")),
+                 data.frame(a=c("a","b","c"), b=NA, c=NA, stringsAsFactors = FALSE))
 })

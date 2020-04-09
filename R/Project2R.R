@@ -1,18 +1,3 @@
-fill_df_NAs<-function(x, cols){
-  x_cols<-names(x)
-  miss_cols<-setdiff(cols, x_cols)
-  x[,miss_cols]<-NA
-  return(x)
-}
-
-rbind_fill<-function(l){
-  r<-unique(unlist(lapply(l, nrow)))
-  l<-l[r>0]
-  cols<-unique(unlist(lapply(l, names)))
-  res<-do.call(rbind, lapply(l, fill_df_NAs, cols))
-  return(res)
-}
-
 #' @title Retrieves the previously saved JIRA credentials
 #' @description Retrieves a \code{data.frame} with the JIRA credentials previously saved into the environment under the JIRAGILER_PAT variable through the \code{save_jira_credentials()} function.
 #' @return Returns a \code{data.frame} with the saved JIRA credentials
@@ -701,4 +686,19 @@ comment_field<-function(x){
   colnames(df)<-gsub("\\.", "_", paste0("comment_", tolower(colnames(df))))
   df<-data.frame(lapply(df, to_date), stringsAsFactors = FALSE)
   return(df)
+}
+
+fill_df_NAs<-function(x, cols){
+  x_cols<-names(x)
+  miss_cols<-setdiff(cols, x_cols)
+  x[,miss_cols]<-NA
+  return(x)
+}
+
+rbind_fill<-function(l){
+  r<-unique(unlist(lapply(l, nrow)))
+  l<-l[r>0]
+  cols<-unique(unlist(lapply(l, names)))
+  res<-do.call(rbind, lapply(l, fill_df_NAs, cols))
+  return(res)
 }
