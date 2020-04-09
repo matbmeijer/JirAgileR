@@ -1,6 +1,8 @@
-# JirAgileR 0.0.2
-
 # JirAgileR
+
+# JirAgileR 0.0.1.3
+
+* Removed `data.table` heavy dependency, as only `rbindlist(x, fill=TRUE)` was used.
 
 # JirAgileR 0.0.1.2
 
