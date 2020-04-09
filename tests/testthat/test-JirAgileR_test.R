@@ -85,11 +85,11 @@ test_that("get_jira_projects(): Returns data.frame",{
 })
 
 ############################## get_jira_issues() ###############################
-test_that("get_jira_issues(): Empty value returns error and returns data.frame & data.table",{
+test_that("get_jira_issues(): Empty value returns error and returns data.frame",{
   expect_error(get_jira_issues())
   expect_identical(class(get_jira_issues(domain="https://bitvoodoo.atlassian.net",
                                          jql_query = "project='CONGRATS'",
-                                         fields = "summary")), c("data.table", "data.frame"))
+                                         fields = "summary")), "data.frame")
   expect_error(get_jira_issues(domain = 1))
 })
 
@@ -98,7 +98,7 @@ test_that("basic_issues_info(): Empty value returns error",{
   expect_error(basic_issues_info())
   expect_identical(
     class(basic_issues_info(list(data.frame(id=1, self="test", key="test1", stringsAsFactors = FALSE)))),
-    c("data.table", "data.frame"))
+    "data.frame")
   expect_identical(names(basic_issues_info(list(data.frame(id=1, self="test", key="test1", stringsAsFactors = FALSE)))),
   c("id", "self", "key","JirAgileR_id"))
 })

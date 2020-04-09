@@ -14,7 +14,6 @@ LazyData: true
 Imports: 
     httr,
     jsonlite,
-    data.table,
     magrittr
 Suggests:
     covr,

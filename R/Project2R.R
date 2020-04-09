@@ -1,3 +1,18 @@
+fill_df_NAs<-function(x, cols){
+  x_cols<-names(x)
+  miss_cols<-setdiff(cols, x_cols)
+  x[,miss_cols]<-NA
+  return(x)
+}
+
+rbind_fill<-function(l){
+  r<-unique(unlist(lapply(l, nrow)))
+  l<-l[r>0]
+  cols<-unique(unlist(lapply(l, names)))
+  res<-do.call(rbind, lapply(l, fill_df_NAs, cols))
+  return(res)
+}
+
 #' @title Retrieves the previously saved JIRA credentials
 #' @description Retrieves a \code{data.frame} with the JIRA credentials previously saved into the environment under the JIRAGILER_PAT variable through the \code{save_jira_credentials()} function.
 #' @return Returns a \code{data.frame} with the saved JIRA credentials
@@ -373,7 +388,7 @@ get_jira_issues <- function(domain=NULL,
   ext_info <- lapply(issue_list, `[[`, "fields")
   if(as.data.frame){
     ext_info<-lapply(seq_along(ext_info), function(x) parse_issue(issue = ext_info[[x]], JirAgileR_id = x))
-    ext_info<-data.table::rbindlist(ext_info, fill = TRUE, idcol="ID")
+    ext_info<-rbind_fill(ext_info)
     df <- merge(base_info, ext_info,by="JirAgileR_id", all=TRUE)
     df[["JirAgileR_id"]]<-NULL
   }else{
@@ -392,7 +407,8 @@ get_jira_issues <- function(domain=NULL,
 
 basic_issues_info<-function(x){
   extr_info<-lapply(x, `[`,c("id","self", "key"))
-  df<-data.table::rbindlist(extr_info, use.names = TRUE, fill = TRUE)
+  extr_info<-lapply(extr_info, data.frame, stringsAsFactors = FALSE)
+  df<-do.call(rbind, extr_info)
   df[["JirAgileR_id"]]<-seq_along(extr_info)
   return(df)
 }

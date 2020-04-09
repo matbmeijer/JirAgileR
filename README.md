@@ -44,12 +44,12 @@ Hence, for easy transformation and manipulation, each function returns a
 `data.frame` with **tidy data**, following main rules where each row is
 a single observation of an **issue** or a **project**, each column is a
 variable and each value must have its own cell. Thus, it integrates well
-with both the `dplyr` and `data.table`.
+with both the `dplyr` and `data.table` R libraries.
 
 More information about the package can be found at the following link:
 [(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
 
-### Functionalities as of 08 of April, 2020
+### Functionalities as of 09 of April, 2020
 
 1.  Extract all project names with their basic information (e.g. Name,
     ID, Key, Type, Category etc.).
