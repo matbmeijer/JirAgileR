@@ -52,25 +52,6 @@ test_that("to_date(): Empty value returns error",{
   expect_identical(class(to_date("2018-10-22T14:47:03.000+0200")), c("POSIXlt", "POSIXt"))
 })
 
-############################### error_response() ###############################
-test_that("error_response(): Character and number return same value",{
-  expect_identical(error_response(400), error_response("400"))
-  expect_length(error_response(401),1)
-  expect_error(expect_length())
-  expect_null(error_response(600))
-  expect_type(error_response(402), "character")
-  expect_type(error_response(403), "character")
-  expect_type(error_response(404), "character")
-  expect_type(error_response(405), "character")
-  expect_type(error_response(406), "character")
-  expect_type(error_response(407), "character")
-  expect_type(error_response(408), "character")
-  expect_type(error_response(429), "character")
-  expect_type(error_response(500), "character")
-  expect_type(error_response(502), "character")
-  expect_type(error_response(503), "character")
-})
-
 ################################# unnest_df() ##################################
 test_that("unnest_df(): Empty value returns error and returns data.frame",{
   expect_error(unnest_df())

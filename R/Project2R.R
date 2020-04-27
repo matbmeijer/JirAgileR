@@ -170,32 +170,6 @@ to_date<-function(x){
   }
 }
 
-#' @title Function to inform the user about possible error codes
-#' @description Internal function show potential error code messages to the user.
-#' @param x REST API response status error code.
-#' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
-#' @return Returns a single character string with an error message.
-#' @section Warning:
-#' Internal function
-
-error_response<-function(x){
-  y<-switch(as.character(x),
-                     "400"="<Server response error code 400 - Bad Request>",
-                     "401"="<Server response error code 401 - Unauthorized>",
-                     "402"="<Server response error code 402 - Payment Required>",
-                     "403"="<Server response error code 403 - Forbidden>",
-                     "404"="<Server response error code 404 - Not Found>",
-                     "405"="<Server response error code 405 - Method Not Allowed>",
-                     "406"="<Server response error code 406 - Not Acceptable>",
-                     "407"="<Server response error code 407 - Proxy Authentication Required>",
-                     "408"="<Server response error code 408 - Request Timeout>",
-                     "429"="<Server response error code 429 - Too Many Requests>",
-                     "500"="<Server response error code 500 - Internal Server Error>",
-                     "502"="<Server response error code 502 - Bad Gateway>",
-                     "503"="<Server response error code 503 - Service Unavailable>")
-  return(y)
-}
-
 #' @title Unnest a nested \code{data.frame}
 #' @description Unnests/flattens a nested \code{data.frame}
 #' @param x A nested \code{data.frame} object
@@ -256,7 +230,10 @@ get_jira_projects <- function(domain = NULL,
   )
   call_raw <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
   if(httr::http_error(call_raw$status_code)){
-    stop(call. = FALSE, error_response(call_raw$status_code))
+    stop(sprintf("Error Code %s - %s",
+                 call_raw$status_code,
+                 httr::http_status(call_raw$status_code)$message),
+         call. = FALSE)
     }
   if (httr::http_type(call_raw) != "application/json") {
     stop(call. = FALSE, "API did not return json")
@@ -357,7 +334,10 @@ get_jira_issues <- function(domain=NULL,
     url_b <- httr::build_url(url)
     call_raw <- httr::GET(url_b,  encode = "json", if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
     if(httr::http_error(call_raw$status_code)){
-      stop(call. = FALSE, error_response(call_raw$status_code))
+      stop(sprintf("Error Code %s - %s",
+                   call_raw$status_code,
+                   httr::http_status(call_raw$status_code)$message),
+           call. = FALSE)
     }
     if (httr::http_type(call_raw) != "application/json") {
       stop(call. = FALSE, "API did not return json")
