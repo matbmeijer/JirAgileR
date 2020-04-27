@@ -243,6 +243,58 @@ get_jira_projects <- function(domain = NULL,
   return(df)
 }
 
+#' @title Get the JIRA server information as a \code{data.frame}
+#' @description Makes a request to JIRA's latest REST API to retrieve all the necessary information regarding the JIRA server version.
+#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param verbose Explicitly informs the user of the JIRA API request process.
+#' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+#' @return Returns a \code{data.frame} with all the JIRA server information
+#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
+#' @examples
+#' get_jira_server_info("https://bitvoodoo.atlassian.net")
+#' @section Warning:
+#' The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}.
+#' @export
+
+get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verbose=FALSE){
+  credentials<-get_jira_credentials()
+  if(is.null(domain) && !all(is.na(credentials))){
+    domain<-credentials$DOMAIN
+    username<-credentials$USERNAME
+    password<-credentials$PASSWORD
+  } else if(!is.character(domain) || length(domain) != 1){
+    stop(call. = FALSE, "Domain is an obligatory parameter. No domain saved in credentials and no domain passed as parameter.")
+  }
+  if(!is.null(username) && !is.null(password)){
+    auth <- httr::authenticate(as.character(username), as.character(password), "basic")
+  } else {
+    auth <- NULL
+  }
+  url <- httr::parse_url(domain)
+  url<-httr::modify_url(
+    url = url,
+    scheme = if(is.null(url$scheme)){"https"},
+    path = list(type = "rest", call = "api", robust = "latest", kind = "serverInfo")
+  )
+  request <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
+  if(httr::http_error(request$status_code)){
+    stop(sprintf("Error Code %s - %s",
+                 request$status_code,
+                 httr::http_status(request$status_code)$message),
+         call. = FALSE)
+  }
+  if (httr::http_type(request) != "application/json") {
+    stop(call. = FALSE, "API did not return json")
+  }
+  call<-jsonlite::fromJSON(httr::content(request, as = "text"))
+  call$versionNumbers<- paste0(call$versionNumbers, collapse = ".")
+  call$buildDate<- as.POSIXlt(call$buildDate, format = "%Y-%m-%dT%H:%M:%S.%OS%z")
+  df <- data.frame(call, stringsAsFactors = FALSE)
+  return(df)
+}
+
 #' @title Retrieves all issues of a JIRA query as a \code{data.frame}
 #' @description Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.
 #' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.

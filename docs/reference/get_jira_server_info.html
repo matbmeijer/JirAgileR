@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • JirAgileR</title>
+<title>Get the JIRA server information as a <code>data.frame</code> — get_jira_server_info • JirAgileR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Get the JIRA server information as a <code>data.frame</code> — get_jira_server_info" />
+<meta property="og:description" content="Makes a request to JIRA's latest REST API to retrieve all the necessary information regarding the JIRA server version." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -116,120 +117,65 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Get the JIRA server information as a <code>data.frame</code></h1>
+    <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/Project2R.R'><code>R/Project2R.R</code></a></small>
+    <div class="hidden name"><code>get_jira_server_info.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Makes a request to JIRA's latest REST API to retrieve all the necessary information regarding the JIRA server version.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>get_jira_server_info</span>(
+  <span class='kw'>domain</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>username</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="basic_issues_info.html">basic_issues_info()</a></code> </p>
-        </td>
-        <td><p>Extract the basic key information of the issues</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="basic_jql_fields.html">basic_jql_fields()</a></code> </p>
-        </td>
-        <td><p>Returns default JQL fields used</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="choose_field_function.html">choose_field_function()</a></code> </p>
-        </td>
-        <td><p>Function to choose for the right field parser function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="conc.html">conc()</a></code> </p>
-        </td>
-        <td><p>Concatenates multiple strings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_jira_credentials.html">get_jira_credentials()</a></code> </p>
-        </td>
-        <td><p>Retrieves the previously saved JIRA credentials</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_jira_issues.html">get_jira_issues()</a></code> </p>
-        </td>
-        <td><p>Retrieves all issues of a JIRA query as a <code>data.frame</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_jira_projects.html">get_jira_projects()</a></code> </p>
-        </td>
-        <td><p>Retrieves all projects as a <code>data.frame</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_jira_server_info.html">get_jira_server_info()</a></code> </p>
-        </td>
-        <td><p>Get the JIRA server information as a <code>data.frame</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="parse_issue.html">parse_issue()</a></code> </p>
-        </td>
-        <td><p>Extract the extensive fields of a single issue</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="remove_jira_credentials.html">remove_jira_credentials()</a></code> </p>
-        </td>
-        <td><p>Removes previously saved JIRA credentials</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="save_jira_credentials.html">save_jira_credentials()</a></code> </p>
-        </td>
-        <td><p>Saves domain and the domain's credentidals in the environment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="supported_jql_fields.html">supported_jql_fields()</a></code> </p>
-        </td>
-        <td><p>Returns the supported JQL fields</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="to_date.html">to_date()</a></code> </p>
-        </td>
-        <td><p>Transforms JIRA date character to POSIXlt format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="unnest_df.html">unnest_df()</a></code> </p>
-        </td>
-        <td><p>Unnest a nested <code>data.frame</code></p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>domain</th>
+      <td><p>Custom JIRA domain URL as for example <a href='https://bitvoodoo.atlassian.net'>https://bitvoodoo.atlassian.net</a>. Can be passed as a parameter or can be previously defined through the <code><a href='save_jira_credentials.html'>save_jira_credentials()</a></code> function.</p></td>
+    </tr>
+    <tr>
+      <th>username</th>
+      <td><p>Username used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
+    </tr>
+    <tr>
+      <th>password</th>
+      <td><p>Password used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Explicitly informs the user of the JIRA API request process.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns a <code>data.frame</code> with all the JIRA server information</p>
+    <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
+
+    
+
+<p>The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.yourdomain.com/secure/Dashboard.jspa</a>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>For more information about Atlassians JIRA API go to <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/'>JIRA API Documentation</a></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>get_jira_server_info</span>(<span class='st'>"https://bitvoodoo.atlassian.net"</span>)</div><div class='output co'>#&gt;                           baseUrl           version versionNumbers
+#&gt; 1 https://bitvoodoo.atlassian.net 1001.0.0-SNAPSHOT       1001.0.0
+#&gt;   deploymentType buildNumber           buildDate
+#&gt; 1          Cloud      100125 2020-04-24 13:43:00
+#&gt;                                    scmInfo           serverTitle locale
+#&gt; 1 c9660592fc42b39ddddc75c3894568ad1a1812db bitvoodoo public JIRA  en_US</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

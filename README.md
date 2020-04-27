@@ -49,7 +49,7 @@ with both the `dplyr` and `data.table` R libraries.
 More information about the package can be found at the following link:
 [(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
 
-### Functionalities as of 09 of April, 2020
+### Functionalities as of 27 of April, 2020
 
 1.  Extract all project names with their basic information (e.g. Name,
     ID, Key, Type, Category etc.).
@@ -104,6 +104,8 @@ More information about the package can be found at the following link:
   - 🔲 Define integrated *Reference Classes* within the package
   - 🔲 Include plotting graphs 📊
   - 🔲 Abilty to obtain all available JIRA fields of a project
+  - ✅ Added `get_jira_server_info()` function to retrieve JIRA server
+    information
   - ✅ Remove `data.table` dependency
   - ✅ Abilty to save domain, username & password as secret tokens in
     environment 🔐

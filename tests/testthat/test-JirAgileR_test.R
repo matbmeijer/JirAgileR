@@ -67,6 +67,15 @@ test_that("get_jira_projects(): Returns data.frame",{
   expect_error(get_jira_projects(domain ="https://www.google.com/"))
 })
 
+########################### get_jira_server_info() #############################
+test_that("get_jira_server_info(): Returns data.frame",{
+  expect_identical(class(get_jira_server_info(domain="https://bitvoodoo.atlassian.net")), "data.frame")
+  expect_error(get_jira_server_info(domain = 1))
+  expect_error(get_jira_server_info(domain = "1"))
+  expect_error(get_jira_server_info(domain ="https://www.google.com/"))
+})
+
+
 ############################## get_jira_issues() ###############################
 test_that("get_jira_issues(): Empty value returns error and returns data.frame",{
   expect_error(get_jira_issues())
