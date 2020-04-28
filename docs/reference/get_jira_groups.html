@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the JIRA server information as a <code>data.frame</code> — get_jira_server_info • JirAgileR</title>
+<title>Get JIRA server groups <code>data.frame</code> — get_jira_groups • JirAgileR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Get the JIRA server information as a <code>data.frame</code> — get_jira_server_info" />
-<meta property="og:description" content="Makes a request to JIRA's latest REST API to retrieve all the necessary information regarding the JIRA server version." />
+<meta property="og:title" content="Get JIRA server groups <code>data.frame</code> — get_jira_groups" />
+<meta property="og:description" content="Makes a request to JIRA's latest REST API to retrieve all the groups in JIRA." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,20 +119,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the JIRA server information as a <code>data.frame</code></h1>
+    <h1>Get JIRA server groups <code>data.frame</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/Project2R.R'><code>R/Project2R.R</code></a></small>
-    <div class="hidden name"><code>get_jira_server_info.Rd</code></div>
+    <div class="hidden name"><code>get_jira_groups.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Makes a request to JIRA's latest REST API to retrieve all the necessary information regarding the JIRA server version.</p>
+    <p>Makes a request to JIRA's latest REST API to retrieve all the groups in JIRA.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_jira_server_info</span>(
+    <pre class="usage"><span class='fu'>get_jira_groups</span>(
   <span class='kw'>domain</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>username</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>maxResults</span> <span class='kw'>=</span> <span class='fl'>1000</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -154,11 +155,15 @@
       <th>verbose</th>
       <td><p>Explicitly informs the user of the JIRA API request process.</p></td>
     </tr>
+    <tr>
+      <th>maxResults</th>
+      <td><p>Number of maximum groups to return. Set by default to <code>1000</code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a <code>data.frame</code> with all the JIRA server information</p>
+    <p>Returns a <code>data.frame</code> with all the JIRA groups</p>
     <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
 
     
@@ -169,12 +174,54 @@
     <div class='dont-index'><p>For more information about Atlassians JIRA API go to <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/'>JIRA API Documentation</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>get_jira_server_info</span>(<span class='st'>"https://bitvoodoo.atlassian.net"</span>)</div><div class='output co'>#&gt;                           baseUrl           version versionNumbers
-#&gt; 1 https://bitvoodoo.atlassian.net 1001.0.0-SNAPSHOT       1001.0.0
-#&gt;   deploymentType buildNumber           buildDate
-#&gt; 1          Cloud      100125 2020-04-28 06:34:00
-#&gt;                                    scmInfo           serverTitle locale
-#&gt; 1 29f7b8126e490ce758eae6051620be7946c857a3 bitvoodoo public JIRA  en_US</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>get_jira_groups</span>(<span class='st'>"https://bitvoodoo.atlassian.net"</span>)</div><div class='output co'>#&gt;                                                  name
+#&gt; 1                                         access-jira
+#&gt; 2                                      administrators
+#&gt; 3                              atlassian-addons-admin
+#&gt; 4                                   confluence-admins
+#&gt; 5                                    confluence-users
+#&gt; 6                                          developers
+#&gt; 7                                 jira-administrators
+#&gt; 8                                      jira-ops-users
+#&gt; 9                                          jira-users
+#&gt; 10                                     opsgenie-users
+#&gt; 11                                        site-admins
+#&gt; 12                                 site-admins-backup
+#&gt; 13                              system-administrators
+#&gt; 14 trusted-users-b6b9b051-e45d-494a-832d-0b5a8bb56619
+#&gt; 15                                              users
+#&gt;                                                  html labels
+#&gt; 1                                         access-jira   &lt;NA&gt;
+#&gt; 2                                      administrators   &lt;NA&gt;
+#&gt; 3                              atlassian-addons-admin   &lt;NA&gt;
+#&gt; 4                                   confluence-admins   &lt;NA&gt;
+#&gt; 5                                    confluence-users   &lt;NA&gt;
+#&gt; 6                                          developers   &lt;NA&gt;
+#&gt; 7                                 jira-administrators   &lt;NA&gt;
+#&gt; 8                                      jira-ops-users   &lt;NA&gt;
+#&gt; 9                                          jira-users   &lt;NA&gt;
+#&gt; 10                                     opsgenie-users   &lt;NA&gt;
+#&gt; 11                                        site-admins   &lt;NA&gt;
+#&gt; 12                                 site-admins-backup   &lt;NA&gt;
+#&gt; 13                              system-administrators   &lt;NA&gt;
+#&gt; 14 trusted-users-b6b9b051-e45d-494a-832d-0b5a8bb56619   &lt;NA&gt;
+#&gt; 15                                              users   &lt;NA&gt;
+#&gt;                                 groupId
+#&gt; 1  bb5faf71-0c2c-4d05-a0b6-b1db5c1f39ed
+#&gt; 2  0df36cb7-61e8-40cc-bfed-262ca2362a74
+#&gt; 3  1e5d93c3-8760-4124-8f4d-fa669c4a3263
+#&gt; 4  aa1353cf-aa68-4646-b7ca-0a87e467a2cc
+#&gt; 5  8969657d-d56f-40a1-9000-7f6a8856dccd
+#&gt; 6  67fcbdda-fea6-405b-a2be-dd771065ec88
+#&gt; 7  d0b56c93-84b6-4db3-9e5d-b55b49cc789d
+#&gt; 8  944ca2a2-cad6-4ff3-8c21-e94731c5b655
+#&gt; 9  3799fc5c-8e4d-4caf-8e2a-9e502cf3371c
+#&gt; 10 df6e3815-18c0-4af2-bcef-7e1889f4bee3
+#&gt; 11 2db77824-5901-43ff-aabd-0b8e493a720f
+#&gt; 12 6fc0e67a-1798-466f-a189-d387a7973706
+#&gt; 13 eff41464-a7d2-4378-ad65-8224231b7b09
+#&gt; 14 efa386a9-4523-4515-9555-27ed1120d7e9
+#&gt; 15 1592ff4a-fad5-487c-a412-c1d71019a3d0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
