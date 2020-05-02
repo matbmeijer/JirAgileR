@@ -164,7 +164,7 @@ conc<-function(x, y=",", decr=FALSE, unique=TRUE){
 
 to_date<-function(x){
   if(all(grepl("\\d{4}-\\d{2}-\\d{2}", x))){
-    y<-as.POSIXlt(x, format = "%Y-%m-%dT%H:%M:%S.%OS%z")
+    y<-as.POSIXct(x, format = "%Y-%m-%dT%H:%M:%S.%OS%z")
   }else{
     y<-x
   }
@@ -200,7 +200,7 @@ unnest_df <- function(x) {
 #' @examples
 #' get_jira_projects("https://bitvoodoo.atlassian.net")
 #' @section Warning:
-#' The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}.
+#' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
 
 get_jira_projects <- function(domain = NULL,
@@ -255,7 +255,7 @@ get_jira_projects <- function(domain = NULL,
 #' @examples
 #' get_jira_server_info("https://bitvoodoo.atlassian.net")
 #' @section Warning:
-#' The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}.
+#' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
 
 get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verbose=FALSE){
@@ -290,7 +290,7 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
   }
   call<-jsonlite::fromJSON(httr::content(request, as = "text"))
   call$versionNumbers<- paste0(call$versionNumbers, collapse = ".")
-  call$buildDate<- as.POSIXlt(call$buildDate, format = "%Y-%m-%dT%H:%M:%S.%OS%z")
+  call$buildDate<- as.POSIXct(call$buildDate, format = "%Y-%m-%dT%H:%M:%S.%OS%z")
   df <- data.frame(call, stringsAsFactors = FALSE)
   return(df)
 }
@@ -308,7 +308,7 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
 #' @examples
 #' get_jira_groups("https://bitvoodoo.atlassian.net")
 #' @section Warning:
-#' The function works with the JIRA REST API. Thus, to work it needs an internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.yourdomain.com/secure/Dashboard.jspa}.
+#' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
 
 get_jira_groups <- function(domain=NULL, username=NULL, password=NULL, verbose=FALSE, maxResults=1000){
@@ -388,7 +388,7 @@ get_jira_groups <- function(domain=NULL, username=NULL, password=NULL, verbose=F
 #' get_jira_issues(domain = "https://bitvoodoo.atlassian.net",
 #'                 jql_query = 'project="Congrats for Confluence"')
 #' @section Warning:
-#' If the \code{comment} field is used as a \code{fields} parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}
+#' If the \code{comment} field is used as a \code{fields} parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
 
 get_jira_issues <- function(domain=NULL,
@@ -509,7 +509,6 @@ parse_issue<-function(issue, JirAgileR_id){
   return(df)
 }
 
-
 #' @title Function to choose for the right field parser function
 #' @description Internal function to choose/switch to the correct function to parse each field for each issue
 #' @param x The fields nested data to flatten.
@@ -613,25 +612,25 @@ duedate_field<-function(x){
 
 created_field<-function(x){
   #Single Variable
-  df<-data.frame(created=as.POSIXlt(x[["created"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  df<-data.frame(created=as.POSIXct(x[["created"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   return(df)
 }
 
 updated_field<-function(x){
   #Single Variable
-  df<-data.frame(updated=as.POSIXlt(x[["updated"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  df<-data.frame(updated=as.POSIXct(x[["updated"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   return(df)
 }
 
 resolutiondate_field<-function(x){
   #Single Variable
-  df<-data.frame(resolutiondate=as.POSIXlt(x[["resolutiondate"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  df<-data.frame(resolutiondate=as.POSIXct(x[["resolutiondate"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   return(df)
 }
 
 lastViewed_field<-function(x){
   #Single Variable
-  df<-data.frame(lastViewed=as.POSIXlt(x[["lastViewed"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+  df<-data.frame(lastViewed=as.POSIXct(x[["lastViewed"]], format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   return(df)
 }
 
@@ -776,17 +775,39 @@ comment_field<-function(x){
   return(df)
 }
 
-fill_df_NAs<-function(x, cols){
-  x_cols<-names(x)
-  miss_cols<-setdiff(cols, x_cols)
-  x[,miss_cols]<-NA
+
+fill_df_NAs<-function(x, cols, classes){
+  x_cols <- names(x)
+  miss_cols <- setdiff(cols, x_cols)
+  x[,miss_cols] <- NA
+  x <- x[,cols]
+  x[]<-lapply(cols, function(y) x[,y]<-transform_class(x[,y], classes[[y]]))
+  x <- x[,cols]
   return(x)
 }
 
 rbind_fill<-function(l){
   r<-unique(unlist(lapply(l, nrow)))
   l<-l[r>0]
-  cols<-unique(unlist(lapply(l, names)))
-  res<-do.call(rbind, lapply(l, fill_df_NAs, cols))
+  cols <- unique(unlist(lapply(l, colnames)))
+  classes <- unlist(rapply(l, class, classes = "ANY", how = "list"), recursive = FALSE)
+  classes <- lapply(cols, function(x) classes[[x]])
+  names(classes) <- cols
+  res <- do.call(rbind, lapply(l, fill_df_NAs, cols, classes))
   return(res)
+}
+
+
+
+transform_class<- function(x, class){
+  y <- switch(class[1],
+              "character"=as.character(x),
+              "logical"=as.logical(x),
+              "Date"=as.Date(x, origin="1970-01-01"),
+              "integer"=as.integer(x),
+              "numeric"=as.numeric(x),
+              "POSIXct"=as.POSIXct(x, origin="1970-01-01"),
+              "POSIXt"=as.POSIXct(x, origin="1970-01-01"),
+              "factor"=as.factor(x))
+  return(y)
 }

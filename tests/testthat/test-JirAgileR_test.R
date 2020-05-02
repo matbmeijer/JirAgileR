@@ -48,8 +48,8 @@ test_that("conc(): Concatones to a single string and unique values",{
 test_that("to_date(): Empty value returns error",{
   expect_error(to_date())
   expect_identical(to_date("test"), "test")
-  expect_identical(to_date("2018-10-22T14:47:03.000+0200"), as.POSIXlt("2018-10-22T14:47:03.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"))
-  expect_identical(class(to_date("2018-10-22T14:47:03.000+0200")), c("POSIXlt", "POSIXt"))
+  expect_identical(to_date("2018-10-22T14:47:03.000+0200"), as.POSIXct("2018-10-22T14:47:03.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"))
+  expect_identical(class(to_date("2018-10-22T14:47:03.000+0200")), c("POSIXct", "POSIXt"))
 })
 
 ################################# unnest_df() ##################################
@@ -217,7 +217,7 @@ test_that("created_field(): Empty value returns error & correct format",{
   expect_error(created_field())
   expect_identical(
     created_field(list(created="2019-08-06T12:15:29.000+0200")),
-    data.frame(created=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+    data.frame(created=as.POSIXct("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   )
 })
 
@@ -226,7 +226,7 @@ test_that("updated_field(): Empty value returns error & correct format",{
   expect_error(updated_field())
   expect_identical(
     updated_field(list(updated="2019-08-06T12:15:29.000+0200")),
-    data.frame(updated=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+    data.frame(updated=as.POSIXct("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   )
 })
 
@@ -235,7 +235,7 @@ test_that("resolutiondate_field(): Empty value returns error & correct format",{
   expect_error(resolutiondate_field())
   expect_identical(
     resolutiondate_field(list(resolutiondate="2019-08-06T12:15:29.000+0200")),
-    data.frame(resolutiondate=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+    data.frame(resolutiondate=as.POSIXct("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   )
 })
 
@@ -244,7 +244,7 @@ test_that("lastViewed_field(): Empty value returns error & correct format",{
   expect_error(lastViewed_field())
   expect_identical(
     lastViewed_field(list(lastViewed="2019-08-06T12:15:29.000+0200")),
-    data.frame(lastViewed=as.POSIXlt("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
+    data.frame(lastViewed=as.POSIXct("2019-08-06T12:15:29.000+0200", format = "%Y-%m-%dT%H:%M:%S.%OS%z"),stringsAsFactors = FALSE)
   )
 })
 
@@ -352,6 +352,8 @@ test_that("rbind_fill(): Returns binded list",{
 
 ################################ fill_df_NAs() #################################
 test_that("fill_df_NAs(): Returns correct data.frame",{
-expect_identical(fill_df_NAs(x=data.frame(a=c("a","b","c"), stringsAsFactors = FALSE),cols =  c("b", "c")),
+expect_identical(fill_df_NAs( x=data.frame(a=c("a","b","c"),
+                                           stringsAsFactors = FALSE),
+                              cols =  c("a", "b", "c"), classes=list(a="character", b="logical", c="logical")),
                  data.frame(a=c("a","b","c"), b=NA, c=NA, stringsAsFactors = FALSE))
 })

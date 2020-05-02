@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">JirAgileR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.4</span>
       </span>
     </div>
 
@@ -199,7 +199,7 @@
 
     
 
-<p>If the <code>comment</code> field is used as a <code>fields</code> parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access and you will have to access manually online and enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.enterprise.com/secure/Dashboard.jspa</a></p>
+<p>If the <code>comment</code> field is used as a <code>fields</code> parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.enterprise.com/secure/Dashboard.jspa</a>. This only happens if the API is called upon multiple times in a short period of time.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>For more information about Atlassians JIRA API visit the following link: <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/'>JIRA API Documentation</a>.</p></div>
@@ -382,28 +382,6 @@
 #&gt; 19 https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A31f5dfb8-8a37-4571-a0c8-c7179fa5d864
 #&gt; 20 https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A31f5dfb8-8a37-4571-a0c8-c7179fa5d864
 #&gt; 21 https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
-#&gt;                                                                reporter_id
-#&gt; 1                           VXNlclZhbHVlOjViZDg3ZTQ4NjA3ZWQwMzgwNDAxOTdmNw
-#&gt; 2                           VXNlclZhbHVlOjViZDg3ZTQ4NjA3ZWQwMzgwNDAxOTdmNw
-#&gt; 3                           VXNlclZhbHVlOjViZDg3ZTQ4NjA3ZWQwMzgwNDAxOTdmNw
-#&gt; 4                           VXNlclZhbHVlOjVhMWZjMDk2YzJmMDQ0NGU2OTc5ZGZkMg
-#&gt; 5  VXNlclZhbHVlOjU1NzA1ODphMTY0MWIzNS1hNTUwLTRhN2EtYTNjYy04NGZlMDk1OWI5OTk
-#&gt; 6  VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 7  VXNlclZhbHVlOjU1NzA1ODoxOWYzMDY4OC0yY2I3LTRhODctOGQ1Yy1iYWQ2MGQ0MTVmODU
-#&gt; 8  VXNlclZhbHVlOjU1NzA1ODozZWNkNDNkZC0zYzA0LTRjOWEtYWY1MC1lZWE1YmUxOGY3Nzc
-#&gt; 9  VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 10 VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 11 VXNlclZhbHVlOjU1NzA1ODo3NzMzY2RmOC0zMGE0LTQwZjItYTBhZS1mZjQxYjIxNGJhMDI
-#&gt; 12 VXNlclZhbHVlOjU1NzA1ODozZWNkNDNkZC0zYzA0LTRjOWEtYWY1MC1lZWE1YmUxOGY3Nzc
-#&gt; 13 VXNlclZhbHVlOjU1NzA1ODozZWNkNDNkZC0zYzA0LTRjOWEtYWY1MC1lZWE1YmUxOGY3Nzc
-#&gt; 14 VXNlclZhbHVlOjU1NzA1ODozZWNkNDNkZC0zYzA0LTRjOWEtYWY1MC1lZWE1YmUxOGY3Nzc
-#&gt; 15 VXNlclZhbHVlOjU1NzA1ODphMTY0MWIzNS1hNTUwLTRhN2EtYTNjYy04NGZlMDk1OWI5OTk
-#&gt; 16 VXNlclZhbHVlOjU1NzA1ODphMTY0MWIzNS1hNTUwLTRhN2EtYTNjYy04NGZlMDk1OWI5OTk
-#&gt; 17 VXNlclZhbHVlOjU1NzA1ODphMTY0MWIzNS1hNTUwLTRhN2EtYTNjYy04NGZlMDk1OWI5OTk
-#&gt; 18 VXNlclZhbHVlOjU1NzA1ODpjOTRmZGNlNy01OTNlLTRhYTMtYWY0Ni1iNzdiZTliMDJjM2Q
-#&gt; 19 VXNlclZhbHVlOjU1NzA1ODozMWY1ZGZiOC04YTM3LTQ1NzEtYTBjOC1jNzE3OWZhNWQ4NjQ
-#&gt; 20 VXNlclZhbHVlOjU1NzA1ODozMWY1ZGZiOC04YTM3LTQ1NzEtYTBjOC1jNzE3OWZhNWQ4NjQ
-#&gt; 21 VXNlclZhbHVlOjU1NzA1ODphMTY0MWIzNS1hNTUwLTRhN2EtYTNjYy04NGZlMDk1OWI5OTk
 #&gt;                             reporter_accountid
 #&gt; 1                     5bd87e48607ed038040197f7
 #&gt; 2                     5bd87e48607ed038040197f7
@@ -800,28 +778,6 @@
 #&gt; 19                                                                                                    &lt;NA&gt;
 #&gt; 20 https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3A93861ae3-0dc1-4950-b513-e4e7812071c6
 #&gt; 21 https://bitvoodoo.atlassian.net/rest/api/2/user?accountId=557058%3Aa1641b35-a550-4a7a-a3cc-84fe0959b999
-#&gt;                                                                assignee_id
-#&gt; 1                                                                     &lt;NA&gt;
-#&gt; 2                                                                     &lt;NA&gt;
-#&gt; 3                                                                     &lt;NA&gt;
-#&gt; 4  VXNlclZhbHVlOjU1NzA1ODo5NzBjYjc0My0zNjdhLTQxODMtYTY0Yi1mOWIwYmEwNTY3Mjg
-#&gt; 5                                                                     &lt;NA&gt;
-#&gt; 6  VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 7  VXNlclZhbHVlOjU1NzA1ODplZTg2NjFlOS03ODg4LTQ0MDgtYmZmMC1hMzkzMzc2YTgxYzg
-#&gt; 8  VXNlclZhbHVlOjU1NzA1ODo5NzBjYjc0My0zNjdhLTQxODMtYTY0Yi1mOWIwYmEwNTY3Mjg
-#&gt; 9  VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 10 VXNlclZhbHVlOjU1NzA1ODo5NzBjYjc0My0zNjdhLTQxODMtYTY0Yi1mOWIwYmEwNTY3Mjg
-#&gt; 11                                                                    &lt;NA&gt;
-#&gt; 12 VXNlclZhbHVlOjU1NzA1ODo5NzBjYjc0My0zNjdhLTQxODMtYTY0Yi1mOWIwYmEwNTY3Mjg
-#&gt; 13 VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 14                                                                    &lt;NA&gt;
-#&gt; 15                                                                    &lt;NA&gt;
-#&gt; 16 VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 17 VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 18 VXNlclZhbHVlOjU1NzA1ODoxOWYzMDY4OC0yY2I3LTRhODctOGQ1Yy1iYWQ2MGQ0MTVmODU
-#&gt; 19                                                                    &lt;NA&gt;
-#&gt; 20 VXNlclZhbHVlOjU1NzA1ODo5Mzg2MWFlMy0wZGMxLTQ5NTAtYjUxMy1lNGU3ODEyMDcxYzY
-#&gt; 21 VXNlclZhbHVlOjU1NzA1ODphMTY0MWIzNS1hNTUwLTRhN2EtYTNjYy04NGZlMDk1OWI5OTk
 #&gt;                             assignee_accountid
 #&gt; 1                                         &lt;NA&gt;
 #&gt; 2                                         &lt;NA&gt;

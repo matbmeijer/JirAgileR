@@ -1,5 +1,11 @@
 # JirAgileR
 
+# JirAgileR 0.0.1.4
+
+* Solved issue with different classes in `data.frame`, such as `resolutiondate`
+* Added new functions: `get_jira_server_info()` & `get_jira_groups()`
+* Improved documentation
+
 # JirAgileR 0.0.1.3
 
 * Removed `data.table` heavy dependency, as only `rbindlist(x, fill=TRUE)` was used.
