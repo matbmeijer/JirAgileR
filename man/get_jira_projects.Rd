@@ -35,7 +35,9 @@ The function works with the latest JIRA REST API and to work you need to have a 
 }
 
 \examples{
+\dontrun{
 get_jira_projects("https://bitvoodoo.atlassian.net")
+}
 }
 \seealso{
 For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}

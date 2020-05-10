@@ -198,7 +198,9 @@ unnest_df <- function(x) {
 #' @return Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
+#' \dontrun{
 #' get_jira_projects("https://bitvoodoo.atlassian.net")
+#' }
 #' @section Warning:
 #' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
@@ -253,7 +255,9 @@ get_jira_projects <- function(domain = NULL,
 #' @return Returns a \code{data.frame} with all the JIRA server information
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
+#' \dontrun{
 #' get_jira_server_info("https://bitvoodoo.atlassian.net")
+#' }
 #' @section Warning:
 #' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
@@ -295,6 +299,62 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
   return(df)
 }
 
+#' @title Get all the JIRA server permissions as a \code{data.frame}
+#' @description Makes a request to JIRA's latest REST API to retrieve the users' permissions.
+#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param verbose Explicitly informs the user of the JIRA API request process.
+#' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+#' @return Returns a \code{data.frame} with all the JIRA user permissions.
+#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
+#' @examples
+#' \dontrun{
+#' get_jira_permissions("https://jira.hyperledger.org")
+#' }
+#' @section Warning:
+#' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
+#' @export
+
+get_jira_permissions <- function(domain = NULL,
+                                 username = NULL,
+                                 password = NULL,
+                                 verbose=FALSE){
+  credentials<-get_jira_credentials()
+  if(is.null(domain) && !all(is.na(credentials))){
+    domain<-credentials$DOMAIN
+    username<-credentials$USERNAME
+    password<-credentials$PASSWORD
+  } else if(!is.character(domain) || length(domain) != 1){
+    stop(call. = FALSE, "Domain is an obligatory parameter. No domain saved in credentials and no domain passed as parameter.")
+  }
+  if(!is.null(username) && !is.null(password)){
+    auth <- httr::authenticate(as.character(username), as.character(password), "basic")
+  } else {
+    auth <- NULL
+  }
+  url <- httr::parse_url(domain)
+  url<-httr::modify_url(
+    url = url,
+    scheme = if(is.null(url$scheme)){"https"},
+    path = list(type = "rest", call = "api", robust = "latest", kind = "mypermissions")
+  )
+  call_raw <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
+  if(httr::http_error(call_raw$status_code)){
+    stop(sprintf("Error Code %s - %s",
+                 call_raw$status_code,
+                 httr::http_status(call_raw$status_code)$message),
+         call. = FALSE)
+  }
+  if (httr::http_type(call_raw) != "application/json") {
+    stop(call. = FALSE, "API did not return json")
+  }
+  call <- jsonlite::fromJSON(httr::content(call_raw, as = "text"), simplifyDataFrame = TRUE)
+  df <- lapply(call$permissions, data.frame, stringsAsFactors = FALSE)
+  df <- rbind_fill(df)
+  return(df)
+}
+
 #' @title Get JIRA server groups \code{data.frame}
 #' @description Makes a request to JIRA's latest REST API to retrieve all the groups in JIRA.
 #' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
@@ -306,7 +366,9 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
 #' @return Returns a \code{data.frame} with all the JIRA groups
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
+#' \dontrun{
 #' get_jira_groups("https://bitvoodoo.atlassian.net")
+#' }
 #' @section Warning:
 #' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
@@ -789,6 +851,7 @@ fill_df_NAs<-function(x, cols, classes){
 rbind_fill<-function(l){
   r<-unique(unlist(lapply(l, nrow)))
   l<-l[r>0]
+  names(l)<-NULL
   cols <- unique(unlist(lapply(l, colnames)))
   classes <- unlist(rapply(l, class, classes = "ANY", how = "list"), recursive = FALSE)
   classes <- lapply(cols, function(x) classes[[x]])

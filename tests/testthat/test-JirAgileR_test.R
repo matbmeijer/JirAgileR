@@ -83,6 +83,13 @@ test_that("get_jira_groups(): Returns data.frame",{
   expect_error(get_jira_groups(domain ="https://www.google.com/"))
 })
 
+############################ get_jira_permissions() ############################
+test_that("get_jira_permissions(): Returns data.frame",{
+  expect_identical(class(get_jira_permissions(domain="https://jira.hyperledger.org")), "data.frame")
+  expect_error(get_jira_permissions(domain = 1))
+  expect_error(get_jira_permissions(domain = "1"))
+  expect_error(get_jira_permissions(domain ="https://www.google.com/"))
+})
 
 ############################## get_jira_issues() ###############################
 test_that("get_jira_issues(): Empty value returns error and returns data.frame",{
