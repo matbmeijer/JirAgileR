@@ -57,38 +57,40 @@ test_that("unnest_df(): Empty value returns error and returns data.frame",{
   expect_error(unnest_df())
   expect_identical(class(unnest_df(data.frame(a=1:3, b=c("a","b", "c")))), "data.frame")
   expect_length(data.frame(a=1:3, b=c("a","b", "c")), 2)
+  expect_identical(class(unnest_df(structure(list(a = 1:2,data = structure(list(b = c(43, 21)),class = "data.frame",
+                                                             row.names = c(NA, -2L))), row.names = 1:2, class = "data.frame"))),"data.frame")
 })
 
 ############################# get_jira_projects() ##############################
 test_that("get_jira_projects(): Returns data.frame",{
-  expect_identical(class(get_jira_projects(domain="https://bitvoodoo.atlassian.net")), "data.frame")
+  expect_identical(class(get_jira_projects(domain="https://bitvoodoo.atlassian.net", expand = "lead", verbose = TRUE)), "data.frame")
   expect_error(get_jira_projects(domain = 1))
   expect_error(get_jira_projects(domain = "1"))
-  expect_error(get_jira_projects(domain ="https://www.google.com/"))
+  expect_error(get_jira_projects(domain ="https://www.google.com/", username = "test", password = "test"))
 })
 
 ########################### get_jira_server_info() #############################
 test_that("get_jira_server_info(): Returns data.frame",{
-  expect_identical(class(get_jira_server_info(domain="https://bitvoodoo.atlassian.net")), "data.frame")
+  expect_identical(class(get_jira_server_info(domain="https://bitvoodoo.atlassian.net", verbose = TRUE)), "data.frame")
   expect_error(get_jira_server_info(domain = 1))
   expect_error(get_jira_server_info(domain = "1"))
-  expect_error(get_jira_server_info(domain ="https://www.google.com/"))
+  expect_error(get_jira_server_info(domain ="https://www.google.com/",  username = "test", password = "test"))
 })
 
 ########################### get_jira_server_info() #############################
 test_that("get_jira_groups(): Returns data.frame",{
-  expect_identical(class(get_jira_groups(domain="https://bitvoodoo.atlassian.net")), "data.frame")
+  expect_identical(class(get_jira_groups(domain="https://bitvoodoo.atlassian.net", verbose = TRUE)), "data.frame")
   expect_error(get_jira_groups(domain = 1))
   expect_error(get_jira_groups(domain = "1"))
-  expect_error(get_jira_groups(domain ="https://www.google.com/"))
+  expect_error(get_jira_groups(domain ="https://www.google.com/", username = "test", password = "test"))
 })
 
 ############################ get_jira_permissions() ############################
 test_that("get_jira_permissions(): Returns data.frame",{
-  expect_identical(class(get_jira_permissions(domain="https://jira.hyperledger.org")), "data.frame")
+  expect_identical(class(get_jira_permissions(domain="https://jira.hyperledger.org", verbose = TRUE)), "data.frame")
   expect_error(get_jira_permissions(domain = 1))
   expect_error(get_jira_permissions(domain = "1"))
-  expect_error(get_jira_permissions(domain ="https://www.google.com/"))
+  expect_error(get_jira_permissions(domain ="https://www.google.com/", username = "test", password = "test"))
 })
 
 ############################## get_jira_issues() ###############################
@@ -96,8 +98,12 @@ test_that("get_jira_issues(): Empty value returns error and returns data.frame",
   expect_error(get_jira_issues())
   expect_identical(class(get_jira_issues(domain="https://bitvoodoo.atlassian.net",
                                          jql_query = "project='CONGRATS'",
-                                         fields = "summary")), "data.frame")
-  expect_error(get_jira_issues(domain = 1))
+                                         fields = "summary", verbose = TRUE)), "data.frame")
+  expect_identical(class(get_jira_issues(domain="https://bitvoodoo.atlassian.net",
+                                         jql_query = "project='CONGRATS'",
+                                         fields = "summary", verbose = TRUE, as.data.frame = TRUE)), "data.frame")
+  expect_error(get_jira_issues(domain = "https://www.google.com/", username = "test", password = "test"))
+  expect_error(get_jira_issues(domain = 1, username = "test", password = "test"))
 })
 
 ############################# basic_issues_info() ##############################
@@ -258,76 +264,91 @@ test_that("lastViewed_field(): Empty value returns error & correct format",{
 ############################## issuetype_field() ###############################
 test_that("issuetype_field(): Empty value returns error",{
   expect_error(issuetype_field())
+  expect_identical(class(issuetype_field(list(issuetype=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################## components_field() ##############################
 test_that("components_field(): Empty value returns error",{
   expect_error(components_field())
+  expect_identical(class(components_field(list(components=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################## issuelinks_field() ##############################
 test_that("issuelinks_field(): Empty value returns error",{
   expect_error(issuelinks_field())
+  expect_identical(class(issuelinks_field(list(issuelinks=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### versions_field() ###############################
 test_that("versions_field(): Empty value returns error",{
   expect_error(versions_field())
+  expect_identical(class(versions_field(list(versions=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ################################ votes_field() #################################
 test_that("votes_field(): Empty value returns error",{
   expect_error(votes_field())
+  expect_identical(class(votes_field(list(votes=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################## resolution_field() ##############################
 test_that("resolution_field(): Empty value returns error",{
   expect_error(resolution_field())
+  expect_identical(class(resolution_field(list(resolution=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### creator_field() ################################
 test_that("creator_field(): Empty value returns error",{
   expect_error(creator_field())
+  expect_identical(class(creator_field(list(creator=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### priority_field() ###############################
 test_that("priority_field(): Empty value returns error",{
   expect_error(priority_field())
+  expect_identical(class(priority_field(list(priority=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### progress_field() ###############################
 test_that("progress_field(): Empty value returns error",{
   expect_error(progress_field())
+  expect_identical(class(progress_field(list(progress=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ########################## aggregateprogress_field() ###########################
 test_that("aggregateprogress_field(): Empty value returns error",{
   expect_error(aggregateprogress_field())
+  expect_identical(class(aggregateprogress_field(list(aggregateprogress=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### watches_field() ################################
 test_that("watches_field(): Empty value returns error",{
   expect_error(watches_field())
+  expect_identical(class(watches_field(list(watches=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### project_field() ################################
 test_that("project_field(): Empty value returns error",{
   expect_error(project_field())
+  expect_identical(class(project_field(list(project=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### assignee_field() ###############################
 test_that("assignee_field(): Empty value returns error",{
   expect_error(assignee_field())
+  expect_identical(class(assignee_field(list(assignee=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### reporter_field() ###############################
 test_that("reporter_field(): Empty value returns error",{
   expect_error(reporter_field())
+  expect_identical(class(reporter_field(list(reporter=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ################################ status_field() ################################
 test_that("status_field(): Empty value returns error",{
   expect_error(status_field())
+  expect_identical(class(status_field(list(status=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ################################ labels_field() ################################
@@ -342,6 +363,7 @@ test_that("labels_field(): Empty value returns error",{
 ############################# fixVersions_field() ##############################
 test_that("fixVersions_field(): Empty value returns error",{
   expect_error(fixVersions_field())
+  expect_identical(class(fixVersions_field(list(fixVersions=data.frame(a=1, b=2)))), "data.frame")
 })
 
 ############################### comment_field() ################################
