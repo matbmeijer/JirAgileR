@@ -72,6 +72,7 @@ More information about the package can be found at the following link:
       - *issuetype*
       - *labels*
       - *lastViewed*
+      - *parent*
       - *priority*
       - *progress*
       - *project*
