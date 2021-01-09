@@ -501,7 +501,7 @@ get_jira_issues <- function(domain=NULL,
   issue_list <- list()
   i <- 0
   repeat{
-    url$query$startAt <- 0 + i*maxResults
+    url$query$startAt <- length(issue_list)
     url_b <- httr::build_url(url)
     call_raw <- httr::GET(url_b,  encode = "json", if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
     if(httr::http_error(call_raw$status_code)){
