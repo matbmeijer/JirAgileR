@@ -560,8 +560,13 @@ basic_issues_info<-function(x){
 
 parse_issue<-function(issue, JirAgileR_id){
   issue<-issue[lengths(issue) != 0]
-  available_fields<-names(issue)
+  ## parse known fields
+  available_fields<-intersect(names(issue), supported_jql_fields())
   res<-lapply(available_fields, function (y) choose_field_function(issue, y))
+  ## keep custom fields as is
+  for (customfield in grep('^customfield', names(issue), value = TRUE)) {
+    res[[customfield]] <- issue[[customfield]]
+  }
   id<-data.frame("JirAgileR_id"=JirAgileR_id, stringsAsFactors = FALSE)
   df<-do.call(cbind, res)
   if(!is.null(df) && length(df)>0){
