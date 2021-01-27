@@ -501,7 +501,7 @@ get_jira_issues <- function(domain=NULL,
   issue_list <- list()
   i <- 0
   repeat{
-    url$query$startAt <- 0 + i*maxResults
+    url$query$startAt <- length(issue_list)
     url_b <- httr::build_url(url)
     call_raw <- httr::GET(url_b,  encode = "json", if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
     if(httr::http_error(call_raw$status_code)){
@@ -519,6 +519,9 @@ get_jira_issues <- function(domain=NULL,
     if(length(issue_list)== call$total){
       break
     }
+  }
+  if(length(issue_list) == 0){
+    return(setNames(data.frame(matrix(ncol = length(fields), nrow = 0)), fields))
   }
   base_info <- basic_issues_info(issue_list)
   ext_info <- lapply(issue_list, `[[`, "fields")
@@ -560,8 +563,13 @@ basic_issues_info<-function(x){
 
 parse_issue<-function(issue, JirAgileR_id){
   issue<-issue[lengths(issue) != 0]
-  available_fields<-names(issue)
+  ## parse known fields
+  available_fields<-intersect(names(issue), supported_jql_fields())
   res<-lapply(available_fields, function (y) choose_field_function(issue, y))
+  ## keep custom fields as is
+  for (customfield in grep('^customfield', names(issue), value = TRUE)) {
+    res[[customfield]] <- issue[[customfield]]
+  }
   id<-data.frame("JirAgileR_id"=JirAgileR_id, stringsAsFactors = FALSE)
   df<-do.call(cbind, res)
   if(!is.null(df) && length(df)>0){
