@@ -27,7 +27,7 @@ The focus of this package lies in the following workflow aspects:
 - __Import__
 - __Tidy__
 
-Hence, for easy transformation and manipulation, each function returns a `data.frame` with **tidy data**, following main rules where each row is a single observation of an **issue** or a **project**, each column is a variable and each value must have its own cell. Thus, it integrates well with both the `dplyr` and `data.table` R libraries.
+Hence, for easy transformation and manipulation, each function returns a `data.frame` with **tidy data**, following main rules where each row is a single observation of an **issue** or a **project**, each column is a variable and each value must have its own cell. Thus, it integrates well with both the `dplyr` and `data.table` R libraries. This also allows for an easy integration with tabular data.
 
 More information about the package can be found at the following link: [(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
 
