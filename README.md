@@ -4,6 +4,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/matbmeijer/JirAgileR/workflows/R-CMD-check/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
+[![test-coverage](https://github.com/matbmeijer/JirAgileR/workflows/test-coverage/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
+[![lint](https://github.com/matbmeijer/JirAgileR/workflows/lint/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
 <!-- badges: end -->
 
 ## Objective
