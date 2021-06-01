@@ -171,7 +171,7 @@ get_jira_projects() %>%
 | QTSYSADM     | Qt-Project.org Sysadmin (defunct)           |
 
 ``` r
-# Retrieve the issues from a single project - in this case the project QTWB. See documentation to define which fields to see
+# Retrieve the issues from a single project - in this case the project QTWB from bugreports.qt.io. See documentation to define which fields to see
 get_jira_issues(jql_query = "project='QTWB'",
                 fields = c("summary","created", "status")) %>% 
   select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
