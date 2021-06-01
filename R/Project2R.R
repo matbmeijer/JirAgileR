@@ -117,7 +117,8 @@ supported_jql_fields<-function(){
       "versions",
       "votes",
       "watches",
-      "workratio"))}
+      "workratio",
+      "parent"))}
 
 #' @title Returns default JQL fields used
 #' @description Internal function used to define the default JQL fields used for the \code{get_jira_issues()} function.
@@ -775,6 +776,13 @@ watches_field<-function(x){
   #Multiple variables
   df<-data.frame(x[["watches"]], stringsAsFactors = FALSE)
   colnames(df)<-gsub("\\.", "_", paste0("watches_", tolower(colnames(df))))
+  return(df)
+}
+
+parent_field<-function(x){
+  #Multiple variables
+  df<-data.frame(x[["parent"]], stringsAsFactors = FALSE)
+  colnames(df)<-gsub("\\.", "_", paste0("parent_", tolower(colnames(df))))
   return(df)
 }
 

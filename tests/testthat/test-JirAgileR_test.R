@@ -26,7 +26,7 @@ test_that("supported_jql_fields(): Field vector equal & and is.vector",{
                                          "duedate", "environment", "fixVersions", "issuelinks", "issuetype",
                                          "labels", "lastViewed", "priority", "progress", "project", "reporter",
                                          "resolution", "resolutiondate", "status", "summary", "timeestimate",
-                                         "timespent", "updated", "versions", "votes", "watches", "workratio"))
+                                         "timespent", "updated", "versions", "votes", "watches", "workratio", "parent"))
   expect_error(supported_jql_fields("test"))
 })
 
