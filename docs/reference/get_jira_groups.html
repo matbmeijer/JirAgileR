@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get JIRA server groups <code>data.frame</code> — get_jira_groups • JirAgileR</title>
+<title>Get JIRA server groups data.frame — get_jira_groups • JirAgileR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Get JIRA server groups <code>data.frame</code> — get_jira_groups" />
+<meta property="og:title" content="Get JIRA server groups data.frame — get_jira_groups" />
 <meta property="og:description" content="Makes a request to JIRA's latest REST API to retrieve all the groups in JIRA." />
 <meta property="og:image" content="/logo.png" />
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -102,7 +102,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/matbmeijer/JirAgileR/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -128,20 +128,20 @@
     <p>Makes a request to JIRA's latest REST API to retrieve all the groups in JIRA.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_jira_groups</span>(
-  <span class='kw'>domain</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>username</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>maxResults</span> <span class='kw'>=</span> <span class='fl'>1000</span>
-)</pre>
+    <pre class="usage"><span class='fu'>get_jira_groups</span><span class='op'>(</span>
+  domain <span class='op'>=</span> <span class='cn'>NULL</span>,
+  username <span class='op'>=</span> <span class='cn'>NULL</span>,
+  password <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  maxResults <span class='op'>=</span> <span class='fl'>1000</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>domain</th>
-      <td><p>Custom JIRA domain URL as for example <a href='https://bitvoodoo.atlassian.net'>https://bitvoodoo.atlassian.net</a>. Can be passed as a parameter or can be previously defined through the <code><a href='save_jira_credentials.html'>save_jira_credentials()</a></code> function.</p></td>
+      <td><p>Custom JIRA domain URL as for example <a href='https://bugreports.qt.io'>https://bugreports.qt.io</a>. Can be passed as a parameter or can be previously defined through the <code><a href='save_jira_credentials.html'>save_jira_credentials()</a></code> function.</p></td>
     </tr>
     <tr>
       <th>username</th>
@@ -172,11 +172,15 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>For more information about Atlassians JIRA API go to <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/'>JIRA API Documentation</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Matthias Brenninkmeijer <a href='https://github.com/matbmeijer'>https://github.com/matbmeijer</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>get_jira_groups</span>(<span class='st'>"https://bitvoodoo.atlassian.net"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>get_jira_groups</span><span class='op'>(</span><span class='st'>"https://bugreports.qt.io"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -192,7 +196,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -60,7 +60,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/matbmeijer/JirAgileR/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -80,23 +80,23 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#jiragiler" class="anchor"></a>JirAgileR<img src="reference/figures/logo.png" align="right" height="140/">
 </h1></div>
+<!-- badges: start -->
 
 <div id="objective" class="section level2">
 <h2 class="hasAnchor">
 <a href="#objective" class="anchor"></a>Objective</h2>
 <p>The <strong>JirAgileR</strong> R package has the mission to bring the power of the project management tool 🔧 <strong>JIRA</strong> to <strong>R</strong>. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around <a href="https://developer.atlassian.com/server/jira/platform/rest-apis/">JIRA’s REST API</a>, allowing users to easily analyze JIRA proyects and issues from within R. The underlying powertrain of the API is the <em><strong>Jira Query Language</strong> (JQL)</em>. You can find more information about it <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">here</a>. You can find a cheatsheet <a href="https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf">here</a>.</p>
-<figure><p><img src="reference/figures/process.png" style="width:469px;height=184px"></p>
-<figcaption><p><a href="https://r4ds.had.co.nz/"><i>Source: R For Data Science - Hadley Wickham</i></a></p>
+<figure><img src="reference/figures/process.png" style="width:469px;height=184px"><figcaption><a href="https://r4ds.had.co.nz/"><i>Source: R For Data Science - Hadley Wickham</i></a>
 </figcaption></figure><p>The focus of this package lies in the following workflow aspects:</p>
 <ul>
 <li><strong>Import</strong></li>
 <li><strong>Tidy</strong></li>
 </ul>
-<p>Hence, for easy transformation and manipulation, each function returns a <code>data.frame</code> with <strong>tidy data</strong>, following main rules where each row is a single observation of an <strong>issue</strong> or a <strong>project</strong>, each column is a variable and each value must have its own cell. Thus, it integrates well with both the <code>dplyr</code> and <code>data.table</code> R libraries.</p>
+<p>Hence, for easy transformation and manipulation, each function returns a <code>data.frame</code> with <strong>tidy data</strong>, following main rules where each row is a single observation of an <strong>issue</strong> or a <strong>project</strong>, each column is a variable and each value must have its own cell. Thus, it integrates well with both the <code>dplyr</code> and <code>data.table</code> R libraries. This also allows for an easy integration with tabular data.</p>
 <p>More information about the package can be found at the following link: <a href="https://matbmeijer.github.io/JirAgileR/">(https://matbmeijer.github.io/JirAgileR/</a>.</p>
-<div id="functionalities-as-of-10-of-may-2020" class="section level3">
+<div id="functionalities-as-of-01-of-june-2021" class="section level3">
 <h3 class="hasAnchor">
-<a href="#functionalities-as-of-10-of-may-2020" class="anchor"></a>Functionalities as of 10 of May, 2020</h3>
+<a href="#functionalities-as-of-01-of-june-2021" class="anchor"></a>Functionalities as of 01 of June, 2021</h3>
 <ol>
 <li>Extract all project names with their basic information (e.g. Name, ID, Key, Type, Category etc.).</li>
 <li>Retrieve all issues specific to a user defined JIRA query with hand-picked fields and all the associated information. Currently, the package supports the following JIRA fields:
@@ -132,6 +132,7 @@
 <li><em>votes</em></li>
 <li><em>watches</em></li>
 <li><em>workratio</em></li>
+<li><em>parent</em></li>
 </ul>
 </li>
 </ol>
@@ -167,24 +168,26 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the latest release of this package from <a href="https://github.com/matbmeijer/JirAgileR">Github</a> with the following commands in <code>R</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"matbmeijer/JirAgileR"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"matbmeijer/JirAgileR"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
 <p>This is a basic example which shows you how to obtain a simple table of issues of a project and create a tabular report. Most of the times, you will need a username and your password to authenticate in your domain. Possible fields to obtain (which will populate the <code>data.frame</code> columns) can be found <a href="https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/">here</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">JirAgileR</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="no">T</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://matbmeijer.github.io/JirAgileR">JirAgileR</a></span>, quietly <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span>, quietly <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, quietly <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 
 <span class="co"># Save credentials to pass them only one time</span>
-<span class="fu"><a href="reference/save_jira_credentials.html">save_jira_credentials</a></span>(<span class="kw">domain</span> <span class="kw">=</span> <span class="st">"https://bitvoodoo.atlassian.net"</span>)
+<span class="fu"><a href="reference/save_jira_credentials.html">save_jira_credentials</a></span><span class="op">(</span>domain <span class="op">=</span> <span class="st">"https://bugreports.qt.io"</span><span class="op">)</span>
 
 <span class="co"># Get full list of projects in domain</span>
-<span class="fu"><a href="reference/get_jira_projects.html">get_jira_projects</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">key</span>, <span class="no">name</span>)  <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">row.names</span> <span class="kw">=</span> <span class="no">F</span>, <span class="kw">padding</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></div>
+<span class="fu"><a href="reference/get_jira_projects.html">get_jira_projects</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">key</span>, <span class="va">name</span><span class="op">)</span>  <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>row.names <span class="op">=</span> <span class="cn">F</span>, padding <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">key</th>
@@ -192,109 +195,110 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">MACRODOC</td>
-<td align="left">Macro Documentation for Confluence</td>
+<td align="left">COIN</td>
+<td align="left">Coin</td>
 </tr>
 <tr class="even">
-<td align="left">THEME</td>
-<td align="left">Enterprise Theme for Confluence</td>
+<td align="left">QBS</td>
+<td align="left">Qbs (“Cubes”)</td>
 </tr>
 <tr class="odd">
-<td align="left">SBB</td>
-<td align="left">SBB Widgets for Confluence</td>
+<td align="left">QTBUG</td>
+<td align="left">Qt</td>
 </tr>
 <tr class="even">
-<td align="left">SD</td>
-<td align="left">Sequence Diagram</td>
+<td align="left">QT3DS</td>
+<td align="left">Qt 3D Studio</td>
 </tr>
 <tr class="odd">
-<td align="left">CFSYNC</td>
-<td align="left">Custom Field Option Synchroniser</td>
+<td align="left">AUTOSUITE</td>
+<td align="left">Qt Automotive Suite</td>
 </tr>
 <tr class="even">
-<td align="left">TEMPBLOG</td>
-<td align="left">Templates for Blog Posts for Confluence</td>
+<td align="left">QTJIRA</td>
+<td align="left">Qt Bugtracking interface</td>
 </tr>
 <tr class="odd">
-<td align="left">REDIRECT</td>
-<td align="left">Homepage Redirect for Confluence</td>
+<td align="left">QTCREATORBUG</td>
+<td align="left">Qt Creator</td>
 </tr>
 <tr class="even">
-<td align="left">LABEL</td>
-<td align="left">Label Scheduler for Confluence</td>
+<td align="left">QDS</td>
+<td align="left">Qt Design Studio</td>
 </tr>
 <tr class="odd">
-<td align="left">PANELBOX</td>
-<td align="left">Advanced Panelboxes for Confluence</td>
+<td align="left">QTEXT</td>
+<td align="left">Qt Extensions</td>
 </tr>
 <tr class="even">
-<td align="left">REG</td>
-<td align="left">bitvoodoo Registration for Confluence</td>
+<td align="left">QTMCU</td>
+<td align="left">Qt for MCUs</td>
 </tr>
 <tr class="odd">
-<td align="left">LABELFIX</td>
-<td align="left">Label Fixer</td>
+<td align="left">PYSIDE</td>
+<td align="left">Qt for Python</td>
 </tr>
 <tr class="even">
-<td align="left">NTCLOUD</td>
-<td align="left">Navitabs - Tabs for Confluence Cloud</td>
+<td align="left">QTIFW</td>
+<td align="left">Qt Installer Framework</td>
 </tr>
 <tr class="odd">
-<td align="left">NAVITABS</td>
-<td align="left">Navitabs - Tabs for Confluence</td>
+<td align="left">QTMOBILITY</td>
+<td align="left">Qt Mobility</td>
 </tr>
 <tr class="even">
-<td align="left">LANGUAGE</td>
-<td align="left">Language Macros for Confluence</td>
+<td align="left">QTPLAYGROUND</td>
+<td align="left">Qt Playground Projects</td>
 </tr>
 <tr class="odd">
-<td align="left">SUPPLIER</td>
-<td align="left">Viewtracker Supplier</td>
+<td align="left">QTWEBSITE</td>
+<td align="left">Qt Project Website</td>
 </tr>
 <tr class="even">
-<td align="left">SCHEDULER</td>
-<td align="left">Content Scheduler for Confluence</td>
+<td align="left">QTQAINFRA</td>
+<td align="left">Qt Quality Assurance Infrastructure</td>
 </tr>
 <tr class="odd">
-<td align="left">BVDEVOPS</td>
-<td align="left">DevOps</td>
+<td align="left">QTCOMPONENTS</td>
+<td align="left">Qt Quick Components (Deprecated, use QTBUG)</td>
 </tr>
 <tr class="even">
-<td align="left">SYNCTEST</td>
-<td align="left">SyncTest</td>
+<td align="left">QSR</td>
+<td align="left">Qt Safe Renderer</td>
 </tr>
 <tr class="odd">
-<td align="left">VIEWTRACKER</td>
-<td align="left">Viewtracker - Analytics for Confluence</td>
+<td align="left">QTSOLBUG</td>
+<td align="left">Qt Solutions</td>
 </tr>
 <tr class="even">
-<td align="left">VTCLOUD</td>
-<td align="left">Viewtracker Cloud</td>
+<td align="left">QTVSADDINBUG</td>
+<td align="left">Qt Visual Studio Tools</td>
 </tr>
 <tr class="odd">
-<td align="left">CONGRATS</td>
-<td align="left">Congrats for Confluence</td>
+<td align="left">QTWB</td>
+<td align="left">Qt WebBrowser</td>
 </tr>
 <tr class="even">
-<td align="left">EXTLINK</td>
-<td align="left">External Links for Confluence</td>
+<td align="left">QTSYSADM</td>
+<td align="left">Qt-Project.org Sysadmin (defunct)</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># Retrieve the issues from a single project - in this case the project CONGRATS. See documentation to define which fields to see</span>
-<span class="fu"><a href="reference/get_jira_issues.html">get_jira_issues</a></span>(<span class="kw">jql_query</span> <span class="kw">=</span> <span class="st">"project='CONGRATS'"</span>,
-                <span class="kw">fields</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summary"</span>,<span class="st">"created"</span>, <span class="st">"status"</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">key</span>, <span class="no">summary</span>, <span class="no">created</span>, <span class="no">status_name</span>, <span class="no">status_description</span>, <span class="no">status_statuscategory_name</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">5</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">row.names</span> <span class="kw">=</span> <span class="no">F</span>, <span class="kw">padding</span> <span class="kw">=</span> <span class="fl">0</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve the issues from a single project - in this case the project QTWB from bugreports.qt.io. See documentation to define which fields to see</span>
+<span class="fu"><a href="reference/get_jira_issues.html">get_jira_issues</a></span><span class="op">(</span>jql_query <span class="op">=</span> <span class="st">"project='QTWB'"</span>,
+                fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"summary"</span>,<span class="st">"created"</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">key</span>, <span class="va">summary</span>, <span class="va">created</span>, <span class="va">status_name</span>, <span class="va">status_description</span>, <span class="va">status_statuscategory_name</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>row.names <span class="op">=</span> <span class="cn">F</span>, padding <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="4%">
-<col width="20%">
-<col width="7%">
+<col width="35%">
+<col width="9%">
 <col width="6%">
-<col width="49%">
-<col width="11%">
+<col width="31%">
+<col width="13%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">key</th>
@@ -302,48 +306,24 @@
 <th align="left">created</th>
 <th align="left">status_name</th>
 <th align="left">status_description</th>
-<th>status_statuscategory_name</th>
+<th align="left">status_statuscategory_name</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">CONGRATS-39</td>
-<td align="left">Make the year of birth anonymous</td>
-<td align="left">2019-11-06 16:02:32</td>
-<td align="left">Open</td>
-<td align="left">The issue is open and ready for the assignee to start work on it.</td>
-<td>To Do</td>
+<td align="left">QTWB-60</td>
+<td align="left">webkit-qtwe bkit-23/Source/WTF/wtf/dtoa/bignum.cc:762: suspicious increment ?</td>
+<td align="left">2021-05-12 22:56:00</td>
+<td align="left">Reported</td>
+<td align="left">The issue has been reported, but no validation has been done on it.</td>
+<td align="left">To Do</td>
 </tr>
 <tr class="even">
-<td align="left">CONGRATS-38</td>
-<td align="left">Changing the display of events</td>
-<td align="left">2019-11-06 15:52:42</td>
-<td align="left">Open</td>
-<td align="left">The issue is open and ready for the assignee to start work on it.</td>
-<td>To Do</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-37</td>
-<td align="left">Add additional parameters for Events</td>
-<td align="left">2019-11-06 08:57:14</td>
-<td align="left">Open</td>
-<td align="left">The issue is open and ready for the assignee to start work on it.</td>
-<td>To Do</td>
-</tr>
-<tr class="even">
-<td align="left">CONGRATS-36</td>
-<td align="left">UI misaligned when error is displayed in the settings</td>
-<td align="left">2019-10-15 14:41:30</td>
-<td align="left">Awaiting Release</td>
-<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
-<td>Done</td>
-</tr>
-<tr class="odd">
-<td align="left">CONGRATS-32</td>
-<td align="left">Confluence 7 Support</td>
-<td align="left">2019-08-26 11:10:25</td>
-<td align="left">Awaiting Release</td>
-<td align="left">A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.</td>
-<td>Done</td>
+<td align="left">QTWB-58</td>
+<td align="left">win7 touchscreen can’t click html-select dropdown list</td>
+<td align="left">2021-04-08 09:09:00</td>
+<td align="left">Reported</td>
+<td align="left">The issue has been reported, but no validation has been done on it.</td>
+<td align="left">To Do</td>
 </tr>
 </tbody>
 </table>
@@ -376,8 +356,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/matbmeijer/JirAgileR"><img src="https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/matbmeijer/jiragiler"><img src="https://ci.appveyor.com/api/projects/status/b3fole2aw1qsw2x9?svg=true" alt="Build status"></a></li>
+<li><a href="https://github.com/matbmeijer/JirAgileR/actions"><img src="https://github.com/matbmeijer/JirAgileR/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/matbmeijer/JirAgileR/actions"><img src="https://github.com/matbmeijer/JirAgileR/workflows/test-coverage/badge.svg" alt="test-coverage"></a></li>
+<li><a href="https://github.com/matbmeijer/JirAgileR/actions"><img src="https://github.com/matbmeijer/JirAgileR/workflows/lint/badge.svg" alt="lint"></a></li>
 <li><a href="https://codecov.io/gh/matbmeijer/JirAgileR?branch=master"><img src="https://codecov.io/gh/matbmeijer/JirAgileR/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
@@ -390,7 +371,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
