@@ -81,7 +81,7 @@ library(knitr, quietly = T)
 library(dplyr, quietly = T)
 
 # Save credentials to pass them only one time
-save_jira_credentials(domain = "https://issues.apache.org")
+save_jira_credentials(domain = "https://bugreports.qt.io")
 
 # Get full list of projects in domain
 get_jira_projects() %>% 
@@ -89,10 +89,11 @@ get_jira_projects() %>%
   kable(row.names = F, padding = 0)
 
 # Retrieve the issues from a single project - in this case the project CONGRATS. See documentation to define which fields to see
-get_jira_issues(jql_query = "project='SPARK'",
+get_jira_issues(jql_query = "project='QTWB'",
                 fields = c("summary","created", "status")) %>% 
   select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
   head(5) %>%
   kable(row.names = F, padding = 0)
 
 ```
+
