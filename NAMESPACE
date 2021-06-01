@@ -2,6 +2,7 @@
 
 export("%>%")
 export(get_jira_credentials)
+export(get_jira_dashboards)
 export(get_jira_groups)
 export(get_jira_issues)
 export(get_jira_permissions)
