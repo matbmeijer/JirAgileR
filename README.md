@@ -45,7 +45,7 @@ with both the `dplyr` and `data.table` R libraries. This also allows for
 an easy integration with tabular data.
 
 More information about the package can be found at the following link:
-[(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
+<https://matbmeijer.github.io/JirAgileR/>.
 
 ### Functionalities as of 01 of June, 2021
 
@@ -99,10 +99,10 @@ More information about the package can be found at the following link:
 
 ### Roadmap
 
--   🔲 Retrieve JIRA boards information
 -   🔲 Define integrated *Reference Classes* within the package
 -   🔲 Include plotting graphs 📊
 -   🔲 Abilty to obtain all available JIRA fields of a project
+-   ✅ Retrieve JIRA dashboards
 -   ✅ Added `get_jira_permissions()` function to retrieve JIRA user
     permissions
 -   ✅ Added `get_jira_groups()` function to retrieve JIRA groups

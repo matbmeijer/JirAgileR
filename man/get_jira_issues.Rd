@@ -68,7 +68,7 @@ get_jira_issues(domain = "https://bugreports.qt.io",
                 jql_query = 'project="QTWB"')
 }
 \seealso{
-For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}.
+For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/}{JIRA API Documentation}.
 }
 \author{
 Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{Github}

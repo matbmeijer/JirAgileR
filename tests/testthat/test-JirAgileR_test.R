@@ -106,6 +106,14 @@ test_that("get_jira_issues(): Empty value returns error and returns data.frame",
   expect_error(get_jira_issues(domain = 1, username = "test", password = "test"))
 })
 
+############################ get_jira_dashboards() #############################
+test_that("get_jira_dashboards(): Empty value returns error and returns data.frame",{
+  expect_error(get_jira_dashboards())
+  expect_identical(class(get_jira_dashboards(domain="https://bugreports.qt.io")), "data.frame")
+  expect_error(get_jira_dashboards(domain = "https://www.google.com", username = "test", password = "test"))
+  expect_error(get_jira_dashboards(domain = 1, username = "test", password = "test"))
+})
+
 ############################# basic_issues_info() ##############################
 test_that("basic_issues_info(): Empty value returns error",{
   expect_error(basic_issues_info())

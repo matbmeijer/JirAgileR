@@ -1,5 +1,11 @@
 # JirAgileR
 
+
+# JirAgileR 0.0.2.1
+* Added new function `get_jira_dashboards()` & included in unit testing
+* Updated & improved documentation
+* Added status badges
+
 # JirAgileR 0.0.1.4
 
 * Solved issue with different classes in `data.frame`, such as `resolutiondate`

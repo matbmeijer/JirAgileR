@@ -199,7 +199,7 @@ unnest_df <- function(x) {
 #' @param verbose Explicitly informs the user of the JIRA API request process.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns a \code{data.frame} with a list of projects for which the user has the BROWSE, ADMINISTER or PROJECT_ADMIN project permission.
-#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
+#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
 #' get_jira_projects("https://bugreports.qt.io")
@@ -256,7 +256,7 @@ get_jira_projects <- function(domain = NULL,
 #' @param verbose Explicitly informs the user of the JIRA API request process.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns a \code{data.frame} with all the JIRA server information
-#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
+#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
 #' get_jira_server_info("https://bugreports.qt.io")
@@ -310,7 +310,7 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
 #' @param verbose Explicitly informs the user of the JIRA API request process.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns a \code{data.frame} with all the JIRA user permissions.
-#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
+#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
 #' get_jira_permissions("https://bugreports.qt.io")
@@ -367,7 +367,7 @@ get_jira_permissions <- function(domain = NULL,
 #' @param verbose Explicitly informs the user of the JIRA API request process.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @return Returns a \code{data.frame} with all the JIRA groups
-#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
+#' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
 #' get_jira_groups("https://bugreports.qt.io")
@@ -451,7 +451,7 @@ get_jira_groups <- function(domain=NULL, username=NULL, password=NULL, verbose=F
 #' @param as.data.frame Defines if the function returns a flattened \code{data.frame} or the raw JIRA response.
 #' @author Matthias Brenninkmeijer \href{https://github.com/matbmeijer}{Github}
 #' @return Returns a flattened, formatted \code{data.frame} with the issues according to the JQL query.
-#' @seealso For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}.
+#' @seealso For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/}{JIRA API Documentation}.
 #' @examples
 #' get_jira_issues(domain = "https://bugreports.qt.io",
 #'                 jql_query = 'project="QTWB"')
@@ -538,6 +538,80 @@ get_jira_issues <- function(domain=NULL,
   }else{
     df<-list(base_info=base_info, ext_info=ext_info)
   }
+  return(df)
+}
+
+#' @title Retrieves all dashboards a \code{data.frame}
+#' @description Calls JIRA's latest REST API, optionally with basic authentication, to get all dashboards
+#' @param domain Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
+#' @param maxResults Max results authorized to obtain for each API call. By default JIRA sets this value to 20 issues.
+#' @param verbose Explicitly informs the user of the JIRA API request process.
+#' @return Returns a flattened, formatted \code{data.frame} with the dashboards in the domain.
+#' @seealso For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/}{JIRA API Documentation}.
+#' @examples
+#' get_jira_dashboards(domain = "https://bugreports.qt.io")
+#' @export
+
+get_jira_dashboards <- function(domain=NULL,
+                                username=NULL,
+                                password=NULL,
+                                maxResults=20L,
+                                verbose=FALSE){
+  credentials <- get_jira_credentials()
+  if(is.null(domain) && !all(is.na(credentials))){
+    domain<-credentials$DOMAIN
+    username<-credentials$USERNAME
+    password<-credentials$PASSWORD
+  } else if(!is.character(domain) ||length(domain) != 1){
+    stop(call. = FALSE, "Domain is an obligatory parameter. No domain saved in credentials and no domain passed as parameter.")
+  }
+
+  #Set authentication if username and password are passed
+  if(!is.null(username)&&!is.null(password)){
+    auth <- httr::authenticate(as.character(username), as.character(password), "basic")
+  } else {
+    auth <- NULL
+  }
+  #Build URL
+  if(!grepl("https|http", domain)){
+    url <- httr::parse_url(domain)
+    url$hostname<-domain
+  } else {
+    url <- httr::parse_url(domain)
+  }
+  url<-httr::modify_url(url = url,
+                        scheme = if(is.null(url$scheme)){"https"},
+                        path = list(type = "rest", call = "api", robust = "latest", kind = "dashboard"),
+                        query=list(startAt = "0",
+                                   maxResults = maxResults))
+  url <- httr::parse_url(url)
+  #Prepare for pagination of calls
+  if(verbose){message("Preparing for API Calls. Due to pagination this might take a while.")}
+  issue_list <- list()
+  i <- 0
+  repeat{
+    url$query$startAt <- 0 + i*maxResults
+    url_b <- httr::build_url(url)
+    call_raw <- httr::GET(url_b,  encode = "json", if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
+    if(httr::http_error(call_raw$status_code)){
+      stop(sprintf("Error Code %s - %s",
+                   call_raw$status_code,
+                   httr::http_status(call_raw$status_code)$message),
+           call. = FALSE)
+    }
+    if (httr::http_type(call_raw) != "application/json") {
+      stop(call. = FALSE, "API did not return json")
+    }
+    call <- jsonlite::fromJSON(httr::content(call_raw, "text"), simplifyVector = TRUE)
+    issue_list <- append(issue_list, list(call$dashboards))
+    i <- i + 1
+    if(length(issue_list)== ceiling(call$total/maxResults)){
+      break
+    }
+  }
+  df<-do.call(rbind, issue_list)
   return(df)
 }
 

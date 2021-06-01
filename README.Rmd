@@ -33,7 +33,7 @@ The focus of this package lies in the following workflow aspects:
 
 Hence, for easy transformation and manipulation, each function returns a `data.frame` with **tidy data**, following main rules where each row is a single observation of an **issue** or a **project**, each column is a variable and each value must have its own cell. Thus, it integrates well with both the `dplyr` and `data.table` R libraries. This also allows for an easy integration with tabular data.
 
-More information about the package can be found at the following link: [(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
+More information about the package can be found at the following link: [https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
 
 ### Functionalities as of `r format(Sys.Date(), "%d of %B, %Y")`
 1. Extract all project names with their basic information (e.g. Name, ID, Key, Type, Category etc.).
@@ -52,10 +52,10 @@ The package supports extracting comments, yet as one issue may contain multiple 
 
 ### Roadmap
 
-- `r emo::ji("black_square_button")` Retrieve JIRA boards information
 - `r emo::ji("black_square_button")` Define integrated *Reference Classes* within the package
 - `r emo::ji("black_square_button")` Include plotting graphs `r emo::ji("bar_chart")`
 - `r emo::ji("black_square_button")` Abilty to obtain all available JIRA fields of a project
+- `r emo::ji("check")` Retrieve JIRA dashboards
 - `r emo::ji("check")` Added `get_jira_permissions()` function to retrieve JIRA user permissions
 - `r emo::ji("check")` Added `get_jira_groups()` function to retrieve JIRA groups
 - `r emo::ji("check")` Added `get_jira_server_info()` function to retrieve JIRA server information
