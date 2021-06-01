@@ -171,11 +171,11 @@ get_jira_projects() %>%
 | QTSYSADM     | Qt-Project.org Sysadmin (defunct)           |
 
 ``` r
-# Retrieve the issues from a single project - in this case the project CONGRATS. See documentation to define which fields to see
+# Retrieve the issues from a single project - in this case the project QTWB. See documentation to define which fields to see
 get_jira_issues(jql_query = "project='QTWB'",
                 fields = c("summary","created", "status")) %>% 
   select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
-  head(5) %>%
+  head(2) %>%
   kable(row.names = F, padding = 0)
 ```
 
@@ -183,17 +183,3 @@ get_jira_issues(jql_query = "project='QTWB'",
 |:--------|:------------------------------------------------------------------------------|:--------------------|:-------------|:--------------------------------------------------------------------|:-----------------------------|
 | QTWB-60 | webkit-qtwe bkit-23/Source/WTF/wtf/dtoa/bignum.cc:762: suspicious increment ? | 2021-05-12 22:56:00 | Reported     | The issue has been reported, but no validation has been done on it. | To Do                        |
 | QTWB-58 | win7 touchscreen can’t click html-select dropdown list                        | 2021-04-08 09:09:00 | Reported     | The issue has been reported, but no validation has been done on it. | To Do                        |
-
-\|QTWB-54\|Printing -
-<tbody>
-prints on top of
-<thead>
-
-\|2020-07-01 00:02:00\|Need More Info\|More information is needed to be
-able to proceed \|Done \| \|QTWB-51\|qtwebengine select file
-\|2020-05-12 01:23:00\|Closed \|The issue is considered finished, the
-resolution is correct. Issues which are closed can be reopened.\|Done \|
-\|QTWB-50\|No URLRequestContext for NSS HTTP handler. host:
-ocsp.digicert.com \|2020-05-06 08:37:00\|Closed \|The issue is
-considered finished, the resolution is correct. Issues which are closed
-can be reopened.\|Done \|
