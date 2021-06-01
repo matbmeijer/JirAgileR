@@ -1,6 +1,6 @@
 ############################ get_jira_credentials() ############################
 test_that("get_jira_credentials(): Returns NA or column name DOMAIN",{
-  expect_true(is.na(get_jira_credentials())||grepl("DOMAIN",names(get_jira_credentials())))
+  expect_true(is.null(get_jira_credentials())||grepl("DOMAIN",names(get_jira_credentials())))
   expect_error(get_jira_credentials("test"))
 })
 
@@ -63,7 +63,7 @@ test_that("unnest_df(): Empty value returns error and returns data.frame",{
 
 ############################# get_jira_projects() ##############################
 test_that("get_jira_projects(): Returns data.frame",{
-  expect_identical(class(get_jira_projects(domain="https://bitvoodoo.atlassian.net", expand = "lead", verbose = TRUE)), "data.frame")
+  expect_identical(class(get_jira_projects(domain="https://bugreports.qt.io", expand = "lead", verbose = TRUE)), "data.frame")
   expect_error(get_jira_projects(domain = 1))
   expect_error(get_jira_projects(domain = "1"))
   expect_error(get_jira_projects(domain ="https://www.google.com/", username = "test", password = "test"))
@@ -71,7 +71,7 @@ test_that("get_jira_projects(): Returns data.frame",{
 
 ########################### get_jira_server_info() #############################
 test_that("get_jira_server_info(): Returns data.frame",{
-  expect_identical(class(get_jira_server_info(domain="https://bitvoodoo.atlassian.net", verbose = TRUE)), "data.frame")
+  expect_identical(class(get_jira_server_info(domain="https://bugreports.qt.io", verbose = TRUE)), "data.frame")
   expect_error(get_jira_server_info(domain = 1))
   expect_error(get_jira_server_info(domain = "1"))
   expect_error(get_jira_server_info(domain ="https://www.google.com/",  username = "test", password = "test"))
@@ -79,7 +79,7 @@ test_that("get_jira_server_info(): Returns data.frame",{
 
 ########################### get_jira_server_info() #############################
 test_that("get_jira_groups(): Returns data.frame",{
-  expect_identical(class(get_jira_groups(domain="https://bitvoodoo.atlassian.net", verbose = TRUE)), "data.frame")
+  expect_identical(class(get_jira_groups(domain="https://bugreports.qt.io", verbose = TRUE)), "data.frame")
   expect_error(get_jira_groups(domain = 1))
   expect_error(get_jira_groups(domain = "1"))
   expect_error(get_jira_groups(domain ="https://www.google.com/", username = "test", password = "test"))
@@ -87,7 +87,7 @@ test_that("get_jira_groups(): Returns data.frame",{
 
 ############################ get_jira_permissions() ############################
 test_that("get_jira_permissions(): Returns data.frame",{
-  expect_identical(class(get_jira_permissions(domain="https://jira.hyperledger.org", verbose = TRUE)), "data.frame")
+  # Change url -> expect_identical(class(get_jira_permissions(domain="https://issues.redhat.com", verbose = TRUE)), "data.frame")
   expect_error(get_jira_permissions(domain = 1))
   expect_error(get_jira_permissions(domain = "1"))
   expect_error(get_jira_permissions(domain ="https://www.google.com/", username = "test", password = "test"))
@@ -96,13 +96,13 @@ test_that("get_jira_permissions(): Returns data.frame",{
 ############################## get_jira_issues() ###############################
 test_that("get_jira_issues(): Empty value returns error and returns data.frame",{
   expect_error(get_jira_issues())
-  expect_identical(class(get_jira_issues(domain="https://bitvoodoo.atlassian.net",
-                                         jql_query = "project='CONGRATS'",
+  expect_identical(class(get_jira_issues(domain="https://bugreports.qt.io",
+                                         jql_query = "project='QTWB'",
                                          fields = "summary", verbose = TRUE)), "data.frame")
-  expect_identical(class(get_jira_issues(domain="https://bitvoodoo.atlassian.net",
-                                         jql_query = "project='CONGRATS'",
+  expect_identical(class(get_jira_issues(domain="https://bugreports.qt.io",
+                                         jql_query = "project='QTWB'",
                                          fields = "summary", verbose = TRUE, as.data.frame = TRUE)), "data.frame")
-  expect_error(get_jira_issues(domain = "https://www.google.com/", username = "test", password = "test"))
+  expect_error(get_jira_issues(domain = "https://www.google.com", username = "test", password = "test"))
   expect_error(get_jira_issues(domain = 1, username = "test", password = "test"))
 })
 
@@ -120,20 +120,20 @@ test_that("basic_issues_info(): Empty value returns error",{
 test_that("parse_issue(): Empty value returns error",{
   expect_error(parse_issue())
   expect_equal(parse_issue(data.frame(created=Sys.Date()), 1),
-               data.frame(JirAgileR_id=1, created=Sys.Date()))
+               data.frame(JirAgileR_id=1, created=as.POSIXct(Sys.Date())))
   expect_equal(parse_issue(data.frame(created=Sys.Date()), 1),
-               data.frame(JirAgileR_id=1, created=Sys.Date()))
+               data.frame(JirAgileR_id=1, created=as.POSIXct(Sys.Date())))
 })
 
 ########################### choose_field_function() ############################
 test_that("choose_field_function(): Empty value returns error and various switches",{
   expect_error(choose_field_function())
   expect_equal(choose_field_function(data.frame(created=as.Date("2019-08-06")), type="created"),
-               data.frame(created=as.Date("2019-08-06")))
+               data.frame(created=as.POSIXct(as.Date("2019-08-06"))))
   expect_equal(choose_field_function(data.frame(duedate=as.Date("2019-08-06")), type="duedate"),
                data.frame(duedate=as.Date("2019-08-06")))
   expect_equal(choose_field_function(data.frame(resolutiondate=as.Date("2019-08-06")), type="resolutiondate"),
-               data.frame(resolutiondate=as.Date("2019-08-06")))
+               data.frame(resolutiondate=as.POSIXct(as.Date("2019-08-06"))))
   expect_equal(choose_field_function(data.frame(timespent=1), type="timespent"),
                data.frame(timespent=1))
   expect_equal(choose_field_function(data.frame(description="test", stringsAsFactors = FALSE), type="description"),

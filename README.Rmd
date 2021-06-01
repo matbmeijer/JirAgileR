@@ -1,0 +1,98 @@
+---
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# JirAgileR<img src="man/figures/logo.png" align="right" height=140/>
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/matbmeijer/JirAgileR/workflows/R-CMD-check/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
+<!-- badges: end -->
+
+## Objective
+
+The **JirAgileR** R package has the mission to bring the power of the project management tool `r emo::ji("wrench")` **JIRA** to **R**. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around [JIRA's REST API](https://developer.atlassian.com/server/jira/platform/rest-apis/), allowing users to easily analyze JIRA proyects and issues from within R. The underlying powertrain of the API is the *__Jira Query Language__ (JQL)*. You can find more information about it [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql). You can find a cheatsheet [here](https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf).
+
+
+<figure>
+  <img src="man/figures/process.png" style="width:469px;height=184px">
+  <figcaption><a href="https://r4ds.had.co.nz/"><i>Source: R For Data Science - Hadley Wickham</i></a></figcaption>
+</figure>
+
+The focus of this package lies in the following workflow aspects:
+
+- __Import__
+- __Tidy__
+
+Hence, for easy transformation and manipulation, each function returns a `data.frame` with **tidy data**, following main rules where each row is a single observation of an **issue** or a **project**, each column is a variable and each value must have its own cell. Thus, it integrates well with both the `dplyr` and `data.table` R libraries.
+
+More information about the package can be found at the following link: [(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
+
+### Functionalities as of `r format(Sys.Date(), "%d of %B, %Y")`
+1. Extract all project names with their basic information (e.g. Name, ID, Key, Type, Category etc.).
+```{r unordered_list, echo=FALSE, results='asis'}
+jira_fields <- list("Retrieve all issues specific to a user defined JIRA query with hand-picked fields and all the associated information. Currently, the package supports the following JIRA fields:" = JirAgileR::supported_jql_fields())
+
+for (name in names(jira_fields)) {
+    cat("2.", name, '\n', paste0('   - _', jira_fields[[name]], '_\n'))
+}
+```
+
+##### Note
+
+- To get all the information about the supported JQL fields visit the following [link](https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/).
+The package supports extracting comments, yet as one issue may contain multiple comments, the `data.frame` is flattened to a combination of issues and comments. Thus, the information of an issue may be repeated the number of comments each issue has.
+
+### Roadmap
+
+- `r emo::ji("black_square_button")` Retrieve JIRA boards information
+- `r emo::ji("black_square_button")` Define integrated *Reference Classes* within the package
+- `r emo::ji("black_square_button")` Include plotting graphs `r emo::ji("bar_chart")`
+- `r emo::ji("black_square_button")` Abilty to obtain all available JIRA fields of a project
+- `r emo::ji("check")` Added `get_jira_permissions()` function to retrieve JIRA user permissions
+- `r emo::ji("check")` Added `get_jira_groups()` function to retrieve JIRA groups
+- `r emo::ji("check")` Added `get_jira_server_info()` function to retrieve JIRA server information
+- `r emo::ji("check")` Remove `data.table` dependency
+- `r emo::ji("check")` Abilty to save domain, username & password as secret tokens in environment `r emo::ji("closed_lock_with_key")`
+- `r emo::ji("check")` Include *pipes* to facilitate analysis
+- `r emo::ji("check")` Improve package robustness
+- `r emo::ji("check")` Include http status error codes
+- `r emo::ji("check")` Give user visibility of supported fields
+
+## Installation
+
+You can install the latest release of this package from [Github](https://github.com/matbmeijer/JirAgileR) with the following commands in `R`:
+
+```{r, eval=FALSE} 
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("matbmeijer/JirAgileR")
+```
+
+## Examples
+
+This is a basic example which shows you how to obtain a simple table of issues of a project and create a tabular report. Most of the times, you will need a username and your password to authenticate in your domain. Possible fields to obtain (which will populate the `data.frame` columns) can be found [here](https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/).
+
+``` {r, echo=TRUE, message=FALSE, warning=FALSE}
+library(JirAgileR, quietly = T)
+library(knitr, quietly = T)
+library(dplyr, quietly = T)
+
+# Save credentials to pass them only one time
+save_jira_credentials(domain = "https://issues.apache.org")
+
+# Get full list of projects in domain
+get_jira_projects() %>% 
+  select(key, name)  %>% 
+  kable(row.names = F, padding = 0)
+
+# Retrieve the issues from a single project - in this case the project CONGRATS. See documentation to define which fields to see
+get_jira_issues(jql_query = "project='SPARK'",
+                fields = c("summary","created", "status")) %>% 
+  select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
+  head(5) %>%
+  kable(row.names = F, padding = 0)
+
+```

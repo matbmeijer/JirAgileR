@@ -14,7 +14,7 @@ Retrieves a \code{data.frame} with the JIRA credentials previously saved into th
 }
 \examples{
 \dontrun{
-save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+save_jira_credentials(domain="https://bugreports.qt.io",
                       username='__INSERT_YOUR_USERNAME_HERE__',
                       password='__INSERT_YOUR_PASSWORD_HERE__')
 get_jira_credentials()

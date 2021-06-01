@@ -4,19 +4,21 @@
 #' @author Matthias Brenninkmeijer - \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @examples
 #' \dontrun{
-#' save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+#' save_jira_credentials(domain="https://bugreports.qt.io",
 #'                       username='__INSERT_YOUR_USERNAME_HERE__',
 #'                       password='__INSERT_YOUR_PASSWORD_HERE__')
 #' get_jira_credentials()
 #' }
 #' @export
 
-get_jira_credentials<-function(){
-  info<-Sys.getenv("JIRAGILER_PAT",NA)
+get_jira_credentials <- function(){
+  info <- Sys.getenv("JIRAGILER_PAT",NA)
   if(!is.na(info)){
-    mt<-matrix( strsplit(info, split = ";")[[1]], nrow = 2)
-    info<-data.frame(t(mt[2,]), stringsAsFactors = FALSE)
-    colnames(info)<-mt[1,]
+    mt <- matrix( strsplit(info, split = ";")[[1]], nrow = 2)
+    info <- data.frame(t(mt[2,]), stringsAsFactors = FALSE)
+    colnames(info) <- mt[1,]
+  }else{
+    info <- NULL
   }
   return(info)
 }
@@ -28,7 +30,7 @@ get_jira_credentials<-function(){
 #' @author Matthias Brenninkmeijer - \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @examples
 #' \dontrun{
-#' save_jira_credentials(domain="https://bitvoodoo.atlassian.net")
+#' save_jira_credentials(domain="https://bugreports.qt.io")
 #' remove_jira_credentials()
 #' }
 #' @export
@@ -41,7 +43,7 @@ remove_jira_credentials<-function(verbose=FALSE){
 
 #' @title Saves domain and the domain's credentidals in the environment
 #' @description Saves the domain and/or username and password in the users' environment. It has the advantage that it is not necessary to explicitly publish the credentials in the users code. Just do it one time and you are set. To update any of the parameters just save again and it will overwrite the older credential.
-#' @param domain The users' JIRA server domain to retrieve information from. An example would be \href{https://bitvoodoo.atlassian.net}{}. It will be saved in the environment as JIRAGILER_DOMAIN.
+#' @param domain The users' JIRA server domain to retrieve information from. An example would be \href{https://bugreports.qt.io}{https://bugreports.qt.io}. It will be saved in the environment as JIRAGILER_DOMAIN.
 #' @param username The users' username to authenticate to the \code{domain}. It will be saved in the environment as JIRAGILER_USERNAME.
 #' @param password The users' password to authenticate to the \code{domain}. It will be saved in the environment as JIRAGILER_PASSWORD. If \code{verbose} is set to \code{TRUE}, it will message asterisks.
 #' @param verbose Optional parameter to inform the user when the users' crendentials have been saved.
@@ -49,7 +51,7 @@ remove_jira_credentials<-function(verbose=FALSE){
 #' @author Matthias Brenninkmeijer - \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
 #' @examples
 #' \dontrun{
-#' save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+#' save_jira_credentials(domain="https://bugreports.qt.io",
 #'                       username='__INSERT_YOUR_USERNAME_HERE__',
 #'                       password='__INSERT_YOUR_PASSWORD_HERE__')
 #' }
@@ -189,7 +191,7 @@ unnest_df <- function(x) {
 
 #' @title Retrieves all projects as a \code{data.frame}
 #' @description Makes a request to JIRA's latest REST API to retrieve all projects and their basic project information (Name, Key, Id, Description, etc.).
-#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param domain Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
 #' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param expand Specific JIRA fields the user wants to obtain for a specific field. Optional parameter.
@@ -199,7 +201,7 @@ unnest_df <- function(x) {
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
-#' get_jira_projects("https://bitvoodoo.atlassian.net")
+#' get_jira_projects("https://bugreports.qt.io")
 #' }
 #' @section Warning:
 #' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
@@ -211,7 +213,7 @@ get_jira_projects <- function(domain = NULL,
                        expand = NULL,
                        verbose=FALSE){
   credentials<-get_jira_credentials()
-  if(is.null(domain) && !all(is.na(credentials))){
+  if(is.null(domain) && !is.null(credentials)){
     domain<-credentials$DOMAIN
     username<-credentials$USERNAME
     password<-credentials$PASSWORD
@@ -247,7 +249,7 @@ get_jira_projects <- function(domain = NULL,
 
 #' @title Get the JIRA server information as a \code{data.frame}
 #' @description Makes a request to JIRA's latest REST API to retrieve all the necessary information regarding the JIRA server version.
-#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param domain Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
 #' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param verbose Explicitly informs the user of the JIRA API request process.
@@ -256,7 +258,7 @@ get_jira_projects <- function(domain = NULL,
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
-#' get_jira_server_info("https://bitvoodoo.atlassian.net")
+#' get_jira_server_info("https://bugreports.qt.io")
 #' }
 #' @section Warning:
 #' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
@@ -264,7 +266,7 @@ get_jira_projects <- function(domain = NULL,
 
 get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verbose=FALSE){
   credentials<-get_jira_credentials()
-  if(is.null(domain) && !all(is.na(credentials))){
+  if(is.null(domain) && !is.null(credentials)){
     domain<-credentials$DOMAIN
     username<-credentials$USERNAME
     password<-credentials$PASSWORD
@@ -301,7 +303,7 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
 
 #' @title Get all the JIRA server permissions as a \code{data.frame}
 #' @description Makes a request to JIRA's latest REST API to retrieve the users' permissions.
-#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param domain Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
 #' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param verbose Explicitly informs the user of the JIRA API request process.
@@ -310,7 +312,7 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
-#' get_jira_permissions("https://jira.hyperledger.org")
+#' get_jira_permissions("https://bugreports.qt.io")
 #' }
 #' @section Warning:
 #' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
@@ -321,7 +323,7 @@ get_jira_permissions <- function(domain = NULL,
                                  password = NULL,
                                  verbose=FALSE){
   credentials<-get_jira_credentials()
-  if(is.null(domain) && !all(is.na(credentials))){
+  if(is.null(domain) && !is.null(credentials)){
     domain<-credentials$DOMAIN
     username<-credentials$USERNAME
     password<-credentials$PASSWORD
@@ -357,7 +359,7 @@ get_jira_permissions <- function(domain = NULL,
 
 #' @title Get JIRA server groups \code{data.frame}
 #' @description Makes a request to JIRA's latest REST API to retrieve all the groups in JIRA.
-#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param domain Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
 #' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param maxResults Number of maximum groups to return. Set by default to \code{1000}.
@@ -367,7 +369,7 @@ get_jira_permissions <- function(domain = NULL,
 #' @seealso For more information about Atlassians JIRA API go to \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}
 #' @examples
 #' \dontrun{
-#' get_jira_groups("https://bitvoodoo.atlassian.net")
+#' get_jira_groups("https://bugreports.qt.io")
 #' }
 #' @section Warning:
 #' The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
@@ -375,7 +377,7 @@ get_jira_permissions <- function(domain = NULL,
 
 get_jira_groups <- function(domain=NULL, username=NULL, password=NULL, verbose=FALSE, maxResults=1000){
   credentials<-get_jira_credentials()
-  if(is.null(domain) && !all(is.na(credentials))){
+  if(is.null(domain) && !is.null(credentials)){
     domain<-credentials$DOMAIN
     username<-credentials$USERNAME
     password<-credentials$PASSWORD
@@ -409,13 +411,16 @@ get_jira_groups <- function(domain=NULL, username=NULL, password=NULL, verbose=F
   call$groups$labels <- unlist(lapply(call$groups$labels, paste0, collapse=", "), use.names = FALSE)
   call$groups$labels[call$groups$labels == ""]<-NA
   df <- call$groups
+  if(is.null(nrow(df))){
+    df <- data.frame(df)
+  }
   return(df)
 }
 
 
 #' @title Retrieves all issues of a JIRA query as a \code{data.frame}
 #' @description Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.
-#' @param domain Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
+#' @param domain Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
 #' @param username Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param password Password used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.
 #' @param jql_query JIRA's decoded JQL query. By definition, it works with:
@@ -447,8 +452,8 @@ get_jira_groups <- function(domain=NULL, username=NULL, password=NULL, verbose=F
 #' @return Returns a flattened, formatted \code{data.frame} with the issues according to the JQL query.
 #' @seealso For more information about Atlassians JIRA API visit the following link: \href{https://docs.atlassian.com/software/jira/docs/api/REST/8.3.3/}{JIRA API Documentation}.
 #' @examples
-#' get_jira_issues(domain = "https://bitvoodoo.atlassian.net",
-#'                 jql_query = 'project="Congrats for Confluence"')
+#' get_jira_issues(domain = "https://bugreports.qt.io",
+#'                 jql_query = 'project="QTWB"')
 #' @section Warning:
 #' If the \code{comment} field is used as a \code{fields} parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at \href{https://jira.yourdomain.com/secure/Dashboard.jspa}{jira.enterprise.com/secure/Dashboard.jspa}. This only happens if the API is called upon multiple times in a short period of time.
 #' @export
@@ -462,7 +467,7 @@ get_jira_issues <- function(domain=NULL,
                         verbose=FALSE,
                         as.data.frame=TRUE){
   credentials<-get_jira_credentials()
-  if(is.null(domain) && !all(is.na(credentials))){
+  if(is.null(domain) && !is.null(credentials)){
     domain<-credentials$DOMAIN
     username<-credentials$USERNAME
     password<-credentials$PASSWORD
@@ -787,71 +792,71 @@ assignee_field<-function(x){
   return(df)
 }
 
-reporter_field<-function(x){
+reporter_field <- function(x){
   #Multiple variables, nested
-  df<-data.frame(x[["reporter"]], stringsAsFactors = FALSE)
-  colnames(df)<-gsub("\\.", "_", paste0("reporter_", tolower(colnames(df))))
+  df <- data.frame(x[["reporter"]], stringsAsFactors = FALSE)
+  colnames(df) <- gsub("\\.", "_", paste0("reporter_", tolower(colnames(df))))
   return(df)
 }
 
-status_field<-function(x){
+status_field <- function(x){
   #Multiple variables, nested
-  df<-data.frame(x[["status"]], stringsAsFactors = FALSE)
-  colnames(df)<-gsub("\\.", "_", paste0("status_", tolower(colnames(df))))
+  df <- data.frame(x[["status"]], stringsAsFactors = FALSE)
+  colnames(df) <- gsub("\\.", "_", paste0("status_", tolower(colnames(df))))
   return(df)
 }
 
-labels_field<-function(x){
+labels_field <- function(x){
   #list
-  df<-data.frame(labels=conc(unlist(x$labels)), stringsAsFactors = FALSE)
+  df <- data.frame(labels=conc(unlist(x$labels)), stringsAsFactors = FALSE)
   return(df)
 }
 
-fixVersions_field<-function(x){
+fixVersions_field <- function(x){
   #list
-  df<-data.frame(x[["fixVersions"]], stringsAsFactors = FALSE)
-  colnames(df)<-gsub("\\.", "_", paste0("fixVersions_", tolower(colnames(df))))
+  df <- data.frame(x[["fixVersions"]], stringsAsFactors = FALSE)
+  colnames(df) <- gsub("\\.", "_", paste0("fixVersions_", tolower(colnames(df))))
   return(df)
 }
 
-comment_field<-function(x){
+comment_field <- function(x){
   #nested list
   if(length(x[["comment"]][["comments"]])>0){
-    wide<-data.frame(x[["comment"]], stringsAsFactors = FALSE)
-    wide_col<-colnames(wide)[!colnames(wide) %in% c("maxResults","total", "startAt")]
-    long_col<-gsub("\\.\\d*$","", wide_col, perl = TRUE)
-    df<-stats::reshape(wide, direction='long',
+    wide <- data.frame(x[["comment"]], stringsAsFactors = FALSE)
+    wide_col <- colnames(wide)[!colnames(wide) %in% c("maxResults","total", "startAt")]
+    long_col <- gsub("\\.\\d*$","", wide_col, perl = TRUE)
+    df <- stats::reshape(wide, direction='long',
                 varying=wide_col,
                 timevar='var',
                 times=1:max(table(long_col)),
                 v.names=unique(names(table(long_col))),
                 idvar='name')
-    rownames(df)<-NULL
-    df$var<-NULL
+    rownames(df) <- NULL
+    df$var <- NULL
   }else{
-    y<-x[["comment"]]
-    df<-data.frame(y[lengths(y)>0], stringsAsFactors = FALSE)
+    y <- x[["comment"]]
+    df <- data.frame(y[lengths(y)>0], stringsAsFactors = FALSE)
   }
-  colnames(df)<-gsub("\\.", "_", paste0("comment_", tolower(colnames(df))))
-  df<-data.frame(lapply(df, to_date), stringsAsFactors = FALSE)
+  colnames(df) <- gsub("\\.", "_", paste0("comment_", tolower(colnames(df))))
+  df <- data.frame(lapply(df, to_date), stringsAsFactors = FALSE)
   return(df)
 }
 
 
-fill_df_NAs<-function(x, cols, classes){
+fill_df_NAs <- function(x, cols, classes){
   x_cols <- names(x)
   miss_cols <- setdiff(cols, x_cols)
   x[,miss_cols] <- NA
   x <- x[,cols]
-  x[]<-lapply(cols, function(y) x[,y]<-transform_class(x[,y], classes[[y]]))
+  x[] <- lapply(cols, function(y) x[,y] <- transform_class(x[,y], classes[[y]]))
   x <- x[,cols]
   return(x)
 }
 
-rbind_fill<-function(l){
-  r<-unique(unlist(lapply(l, nrow)))
-  l<-l[r>0]
-  names(l)<-NULL
+rbind_fill <- function(l){
+  r <- unique(unlist(lapply(l, nrow)))
+  l <- l[r>0]
+  names(l) <- NULL
   cols <- unique(unlist(lapply(l, colnames)))
   classes <- unlist(rapply(l, class, classes = "ANY", how = "list"), recursive = FALSE)
   classes <- lapply(cols, function(x) classes[[x]])
@@ -862,7 +867,7 @@ rbind_fill<-function(l){
 
 
 
-transform_class<- function(x, class){
+transform_class <- function(x, class){
   y <- switch(class[1],
               "character"=as.character(x),
               "logical"=as.logical(x),

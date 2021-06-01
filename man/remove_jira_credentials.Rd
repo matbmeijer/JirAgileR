@@ -17,7 +17,7 @@ Removes the JIRA credentials, that have been previously saved into the environme
 }
 \examples{
 \dontrun{
-save_jira_credentials(domain="https://bitvoodoo.atlassian.net")
+save_jira_credentials(domain="https://bugreports.qt.io")
 remove_jira_credentials()
 }
 }

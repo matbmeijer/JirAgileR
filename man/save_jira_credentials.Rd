@@ -12,7 +12,7 @@ save_jira_credentials(
 )
 }
 \arguments{
-\item{domain}{The users' JIRA server domain to retrieve information from. An example would be \href{https://bitvoodoo.atlassian.net}{}. It will be saved in the environment as JIRAGILER_DOMAIN.}
+\item{domain}{The users' JIRA server domain to retrieve information from. An example would be \href{https://bugreports.qt.io}{https://bugreports.qt.io}. It will be saved in the environment as JIRAGILER_DOMAIN.}
 
 \item{username}{The users' username to authenticate to the \code{domain}. It will be saved in the environment as JIRAGILER_USERNAME.}
 
@@ -28,7 +28,7 @@ Saves the domain and/or username and password in the users' environment. It has 
 }
 \examples{
 \dontrun{
-save_jira_credentials(domain="https://bitvoodoo.atlassian.net",
+save_jira_credentials(domain="https://bugreports.qt.io",
                       username='__INSERT_YOUR_USERNAME_HERE__',
                       password='__INSERT_YOUR_PASSWORD_HERE__')
 }
