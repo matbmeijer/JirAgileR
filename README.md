@@ -1,12 +1,14 @@
 
 # JirAgileR<img src="man/figures/logo.png" align="right" height=140/>
 
-[![Build
-Status](https://travis-ci.org/matbmeijer/JirAgileR.svg?branch=master)](https://travis-ci.org/matbmeijer/JirAgileR)
-[![Build
-status](https://ci.appveyor.com/api/projects/status/b3fole2aw1qsw2x9?svg=true)](https://ci.appveyor.com/project/matbmeijer/jiragiler)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/matbmeijer/JirAgileR/workflows/R-CMD-check/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
+[![test-coverage](https://github.com/matbmeijer/JirAgileR/workflows/test-coverage/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
+[![lint](https://github.com/matbmeijer/JirAgileR/workflows/lint/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/matbmeijer/JirAgileR/branch/master/graph/badge.svg)](https://codecov.io/gh/matbmeijer/JirAgileR?branch=master)
+<!-- badges: end -->
 
 ## Objective
 
@@ -23,75 +25,71 @@ You can find a cheatsheet
 [here](https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf).
 
 <figure>
-
 <img src="man/figures/process.png" style="width:469px;height=184px">
-
 <figcaption>
-
 <a href="https://r4ds.had.co.nz/"><i>Source: R For Data Science - Hadley
 Wickham</i></a>
-
 </figcaption>
-
 </figure>
 
 The focus of this package lies in the following workflow aspects:
 
-  - **Import**
-  - **Tidy**
+-   **Import**
+-   **Tidy**
 
 Hence, for easy transformation and manipulation, each function returns a
 `data.frame` with **tidy data**, following main rules where each row is
 a single observation of an **issue** or a **project**, each column is a
 variable and each value must have its own cell. Thus, it integrates well
-with both the `dplyr` and `data.table` R libraries.
+with both the `dplyr` and `data.table` R libraries. This also allows for
+an easy integration with tabular data.
 
 More information about the package can be found at the following link:
 [(https://matbmeijer.github.io/JirAgileR/](https://matbmeijer.github.io/JirAgileR/).
 
-### Functionalities as of 10 of May, 2020
+### Functionalities as of 01 of June, 2021
 
 1.  Extract all project names with their basic information (e.g. Name,
     ID, Key, Type, Category etc.).
 2.  Retrieve all issues specific to a user defined JIRA query with
     hand-picked fields and all the associated information. Currently,
     the package supports the following JIRA fields:
-      - *aggregateprogress*
-      - *aggregatetimeestimate*
-      - *aggregatetimespent*
-      - *assignee*
-      - *comment*
-      - *components*
-      - *created*
-      - *creator*
-      - *description*
-      - *duedate*
-      - *environment*
-      - *fixVersions*
-      - *issuelinks*
-      - *issuetype*
-      - *labels*
-      - *lastViewed*
-      - *parent*
-      - *priority*
-      - *progress*
-      - *project*
-      - *reporter*
-      - *resolution*
-      - *resolutiondate*
-      - *status*
-      - *summary*
-      - *timeestimate*
-      - *timespent*
-      - *updated*
-      - *versions*
-      - *votes*
-      - *watches*
-      - *workratio*
+    -   *aggregateprogress*
+    -   *aggregatetimeestimate*
+    -   *aggregatetimespent*
+    -   *assignee*
+    -   *comment*
+    -   *components*
+    -   *created*
+    -   *creator*
+    -   *description*
+    -   *duedate*
+    -   *environment*
+    -   *fixVersions*
+    -   *issuelinks*
+    -   *issuetype*
+    -   *labels*
+    -   *lastViewed*
+    -   *priority*
+    -   *progress*
+    -   *project*
+    -   *reporter*
+    -   *resolution*
+    -   *resolutiondate*
+    -   *status*
+    -   *summary*
+    -   *timeestimate*
+    -   *timespent*
+    -   *updated*
+    -   *versions*
+    -   *votes*
+    -   *watches*
+    -   *workratio*
+    -   *parent*
 
 ##### Note
 
-  - To get all the information about the supported JQL fields visit the
+-   To get all the information about the supported JQL fields visit the
     following
     [link](https://support.atlassian.com/jira-service-desk-cloud/docs/advanced-search-reference-jql-fields/).
     The package supports extracting comments, yet as one issue may
@@ -101,22 +99,22 @@ More information about the package can be found at the following link:
 
 ### Roadmap
 
-  - 🔲 Retrieve JIRA boards information
-  - 🔲 Define integrated *Reference Classes* within the package
-  - 🔲 Include plotting graphs 📊
-  - 🔲 Abilty to obtain all available JIRA fields of a project
-  - ✅ Added `get_jira_permissions()` function to retrieve JIRA user
+-   🔲 Retrieve JIRA boards information
+-   🔲 Define integrated *Reference Classes* within the package
+-   🔲 Include plotting graphs 📊
+-   🔲 Abilty to obtain all available JIRA fields of a project
+-   ✅ Added `get_jira_permissions()` function to retrieve JIRA user
     permissions
-  - ✅ Added `get_jira_groups()` function to retrieve JIRA groups
-  - ✅ Added `get_jira_server_info()` function to retrieve JIRA server
+-   ✅ Added `get_jira_groups()` function to retrieve JIRA groups
+-   ✅ Added `get_jira_server_info()` function to retrieve JIRA server
     information
-  - ✅ Remove `data.table` dependency
-  - ✅ Abilty to save domain, username & password as secret tokens in
+-   ✅ Remove `data.table` dependency
+-   ✅ Abilty to save domain, username & password as secret tokens in
     environment 🔐
-  - ✅ Include *pipes* to facilitate analysis
-  - ✅ Improve package robustness
-  - ✅ Include http status error codes
-  - ✅ Give user visibility of supported fields
+-   ✅ Include *pipes* to facilitate analysis
+-   ✅ Improve package robustness
+-   ✅ Include http status error codes
+-   ✅ Give user visibility of supported fields
 
 ## Installation
 
@@ -144,7 +142,7 @@ library(knitr, quietly = T)
 library(dplyr, quietly = T)
 
 # Save credentials to pass them only one time
-save_jira_credentials(domain = "https://bitvoodoo.atlassian.net")
+save_jira_credentials(domain = "https://bugreports.qt.io")
 
 # Get full list of projects in domain
 get_jira_projects() %>% 
@@ -152,44 +150,41 @@ get_jira_projects() %>%
   kable(row.names = F, padding = 0)
 ```
 
-| key         | name                                    |
-| :---------- | :-------------------------------------- |
-| MACRODOC    | Macro Documentation for Confluence      |
-| THEME       | Enterprise Theme for Confluence         |
-| SBB         | SBB Widgets for Confluence              |
-| SD          | Sequence Diagram                        |
-| CFSYNC      | Custom Field Option Synchroniser        |
-| TEMPBLOG    | Templates for Blog Posts for Confluence |
-| REDIRECT    | Homepage Redirect for Confluence        |
-| LABEL       | Label Scheduler for Confluence          |
-| PANELBOX    | Advanced Panelboxes for Confluence      |
-| REG         | bitvoodoo Registration for Confluence   |
-| LABELFIX    | Label Fixer                             |
-| NTCLOUD     | Navitabs - Tabs for Confluence Cloud    |
-| NAVITABS    | Navitabs - Tabs for Confluence          |
-| LANGUAGE    | Language Macros for Confluence          |
-| SUPPLIER    | Viewtracker Supplier                    |
-| SCHEDULER   | Content Scheduler for Confluence        |
-| BVDEVOPS    | DevOps                                  |
-| SYNCTEST    | SyncTest                                |
-| VIEWTRACKER | Viewtracker - Analytics for Confluence  |
-| VTCLOUD     | Viewtracker Cloud                       |
-| CONGRATS    | Congrats for Confluence                 |
-| EXTLINK     | External Links for Confluence           |
+| key          | name                                        |
+|:-------------|:--------------------------------------------|
+| COIN         | Coin                                        |
+| QBS          | Qbs (“Cubes”)                               |
+| QTBUG        | Qt                                          |
+| QT3DS        | Qt 3D Studio                                |
+| AUTOSUITE    | Qt Automotive Suite                         |
+| QTJIRA       | Qt Bugtracking interface                    |
+| QTCREATORBUG | Qt Creator                                  |
+| QDS          | Qt Design Studio                            |
+| QTEXT        | Qt Extensions                               |
+| QTMCU        | Qt for MCUs                                 |
+| PYSIDE       | Qt for Python                               |
+| QTIFW        | Qt Installer Framework                      |
+| QTMOBILITY   | Qt Mobility                                 |
+| QTPLAYGROUND | Qt Playground Projects                      |
+| QTWEBSITE    | Qt Project Website                          |
+| QTQAINFRA    | Qt Quality Assurance Infrastructure         |
+| QTCOMPONENTS | Qt Quick Components (Deprecated, use QTBUG) |
+| QSR          | Qt Safe Renderer                            |
+| QTSOLBUG     | Qt Solutions                                |
+| QTVSADDINBUG | Qt Visual Studio Tools                      |
+| QTWB         | Qt WebBrowser                               |
+| QTSYSADM     | Qt-Project.org Sysadmin (defunct)           |
 
 ``` r
-# Retrieve the issues from a single project - in this case the project CONGRATS. See documentation to define which fields to see
-get_jira_issues(jql_query = "project='CONGRATS'",
+# Retrieve the issues from a single project - in this case the project QTWB from bugreports.qt.io. See documentation to define which fields to see
+get_jira_issues(jql_query = "project='QTWB'",
                 fields = c("summary","created", "status")) %>% 
   select(key, summary, created, status_name, status_description, status_statuscategory_name) %>%
-  head(5) %>%
+  head(2) %>%
   kable(row.names = F, padding = 0)
 ```
 
-| key         | summary                                               | created             | status\_name     | status\_description                                                                                                            | status\_statuscategory\_name |
-| :---------- | :---------------------------------------------------- | :------------------ | :--------------- | :----------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| CONGRATS-39 | Make the year of birth anonymous                      | 2019-11-06 16:02:32 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
-| CONGRATS-38 | Changing the display of events                        | 2019-11-06 15:52:42 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
-| CONGRATS-37 | Add additional parameters for Events                  | 2019-11-06 08:57:14 | Open             | The issue is open and ready for the assignee to start work on it.                                                              | To Do                        |
-| CONGRATS-36 | UI misaligned when error is displayed in the settings | 2019-10-15 14:41:30 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
-| CONGRATS-32 | Confluence 7 Support                                  | 2019-08-26 11:10:25 | Awaiting Release | A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed. | Done                         |
+| key     | summary                                                                       | created             | status\_name | status\_description                                                 | status\_statuscategory\_name |
+|:--------|:------------------------------------------------------------------------------|:--------------------|:-------------|:--------------------------------------------------------------------|:-----------------------------|
+| QTWB-60 | webkit-qtwe bkit-23/Source/WTF/wtf/dtoa/bignum.cc:762: suspicious increment ? | 2021-05-12 22:56:00 | Reported     | The issue has been reported, but no validation has been done on it. | To Do                        |
+| QTWB-58 | win7 touchscreen can’t click html-select dropdown list                        | 2021-04-08 09:09:00 | Reported     | The issue has been reported, but no validation has been done on it. | To Do                        |

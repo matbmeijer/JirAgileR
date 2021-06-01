@@ -12,7 +12,7 @@ get_jira_server_info(
 )
 }
 \arguments{
-\item{domain}{Custom JIRA domain URL as for example \href{https://bitvoodoo.atlassian.net}{https://bitvoodoo.atlassian.net}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.}
+\item{domain}{Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.}
 
 \item{username}{Username used to authenticate the access to the JIRA \code{domain}. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.}
 
@@ -33,7 +33,7 @@ The function works with the latest JIRA REST API and to work you need to have a 
 
 \examples{
 \dontrun{
-get_jira_server_info("https://bitvoodoo.atlassian.net")
+get_jira_server_info("https://bugreports.qt.io")
 }
 }
 \seealso{

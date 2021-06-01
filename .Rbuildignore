@@ -18,3 +18,4 @@
 ^documentation_file\.R$
 ^codecov\.yml$
 ^cran-comments\.md$
+^\.github$
