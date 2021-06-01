@@ -526,7 +526,7 @@ get_jira_issues <- function(domain=NULL,
     }
   }
   if(length(issue_list) == 0){
-    return(setNames(data.frame(matrix(ncol = length(fields), nrow = 0)), fields))
+    return(stats::setNames(data.frame(matrix(ncol = length(fields), nrow = 0)), fields))
   }
   base_info <- basic_issues_info(issue_list)
   ext_info <- lapply(issue_list, `[[`, "fields")
