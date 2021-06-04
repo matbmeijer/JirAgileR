@@ -55,7 +55,7 @@ The package supports extracting comments, yet as one issue may contain multiple 
 - `r emo::ji("black_square_button")` Define integrated *Reference Classes* within the package
 - `r emo::ji("black_square_button")` Include plotting graphs `r emo::ji("bar_chart")`
 - `r emo::ji("black_square_button")` Abilty to obtain all available JIRA fields of a project
-- `r emo::ji("check")` Retrieve JIRA dashboards
+- `r emo::ji("check")` Added `get_jira_dashboards()` function to retrieve JIRA dashboards
 - `r emo::ji("check")` Added `get_jira_permissions()` function to retrieve JIRA user permissions
 - `r emo::ji("check")` Added `get_jira_groups()` function to retrieve JIRA groups
 - `r emo::ji("check")` Added `get_jira_server_info()` function to retrieve JIRA server information
