@@ -190,6 +190,24 @@ unnest_df <- function(x) {
   return(y)
 }
 
+#' @title Adapt the path of class \code{url}
+#' @description Adapt the path of class \code{url} to consider the old path when modifying
+#' @param old_path Passed path in parameter \code{domain}
+#' @param path Path of API endpoint
+#' @author Matthias Brenninkmeijer - \href{https://github.com/matbmeijer}{https://github.com/matbmeijer}
+#' @return Returns a vector of the resulting path.
+#' @section Warning:
+#' Internal function
+
+adapt_list <- function(old_path, path){
+  if(old_path!=""){
+    path_list <- c(old_path, path)
+  } else {
+    path_list <- path
+  }
+  return(path_list)
+}
+
 #' @title Retrieves all projects as a \code{data.frame}
 #' @description Makes a request to JIRA's latest REST API to retrieve all projects and their basic project information (Name, Key, Id, Description, etc.).
 #' @param domain Custom JIRA domain URL as for example \href{https://bugreports.qt.io}{https://bugreports.qt.io}. Can be passed as a parameter or can be previously defined through the \code{save_jira_credentials()} function.
@@ -230,7 +248,7 @@ get_jira_projects <- function(domain = NULL,
   url<-httr::modify_url(
     url = url,
     scheme = if(is.null(url$scheme)){"https"},
-    path = list(type = "rest", call = "api", robust = "latest", kind = "project"),
+    path = adapt_list(url$path, c("rest", "api", "latest", "project")),
     query = if(!is.null(expand)){list(expand = conc(expand))}
   )
   call_raw <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
@@ -283,7 +301,7 @@ get_jira_server_info <- function(domain=NULL, username=NULL, password=NULL, verb
   url<-httr::modify_url(
     url = url,
     scheme = if(is.null(url$scheme)){"https"},
-    path = list(type = "rest", call = "api", robust = "latest", kind = "serverInfo")
+    path = adapt_list(url$path, c("rest", "api", "latest", "serverInfo"))
   )
   request <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
   if(httr::http_error(request$status_code)){
@@ -340,7 +358,7 @@ get_jira_permissions <- function(domain = NULL,
   url<-httr::modify_url(
     url = url,
     scheme = if(is.null(url$scheme)){"https"},
-    path = list(type = "rest", call = "api", robust = "latest", kind = "mypermissions")
+    path = adapt_list(url$path, c("rest", "api", "latest", "mypermissions"))
   )
   call_raw <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
   if(httr::http_error(call_raw$status_code)){
@@ -394,7 +412,7 @@ get_jira_groups <- function(domain=NULL, username=NULL, password=NULL, verbose=F
   url<-httr::modify_url(
     url = url,
     scheme = if(is.null(url$scheme)){"https"},
-    path = list(type = "rest", call = "api", robust = "latest", kind = "groups", detail="picker"),
+    path = adapt_list(url$path, c("rest", "api", "latest", "groups", "picker")),
     query =list(maxResults = maxResults)
   )
   request <- httr::GET(url,  encode = "json",  if(verbose){httr::verbose()}, auth, httr::user_agent("github.com/matbmeijer/JirAgileR"))
@@ -492,7 +510,7 @@ get_jira_issues <- function(domain=NULL,
   }
   url<-httr::modify_url(url = url,
                    scheme = if(is.null(url$scheme)){"https"},
-                   path = list(type = "rest", call = "api", robust = "latest", kind = "search"),
+                   path = adapt_list(url$path, c("rest", "api", "latest", "search")),
                    query=list(jql=jql_query,
                               fields=conc(fields),
                               startAt = "0",
@@ -583,7 +601,7 @@ get_jira_dashboards <- function(domain=NULL,
   }
   url<-httr::modify_url(url = url,
                         scheme = if(is.null(url$scheme)){"https"},
-                        path = list(type = "rest", call = "api", robust = "latest", kind = "dashboard"),
+                        path = adapt_list(url$path, c("rest", "api",  "latest", "dashboard")),
                         query=list(startAt = "0",
                                    maxResults = maxResults))
   url <- httr::parse_url(url)
