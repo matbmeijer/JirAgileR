@@ -43,7 +43,7 @@ remove_jira_credentials <- function(verbose=FALSE){
   if(verbose){ cat("The JIRA credentials have been removed.") }
 }
 
-#' @title Saves domain and the domain's credentidals in the environment
+#' @title Saves domain and the domain's credentials in the environment
 #' @description Saves the domain and/or username and password in
 #' the users' environment. It has the advantage that it is not necessary
 #' to explicitly publish the credentials in the users code. Just do it one
@@ -58,7 +58,7 @@ remove_jira_credentials <- function(verbose=FALSE){
 #' It will be saved in the environment as JIRAGILER_PASSWORD. If \code{verbose}
 #' is set to \code{TRUE}, it will message asterisks.
 #' @param verbose Optional parameter to inform the user when the users'
-#' crendentials have been saved.
+#' credentials have been saved.
 #' @return Saves the credentials in the users environment - it does not return any object.
 #' @examples
 #' \dontrun{
@@ -470,7 +470,7 @@ get_jira_groups <- function(domain=NULL,
 #' \href{https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html}{this ATLASSIAN site}
 #' or the following \href{https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf}{cheatsheet}.
 #' @param fields Optional argument to define the specific JIRA fields to obtain.
-#'  If no value is entered, by defualt the following fields are passed:
+#'  If no value is entered, by default the following fields are passed:
 #' \itemize{
 #' \item status
 #' \item priority

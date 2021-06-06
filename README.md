@@ -101,7 +101,7 @@ More information about the package can be found at the following link:
 
 -   🔲 Define integrated *Reference Classes* within the package
 -   🔲 Include plotting graphs 📊
--   🔲 Abilty to obtain all available JIRA fields of a project
+-   🔲 Ability to obtain all available JIRA fields of a project
 -   ✅ Added `get_jira_dashboards()` function to retrieve JIRA dashboards
 -   ✅ Added `get_jira_permissions()` function to retrieve JIRA user
     permissions
@@ -109,7 +109,7 @@ More information about the package can be found at the following link:
 -   ✅ Added `get_jira_server_info()` function to retrieve JIRA server
     information
 -   ✅ Remove `data.table` dependency
--   ✅ Abilty to save domain, username & password as secret tokens in
+-   ✅ Ability to save domain, username & password as secret tokens in
     environment 🔐
 -   ✅ Include *pipes* to facilitate analysis
 -   ✅ Improve package robustness

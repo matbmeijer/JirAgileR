@@ -2,7 +2,7 @@
 % Please edit documentation in R/exports.R
 \name{save_jira_credentials}
 \alias{save_jira_credentials}
-\title{Saves domain and the domain's credentidals in the environment}
+\title{Saves domain and the domain's credentials in the environment}
 \usage{
 save_jira_credentials(
   domain = NULL,
@@ -24,7 +24,7 @@ It will be saved in the environment as JIRAGILER_PASSWORD. If \code{verbose}
 is set to \code{TRUE}, it will message asterisks.}
 
 \item{verbose}{Optional parameter to inform the user when the users'
-crendentials have been saved.}
+credentials have been saved.}
 }
 \value{
 Saves the credentials in the users environment - it does not return any object.

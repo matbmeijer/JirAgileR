@@ -9,7 +9,7 @@ parse_issue(issue, JirAgileR_id)
 \arguments{
 \item{issue}{A JIRA issue with all its extended fields}
 
-\item{JirAgileR_id}{JirAgiler ID to assign to}
+\item{JirAgileR_id}{JirAgileR ID to assign to}
 }
 \value{
 Returns \code{data.frame} with all the extended field information.

@@ -40,7 +40,7 @@ To learn how to create a query visit
 or the following \href{https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf}{cheatsheet}.}
 
 \item{fields}{Optional argument to define the specific JIRA fields to obtain.
- If no value is entered, by defualt the following fields are passed:
+ If no value is entered, by default the following fields are passed:
 \itemize{
 \item status
 \item priority

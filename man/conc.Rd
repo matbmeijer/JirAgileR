@@ -23,7 +23,7 @@ Returns a single character string.
 }
 \description{
 Internal function with an opinionated
-default behaviour to concatenate charcter values.
+default behavior to concatenate character values.
 }
 \section{Warning}{
 

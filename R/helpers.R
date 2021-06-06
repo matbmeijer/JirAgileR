@@ -18,7 +18,7 @@ basic_issues_info <- function(x){
 #' @description Internal function to transform the nested more extensive
 #' JIRA issue fields into a flattened \code{data.frame}
 #' @param issue A JIRA issue with all its extended fields
-#' @param JirAgileR_id JirAgiler ID to assign to
+#' @param JirAgileR_id JirAgileR ID to assign to
 #' @return Returns \code{data.frame} with all the extended field information.
 #' @section Warning:
 #' Internal function
@@ -65,7 +65,7 @@ basic_jql_fields <- function(){
 
 #' @title Concatenates multiple strings
 #' @description Internal function with an opinionated
-#' default behaviour to concatenate charcter values.
+#' default behavior to concatenate character values.
 #' @param x A single character vector to concatenate together.
 #' @param y By default a \code{,} string used to define the character
 #'  to collapse the \code{x} parameter.
