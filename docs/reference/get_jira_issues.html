@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Retrieves all issues of a JIRA query as a data.frame — get_jira_issues" />
-<meta property="og:description" content="Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain." />
+<meta property="og:description" content="Calls JIRA's latest REST API, optionally with basic authentication,
+ to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -120,12 +121,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Retrieves all issues of a JIRA query as a <code>data.frame</code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/Project2R.R'><code>R/Project2R.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/exports.R'><code>R/exports.R</code></a></small>
     <div class="hidden name"><code>get_jira_issues.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calls JIRA's latest REST API, optionally with basic authentication, to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.</p>
+    <p>Calls JIRA's latest REST API, optionally with basic authentication,
+ to get all issues of a JIRA query (JQL). Allows to specify which fields to obtain.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_jira_issues</span><span class='op'>(</span>
@@ -144,15 +146,21 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>domain</th>
-      <td><p>Custom JIRA domain URL as for example <a href='https://bugreports.qt.io'>https://bugreports.qt.io</a>. Can be passed as a parameter or can be previously defined through the <code><a href='save_jira_credentials.html'>save_jira_credentials()</a></code> function.</p></td>
+      <td><p>Custom JIRA domain URL as for example
+<a href='https://bugreports.qt.io'>https://bugreports.qt.io</a>. Can be passed as a
+parameter or can be previously defined through the <code><a href='save_jira_credentials.html'>save_jira_credentials()</a></code> function.</p></td>
     </tr>
     <tr>
       <th>username</th>
-      <td><p>Username used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
+      <td><p>Username used to authenticate the access to the JIRA <code>domain</code>.
+If both username and password are not passed no authentication is made and only
+ public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>password</th>
-      <td><p>Password used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
+      <td><p>Password used to authenticate the access to the JIRA <code>domain</code>.
+If both username and password are not passed no authentication is made and only
+ public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>jql_query</th>
@@ -161,11 +169,14 @@
 <li><p>Operators</p></li>
 <li><p>Keywords</p></li>
 <li><p>Functions</p></li>
-</ul><p>To learn how to create a query visit <a href='https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html'>this ATLASSIAN site</a> or the following <a href='https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf'>cheatsheet</a>.</p></td>
+</ul><p>To learn how to create a query visit
+<a href='https://confluence.atlassian.com/jirasoftwareserver/advanced-searching-939938733.html'>this ATLASSIAN site</a>
+or the following <a href='https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf'>cheatsheet</a>.</p></td>
     </tr>
     <tr>
       <th>fields</th>
-      <td><p>Optional argument to define the specific JIRA fields to obtain. If no value is entered, by defualt the following fields are passed:</p><ul>
+      <td><p>Optional argument to define the specific JIRA fields to obtain.
+ If no value is entered, by defualt the following fields are passed:</p><ul>
 <li><p>status</p></li>
 <li><p>priority</p></li>
 <li><p>created</p></li>
@@ -199,13 +210,18 @@
 
     
 
-<p>If the <code>comment</code> field is used as a <code>fields</code> parameter input, each issue and its attributes are repeated the number of comments the issue has. The function works with the latest JIRA REST API and to work you need to have a internet connection. Calling the function too many times might block your access, you will receive a 403 error code. To unblock your access you will have to access interactively through your browser, signing out and signing in again, and might even have to enter a CAPTCHA at <a href='https://jira.yourdomain.com/secure/Dashboard.jspa'>jira.enterprise.com/secure/Dashboard.jspa</a>. This only happens if the API is called upon multiple times in a short period of time.</p>
+<p>If the <code>comment</code> field is used as a <code>fields</code> parameter input, each issue and its
+attributes are repeated the number of comments the issue has. The function works with the
+ latest JIRA REST API and to work you need to have a internet connection. Calling the function
+ too many times might block your access, you will receive a 403 error code. To unblock your
+ access you will have to access interactively through your browser, signing out and signing
+ in again, and might even have to enter a CAPTCHA at
+ https://jira.yourdomain.com/secure/Dashboard.jspa. This only happens if the API
+ is called upon multiple times in a short period of time.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>For more information about Atlassians JIRA API visit the following link: <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/'>JIRA API Documentation</a>.</p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Matthias Brenninkmeijer <a href='https://github.com/matbmeijer'>Github</a></p>
+    <div class='dont-index'><p>For more information about Atlassians JIRA API visit the following link:
+<a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/'>JIRA API Documentation</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>get_jira_issues</span><span class='op'>(</span>domain <span class='op'>=</span> <span class='st'>"https://bugreports.qt.io"</span>,

@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Retrieves all dashboards a data.frame — get_jira_dashboards" />
-<meta property="og:description" content="Calls JIRA's latest REST API, optionally with basic authentication, to get all dashboards" />
+<meta property="og:description" content="Calls JIRA's latest REST API, optionally with
+ basic authentication, to get all dashboards" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -120,12 +121,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Retrieves all dashboards a <code>data.frame</code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/Project2R.R'><code>R/Project2R.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/matbmeijer/JirAgileR/blob/master/R/exports.R'><code>R/exports.R</code></a></small>
     <div class="hidden name"><code>get_jira_dashboards.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calls JIRA's latest REST API, optionally with basic authentication, to get all dashboards</p>
+    <p>Calls JIRA's latest REST API, optionally with
+ basic authentication, to get all dashboards</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_jira_dashboards</span><span class='op'>(</span>
@@ -141,19 +143,26 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>domain</th>
-      <td><p>Custom JIRA domain URL as for example <a href='https://bugreports.qt.io'>https://bugreports.qt.io</a>. Can be passed as a parameter or can be previously defined through the <code><a href='save_jira_credentials.html'>save_jira_credentials()</a></code> function.</p></td>
+      <td><p>Custom JIRA domain URL as for example
+<a href='https://bugreports.qt.io'>https://bugreports.qt.io</a>. Can be passed as a parameter
+ or can be previously defined through the <code><a href='save_jira_credentials.html'>save_jira_credentials()</a></code> function.</p></td>
     </tr>
     <tr>
       <th>username</th>
-      <td><p>Username used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
+      <td><p>Username used to authenticate the access to the JIRA <code>domain</code>.
+If both username and password are not passed no authentication is made and only
+public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>password</th>
-      <td><p>Password used to authenticate the access to the JIRA <code>domain</code>. If both username and password are not passed no authentication is made and only public domains can bet accessed. Optional parameter.</p></td>
+      <td><p>Password used to authenticate the access to the JIRA <code>domain</code>.
+If both username and password are not passed no authentication is made and only
+public domains can bet accessed. Optional parameter.</p></td>
     </tr>
     <tr>
       <th>maxResults</th>
-      <td><p>Max results authorized to obtain for each API call. By default JIRA sets this value to 20 issues.</p></td>
+      <td><p>Max results authorized to obtain for each API call. By default
+JIRA sets this value to 20 issues.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -166,7 +175,8 @@
     <p>Returns a flattened, formatted <code>data.frame</code> with the dashboards in the domain.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>For more information about Atlassians JIRA API visit the following link: <a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/'>JIRA API Documentation</a>.</p></div>
+    <div class='dont-index'><p>For more information about Atlassians JIRA API visit the following link:
+<a href='https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/'>JIRA API Documentation</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>get_jira_dashboards</span><span class='op'>(</span>domain <span class='op'>=</span> <span class='st'>"https://bugreports.qt.io"</span><span class='op'>)</span>

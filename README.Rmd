@@ -18,7 +18,7 @@ coverage](https://codecov.io/gh/matbmeijer/JirAgileR/branch/master/graph/badge.s
 
 ## Objective
 
-The **JirAgileR** R package has the mission to bring the power of the project management tool `r emo::ji("wrench")` **JIRA** to **R**. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around [JIRA's REST API](https://developer.atlassian.com/server/jira/platform/rest-apis/), allowing users to easily analyze JIRA proyects and issues from within R. The underlying powertrain of the API is the *__Jira Query Language__ (JQL)*. You can find more information about it [here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql). You can find a cheatsheet [here](https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf).
+The **JirAgileR** R package has the mission to bring the power of the project management tool `r emo::ji("wrench")` **JIRA** to **R**. By doing so, users benefit from the best capabilities of both platforms. More specifically, the package is a wrapper around [JIRA's REST API](https://developer.atlassian.com/server/jira/platform/rest-apis/), allowing users to easily analyze JIRA projects and issues from within R. The underlying powertrain of the API is the *__Jira Query Language__ (JQL)*. You can find more information about it [here](https://confluence.atlassian.com/jirasoftware/blog/2015/06/search-jira-like-a-boss-with-jql). You can find a cheatsheet [here](https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf).
 
 
 <figure>

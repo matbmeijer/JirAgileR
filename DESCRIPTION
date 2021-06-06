@@ -6,16 +6,20 @@ Authors@R:
            family = "Brenninkmeijer",
            role = c("aut", "cre"),
            email = "matthias@brennotten.net")
-Description: Allows to interact with the JIRA REST API to analyze the data in R.
+Description: Allows to interact with the <JIRA SERVER REST API> to analyze the retrieved data in R.
 License: MIT + file LICENSE
 URL: https://matbmeijer.github.io/JirAgileR, https://github.com/matbmeijer/JirAgileR
-Encoding: UTF-8
-LazyData: true
+BugReports: https://github.com/matbmeijer/JirAgileR/issues
 Imports: 
     httr,
     jsonlite,
     magrittr
 Suggests:
     covr,
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown,
+    dplyr
 RoxygenNote: 7.1.1
+Encoding: UTF-8
+Language: en-US

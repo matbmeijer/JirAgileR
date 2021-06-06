@@ -335,6 +335,12 @@ test_that("watches_field(): Empty value returns error",{
   expect_identical(class(watches_field(list(watches=data.frame(a=1, b=2)))), "data.frame")
 })
 
+############################### parent_field() #################################
+test_that("parent_field(): Empty value returns error",{
+  expect_error(parent_field())
+  expect_identical(class(parent_field(list(parent=data.frame(a=1, b=2)))), "data.frame")
+})
+
 ############################### project_field() ################################
 test_that("project_field(): Empty value returns error",{
   expect_error(project_field())
