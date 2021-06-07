@@ -6,9 +6,9 @@ Authors@R:
            family = "Brenninkmeijer",
            role = c("aut", "cre"),
            email = "matthias@brennotten.net")
-Description: Allows to interact with the <JIRA SERVER REST API> to analyze the retrieved data in R.
+Description: Allows to interact with the 'JIRA SERVER REST API' to analyze the retrieved data in R. For further information about the API visit <https://docs.atlassian.com/software/jira/docs/api/REST/8.9.1/>.
 License: MIT + file LICENSE
-URL: https://matbmeijer.github.io/JirAgileR, https://github.com/matbmeijer/JirAgileR
+URL: https://matbmeijer.github.io/JirAgileR/, https://github.com/matbmeijer/JirAgileR
 BugReports: https://github.com/matbmeijer/JirAgileR/issues
 Imports: 
     httr,
