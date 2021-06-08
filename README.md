@@ -17,10 +17,10 @@ project management tool 🔧 **JIRA** to **R**. By doing so, users benefit
 from the best capabilities of both platforms. More specifically, the
 package is a wrapper around [JIRA’s REST
 API](https://developer.atlassian.com/server/jira/platform/rest-apis/),
-allowing users to easily analyze JIRA proyects and issues from within R.
+allowing users to easily analyze JIRA projects and issues from within R.
 The underlying powertrain of the API is the ***Jira Query Language**
 (JQL)*. You can find more information about it
-[here](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql).
+[here](https://confluence.atlassian.com/jirasoftware/blog/2015/06/search-jira-like-a-boss-with-jql).
 You can find a cheatsheet
 [here](https://3kllhk1ibq34qk6sp3bhtox1-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/atlassian-jql-cheat-sheet-2.pdf).
 
@@ -47,7 +47,7 @@ an easy integration with tabular data.
 More information about the package can be found at the following link:
 <https://matbmeijer.github.io/JirAgileR/>.
 
-### Functionalities as of 01 of June, 2021
+### Functionalities as of 07 of June, 2021
 
 1.  Extract all project names with their basic information (e.g. Name,
     ID, Key, Type, Category etc.).
@@ -101,15 +101,15 @@ More information about the package can be found at the following link:
 
 -   🔲 Define integrated *Reference Classes* within the package
 -   🔲 Include plotting graphs 📊
--   🔲 Abilty to obtain all available JIRA fields of a project
--   ✅ Retrieve JIRA dashboards
+-   🔲 Ability to obtain all available JIRA fields of a project
+-   ✅ Added `get_jira_dashboards()` function to retrieve JIRA dashboards
 -   ✅ Added `get_jira_permissions()` function to retrieve JIRA user
     permissions
 -   ✅ Added `get_jira_groups()` function to retrieve JIRA groups
 -   ✅ Added `get_jira_server_info()` function to retrieve JIRA server
     information
 -   ✅ Remove `data.table` dependency
--   ✅ Abilty to save domain, username & password as secret tokens in
+-   ✅ Ability to save domain, username & password as secret tokens in
     environment 🔐
 -   ✅ Include *pipes* to facilitate analysis
 -   ✅ Improve package robustness
