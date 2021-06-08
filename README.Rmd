@@ -3,12 +3,18 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+  )
 ```
 
 # JirAgileR<img src="man/figures/logo.png" align="right" height=140/>
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/JirAgileR)](https://CRAN.R-project.org/package=JirAgileR)
+[![](https://cranlogs.r-pkg.org/badges/JirAgileR)](https://cran.r-project.org/package=JirAgileR)
 [![R-CMD-check](https://github.com/matbmeijer/JirAgileR/workflows/R-CMD-check/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
 [![test-coverage](https://github.com/matbmeijer/JirAgileR/workflows/test-coverage/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
 [![lint](https://github.com/matbmeijer/JirAgileR/workflows/lint/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
@@ -68,12 +74,20 @@ The package supports extracting comments, yet as one issue may contain multiple 
 
 ## Installation
 
-You can install the latest release of this package from [Github](https://github.com/matbmeijer/JirAgileR) with the following commands in `R`:
+You can install the CRAN release version of JirAgileR following this `R` command:
+
+``` {r, eval=FALSE} 
+install.packages("JirAgileR")
+```
+
+
+You can also install the latest release of this package from [Github](https://github.com/matbmeijer/JirAgileR) with the following commands in `R`:
 
 ```{r, eval=FALSE} 
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("matbmeijer/JirAgileR")
 ```
+
 
 ## Examples
 
@@ -101,3 +115,14 @@ get_jira_issues(jql_query = "project='QTWB'",
 
 ```
 
+## Disclaimer
+
+* This package is in no way affiliated to the Atlassian Corporation Pl company, the creator and mantainer of the JIRA SERVER API.
+
+## Code of Conduct
+
+Please note that the JirAgileR project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+## License
+
+[MIT © Matthias Brenninkmeijer](https://github.com/matbmeijer/JirAgileR/blob/master/LICENSE.md)

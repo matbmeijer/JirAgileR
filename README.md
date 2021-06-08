@@ -3,6 +3,9 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/JirAgileR)](https://CRAN.R-project.org/package=JirAgileR)
+[![](https://cranlogs.r-pkg.org/badges/JirAgileR)](https://cran.r-project.org/package=JirAgileR)
 [![R-CMD-check](https://github.com/matbmeijer/JirAgileR/workflows/R-CMD-check/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
 [![test-coverage](https://github.com/matbmeijer/JirAgileR/workflows/test-coverage/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
 [![lint](https://github.com/matbmeijer/JirAgileR/workflows/lint/badge.svg)](https://github.com/matbmeijer/JirAgileR/actions)
@@ -47,7 +50,7 @@ an easy integration with tabular data.
 More information about the package can be found at the following link:
 <https://matbmeijer.github.io/JirAgileR/>.
 
-### Functionalities as of 07 of June, 2021
+### Functionalities as of 08 of June, 2021
 
 1.  Extract all project names with their basic information (e.g. Name,
     ID, Key, Type, Category etc.).
@@ -118,7 +121,14 @@ More information about the package can be found at the following link:
 
 ## Installation
 
-You can install the latest release of this package from
+You can install the CRAN release version of JirAgileR following this `R`
+command:
+
+``` r
+install.packages("JirAgileR")
+```
+
+You can also install the latest release of this package from
 [Github](https://github.com/matbmeijer/JirAgileR) with the following
 commands in `R`:
 
@@ -188,3 +198,20 @@ get_jira_issues(jql_query = "project='QTWB'",
 |:--------|:------------------------------------------------------------------------------|:--------------------|:-------------|:--------------------------------------------------------------------|:-----------------------------|
 | QTWB-60 | webkit-qtwe bkit-23/Source/WTF/wtf/dtoa/bignum.cc:762: suspicious increment ? | 2021-05-12 22:56:00 | Reported     | The issue has been reported, but no validation has been done on it. | To Do                        |
 | QTWB-58 | win7 touchscreen can’t click html-select dropdown list                        | 2021-04-08 09:09:00 | Reported     | The issue has been reported, but no validation has been done on it. | To Do                        |
+
+## Disclaimer
+
+-   This package is in no way affiliated to the Atlassian Corporation Pl
+    company, the creator and mantainer of the JIRA SERVER API.
+
+## Code of Conduct
+
+Please note that the JirAgileR project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+## License
+
+[MIT © Matthias
+Brenninkmeijer](https://github.com/matbmeijer/JirAgileR/blob/master/LICENSE.md)
